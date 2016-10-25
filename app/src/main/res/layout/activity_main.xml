@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+    <Button
+        android:text="LOGOUT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logout_but"
+        android:layout_below="@+id/login_but"
+        android:layout_alignStart="@+id/login_but"
+        android:layout_alignLeft="@+id/login_but" />
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_but"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+    <Button
+        android:text="frequent Contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:id="@+id/getcontcts"
+        android:layout_below="@+id/login_but"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+    <Button
+        android:text="Buissness Contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getbuisness"
+        android:layout_below="@+id/getcontcts"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:text="Not Logged In"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/login_but"
+        android:layout_alignBottom="@+id/logout_but"
+        android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/login_but" />
+    <Button
+        android:text="Private Contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getprivate"
+        android:layout_below="@+id/getbuisness"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/contents"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/getprivate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
