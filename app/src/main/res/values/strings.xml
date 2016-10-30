@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TSGTest</string>
+    //Map Home
+    <string name="home_orange">ORANGE</string>
+    <string name="home_map_enjoy">ENJOY ALL TOWN POSSIBILITIES WITH</string>
+    <string name="home_map_login">LOGIN</string>
+    <string name="home_map_not_login">Not Logged In</string>
+    <string name="home_map_logout">LOGOUT</string>
+    <string name="home_map_hidden_sport">sport</string>
+
+    //Sport Home
+    <string name="desc">description</string>
+    <string name="duration_text">Your course duration is  </string>
+    <string name="steps_text">You did steps today ! </string>
+    <string name="challenge_text">Challenge a friend !</string>
+
+    //Sport Challenge
+
 </resources>

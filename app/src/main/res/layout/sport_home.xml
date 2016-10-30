@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@drawable/black_background">
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="106dp"
+        app:srcCompat="@drawable/sport_clock"
+        android:id="@+id/durationImg"
+        android:layout_gravity="end"
+        android:contentDescription="@string/desc"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@+id/stepsImg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/durationText"
+        android:layout_toLeftOf="@+id/durationText" />
+
+    <TextView
+        android:text="@string/duration_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/durationText"
+        android:layout_gravity="end"
+        android:maxLines="1"
+        android:layout_alignTop="@id/durationImg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="93dp"
+        android:layout_height="106dp"
+        app:srcCompat="@drawable/sport_steps"
+        android:id="@+id/stepsImg"
+        android:layout_gravity="end"
+        android:contentDescription="@string/desc"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:layout_above="@+id/challengeImg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="19dp"
+        android:layout_alignRight="@+id/durationImg"
+        android:layout_alignEnd="@+id/durationImg" />
+
+    <TextView
+        android:text="@string/steps_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stepsText"
+        android:maxLines="1"
+        android:layout_gravity="end"
+        android:layout_alignTop="@id/stepsImg"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_alignLeft="@+id/challengeText"
+        android:layout_alignStart="@+id/challengeText" />
+
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="96dp"
+        app:srcCompat="@drawable/sport_challenge"
+        android:id="@+id/challengeImg"
+        android:layout_gravity="end"
+        android:contentDescription="@string/desc"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:layout_marginBottom="82dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/challengeText"
+        android:layout_toLeftOf="@id/challengeText"
+        android:layout_alignRight="@+id/stepsImg"
+        android:layout_alignEnd="@+id/stepsImg" />
+
+    <TextView
+        android:text="@string/challenge_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/challengeText"
+        android:layout_gravity="end"
+        android:maxLines="1"
+        android:layout_alignTop="@id/challengeImg"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:layout_alignLeft="@+id/durationText"
+        android:layout_alignStart="@+id/durationText" />
+
+
+</RelativeLayout>

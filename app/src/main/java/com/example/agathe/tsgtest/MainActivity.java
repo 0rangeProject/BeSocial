@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import com.olab.smplibrary.SMPLibrary;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button login_button, logout_button;
+    Button login_button, logout_button, sport_button;
     TextView login_field, contents;
     Context context;
     @Override
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         login_button = (Button) findViewById( R.id.login_but) ;
         logout_button = (Button) findViewById( R.id.logout_but);
         login_field = (TextView) findViewById( R.id.login);
+        sport_button = (Button) findViewById( R.id.sport_btn) ;
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
@@ -66,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+        //  setup sport button.
+        sport_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,
+                        SportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //  function displaying message in TextView box.
@@ -86,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 
