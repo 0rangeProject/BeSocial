@@ -16,8 +16,7 @@
         android:textSize="28sp"
         android:textColor="#FF6633"
         android:layout_below="@+id/main_title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:text="ENJOY ALL TOWN POSSIBILITIES WITH"
@@ -73,5 +72,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:text="Carpooling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/login"
+        android:layout_alignEnd="@+id/login"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="71dp"
+        android:id="@+id/carpooling_but" />
 
 </RelativeLayout>

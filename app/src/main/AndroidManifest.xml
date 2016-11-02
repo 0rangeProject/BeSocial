@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ServerMainActivity">
+
+        </activity>
+        <activity android:name=".AuthorizationActivity">
+
+        </activity>
+        <activity android:name=".CarpoolingPurpose1">
+
         </activity>
     </application>
 

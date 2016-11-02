@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,15 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    Button login_button, logout_button;
-    TextView login_field, contents;
+    Button login_button, logout_button, carpooling_button;
+    TextView login_field;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
         //  setup layout and its elements
         setContentView(R.layout.activity_main);
         context = this;
-        login_button = (Button) findViewById( R.id.login_but) ;
-        logout_button = (Button) findViewById( R.id.logout_but);
+        login_button = (Button) findViewById(R.id.login_but) ;
+        logout_button = (Button) findViewById(R.id.logout_but);
+        carpooling_button = (Button) findViewById(R.id.carpooling_but) ;
         login_field = (TextView) findViewById( R.id.login);
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
@@ -66,18 +66,17 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-    }
 
-    //  function displaying message in TextView box.
-    void ShowMessage(String message){
-        final String to_show = message;
-        runOnUiThread(new Runnable() {
+        //  setup listener for login button
+        carpooling_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                contents.setText( to_show );
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ServerMainActivity.class);
+                startActivity(intent);
             }
         });
     }
+
     void FunctionCalledWhenLoginIsSuccessful() {
         runOnUiThread(new Runnable() {
             @Override
@@ -86,8 +85,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }
