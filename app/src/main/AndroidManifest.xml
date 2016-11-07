@@ -32,6 +32,12 @@
             android:theme="@style/AppTheme" >
         </activity>
 
+        <activity
+            android:name=".LittleServicesActivity"
+            android:label="CHALLENGEFriend"
+            android:theme="@style/AppTheme" >
+        </activity>
+
     </application>
 
 </manifest>

@@ -16,4 +16,10 @@
 
     //Sport Challenge
 
+
+    //Little Services
+    <string name="little_services">LTTLE SERVICES</string>
+    <string name="send_message">SEND MESSAGE</string>
+    <string name="call">CALL</string>
+
 </resources>
