@@ -1,8 +1,10 @@
 package com.example.agathe.tsgtest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +17,7 @@ import com.olab.smplibrary.SMPLibrary;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button login_button, logout_button;
+    Button login_button, logout_button, goto_PublicEvents;
     TextView login_field, contents;
     Context context;
     @Override
@@ -23,13 +25,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //  setup layout and its elements
         setContentView(R.layout.activity_main);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        goto_PublicEvents = (Button)findViewById(R.id.pevents_button);
+        goto_PublicEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                switch (view.getId()) {
+                    case R.id.pevents_button:
+                        intent = new Intent(MainActivity.this, PublicEventsActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+
         context = this;
         login_button = (Button) findViewById( R.id.login_but) ;
         logout_button = (Button) findViewById( R.id.logout_but);
         login_field = (TextView) findViewById( R.id.login);
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
-        SMPLibrary.Initialise(this, "0000", "0000");
+        SMPLibrary.Initialise(this, "testid", "testpass");
 
         //  setup listener for login button
         login_button.setOnClickListener(new View.OnClickListener() {

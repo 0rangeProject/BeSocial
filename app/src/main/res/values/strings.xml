@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">TSGTest</string>
+    <string name="app_name">BeSocial</string>
+    <string name="pe_toolbar_title">Public Events</string>
+    <string name="dialog_message">Created by Danchao GU - 2016</string>
+    <string name="dialog_ok">OK</string>
+    <string name="list_item_left_button">Left</string>
+    <string name="list_item_right_button">Right</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_disconnect">Disconnect</string>
+    <string name="action_about">About</string>
 </resources>
