@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +17,17 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.agathe.tsgtest.Dto.Path;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by agathe on 02/11/16.
@@ -36,14 +43,11 @@ public class AuthorizationActivity extends Activity {
 
     private static final int REQUEST_AUTHORIZE = 1;
 
-    String access_token = "";
-    String refresh_token = "";
+    private String access_token = "";
+    private String refresh_token = "";
 
-    TextView text_access_token = null;
-    TextView text_refresh_token = null;
-
-    SharedPreferences settings = null;
-    SharedPreferences.Editor editor = null;
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,6 @@ public class AuthorizationActivity extends Activity {
                 doRequestAuthInApp();
             }
         });
-
-        text_access_token = (TextView) findViewById(R.id.access_token);
-        text_refresh_token = (TextView) findViewById(R.id.refresh_token);
 
         // On récupère le jeton et on vérifie sa validité
         access_token =  settings.getString("access_token", "");
@@ -79,37 +80,17 @@ public class AuthorizationActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String code = "";
         switch (requestCode) {
             case REQUEST_AUTHORIZE:
-                Uri resultUri = data.getData();
-                code = resultUri.toString().split("code=")[1];
-                code = code.split("&")[0];
-                editor.putString("code", code).commit();
+                getTokens(new VolleyCallback() {
+                    @Override
+                    public void onSuccess(List<String> result) {
+                        Log.i("TAG", result.get(0));
+                        Log.i("TAG", result.get(1));
+                        finish();
+                    }
+                }, data);
         }
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.moves-app.com/oauth/v1/access_token?grant_type=authorization_code&code=" + code + "&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&redirect_uri=" + REDIRECT_URI;
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            editor.putString("access_token", response.getString("access_token")).commit();
-                            editor.putString("refresh_token", response.getString("refresh_token")).commit();
-                            text_access_token.setText("access token: " + access_token);
-                            text_refresh_token.setText("refresh_token: " + refresh_token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        text_access_token.setText("error");
-                    }
-                });
-        queue.add(jsObjRequest);
-        finish();
     }
 
     /**
@@ -122,7 +103,46 @@ public class AuthorizationActivity extends Activity {
                 .path(path)
                 .appendQueryParameter("client_id", CLIENT_ID)
                 .appendQueryParameter("redirect_uri", REDIRECT_URI)
-                .appendQueryParameter("scope", new StringBuilder().append("location").append(" activity").toString().trim())
+                .appendQueryParameter("scope", ("location" + " activity").trim())
                 .appendQueryParameter("state", String.valueOf(SystemClock.uptimeMillis()));
+    }
+
+    private void getTokens(final VolleyCallback callback, Intent data) {
+        String code = "";
+        final List<String> tokens = new ArrayList<>();
+
+        Uri resultUri = data.getData();
+        code = resultUri.toString().split("code=")[1];
+        code = code.split("&")[0];
+        editor.putString("code", code).commit();
+        RequestQueue queue = Volley.newRequestQueue(AuthorizationActivity.this);
+        String url = "https://api.moves-app.com/oauth/v1/access_token?grant_type=authorization_code&code=" + code + "&client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&redirect_uri=" + REDIRECT_URI;
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String access_token = response.getString("access_token");
+                            String refresh_token = response.getString("refresh_token");
+                            editor.putString("access_token", access_token).commit();
+                            editor.putString("refresh_token", refresh_token).commit();
+                            tokens.add(access_token);
+                            tokens.add(refresh_token);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        callback.onSuccess(tokens);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(AuthorizationActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        queue.add(jsObjRequest);
+    }
+
+    public interface VolleyCallback {
+        void onSuccess(List<String> result);
     }
 }

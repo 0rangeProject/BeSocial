@@ -1,88 +1,154 @@
 package com.example.agathe.tsgtest;
 
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.agathe.tsgtest.AWS.AWSMobileClient;
+import com.example.agathe.tsgtest.AWS.user.IdentityManager;
+import com.example.agathe.tsgtest.AWS.user.IdentityProvider;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button login_button, logout_button, carpooling_button;
-    TextView login_field;
-    Context context;
+    private Button loginButton;
+    private Button logoutButton;
+    private Button carpoolingButton;
+    private TextView loginField;
+
+    /** The identity manager used to keep track of the current user account. */
+    private IdentityManager identityManager;
+
+    private Button logoutButtonGoogle;
+
+    /**
+     * Initializes the sign-in and sign-out buttons.
+     */
+    private void setupButtons() {
+        logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
+        logoutButtonGoogle.setOnClickListener(this);
+
+        carpoolingButton = (Button) findViewById(R.id.carpooling_but) ;
+        carpoolingButton.setOnClickListener(this);
+
+        loginButton = (Button) findViewById(R.id.login_but) ;
+        loginButton.setOnClickListener(this);
+
+        logoutButton = (Button) findViewById(R.id.logout_but);
+        logoutButton.setOnClickListener(this);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //  setup layout and its elements
         setContentView(R.layout.activity_main);
-        context = this;
-        login_button = (Button) findViewById(R.id.login_but) ;
-        logout_button = (Button) findViewById(R.id.logout_but);
-        carpooling_button = (Button) findViewById(R.id.carpooling_but) ;
-        login_field = (TextView) findViewById( R.id.login);
+
+        loginField = (TextView) findViewById( R.id.login);
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
 
-        //  setup listener for login button
-        login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  when clicked show dialog where user can login.
-                SMPLibrary.ShowLoginDialog(MainActivity.this, new LoginResponseCallback() {
-                    @Override
-                    //  OnResponse callback is called when login request is finished processing
-                    //  and returns response code.
-                    public void OnResponse(int response) {
-                        if (response == 200) {
-                            //  response 200 is returned when login was successful.
-                            FunctionCalledWhenLoginIsSuccessful();
-                        } else {
-                            //  log response when logging was not successful
-                            Log.i("MainActivity:LoginResp", "Login response code - " + response);
-                        }
-                    }
-                });
-            }
-        });
+        // Obtain a reference to the mobile client. It is created in the Application class,
+        // but in case a custom Application class is not used, we initialize it here if necessary.
+        AWSMobileClient.initializeMobileClientIfNecessary(this);
 
-        //  setup logout button.
-        logout_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SMPLibrary.Logout();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        login_field.setText("Not Logged In");
-                    }
-                });
-            }
-        });
+        // Obtain a reference to the mobile client. It is created in the Application class.
+        final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
 
-        //  setup listener for login button
-        carpooling_button.setOnClickListener(new View.OnClickListener() {
+        // Obtain a reference to the identity manager.
+        identityManager = awsMobileClient.getIdentityManager();
+
+        setContentView(R.layout.activity_main);
+    }
+
+    private void FunctionCalledWhenLoginIsSuccessful() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ServerMainActivity.class);
-                startActivity(intent);
+            public void run() {
+                loginField.setText("Logged as: " + SMPLibrary.LoggedUserName() );
             }
         });
     }
 
-    void FunctionCalledWhenLoginIsSuccessful() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                login_field.setText("Logged as: " + SMPLibrary.LoggedUserName() );
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
+            // In the case that the activity is restarted by the OS after the application
+            // is killed we must redirect to the splash activity to handle the sign-in flow.
+            Intent intent = new Intent(this, SplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return;
+        }
+
+        setupButtons();
+
+        final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
+    }
+
+    @Override
+    public void onClick(final View view) {
+        if (view == logoutButtonGoogle) {
+            // The user is currently signed in with a provider. Sign out of that provider.
+            identityManager.signOut();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        }
+
+        if (view == carpoolingButton) {
+            Intent intent = new Intent(MainActivity.this, ServerMainActivity.class);
+            startActivity(intent);
+        }
+
+        if (view == loginButton) {
+            //  when clicked show dialog where user can login.
+            SMPLibrary.ShowLoginDialog(MainActivity.this, new LoginResponseCallback() {
+                @Override
+                //  OnResponse callback is called when login request is finished processing
+                //  and returns response code.
+                public void OnResponse(int response) {
+                    if (response == 200) {
+                        //  response 200 is returned when login was successful.
+                        FunctionCalledWhenLoginIsSuccessful();
+                    } else {
+                        //  log response when logging was not successful
+                        Log.i("MainActivity:LoginResp", "Login response code - " + response);
+                    }
+                }
+            });
+        }
+
+        if (view == logoutButton) {
+            SMPLibrary.Logout();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    loginField.setText("Not Logged In");
+                }
+            });
+        }
     }
 }

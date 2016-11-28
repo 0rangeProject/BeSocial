@@ -6,20 +6,28 @@ import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.agathe.tsgtest.Database.DatabaseHandler;
+import com.example.agathe.tsgtest.Dto.Path;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,18 +39,21 @@ public class ServerMainActivity extends Activity {
 
     private static final String CLIENT_SECRET = "7Is1qx1ty23ylRegAT3n1Adm3WcJGi1n2iFse87fNV3sbb6RH5Uefdn1Lwm5UOCG";
 
-    private static final int REQUEST_AUTHORIZE = 1;
+    private static final int REQUEST_AUTHORIZE = 2;
 
-    SharedPreferences settings = null;
-    SharedPreferences.Editor editor = null;
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
 
-    String access_token = "";
-    String refresh_token = "";
+    private String access_token = "";
+    private String refresh_token = "";
 
-    TextView text_access_token = null;
-    TextView text_refresh_token = null;
+    private TextView text_access_token = null;
+    private TextView text_refresh_token = null;
+    private TextView text_paths = null;
 
-    Button get_summary_daily = null;
+    private Button get_paths = null;
+
+    DatabaseHandler db = new DatabaseHandler(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +69,46 @@ public class ServerMainActivity extends Activity {
         if (code.equals("")) {
             Intent authorizationIntent = new Intent(this, AuthorizationActivity.class);
             startActivityForResult(authorizationIntent, REQUEST_AUTHORIZE);
-        } else recoverAndCheckTokens();
+        } else {
+            recoverAndCheckTokens();
+        }
+
+        get_paths = (Button) findViewById(R.id.get_paths);
+        get_paths.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                getPaths(new VolleyCallback() {
+                    @Override
+                    public void onSuccess(List<Path> result) {
+                        Log.i("TAG", String.valueOf(result.size()));
+
+                        db.addPath(new Path(1, 1, "start", "end", 0.6, 0.9));
+                        db.addPath(new Path(1, 4, "hello", "bonjour", 0.6, 0.9));
+
+                        List<Path> paths = db.getAllPaths();
+
+                        for (Path p : paths) {
+                            String log = p.toString();
+                            Log.d("Name", log);
+                        }
+                    }
+                });
+            }
+        });
+
+        /*
+        Log.d("Insert :", "Inserting ..");
+
+        db.addPath(new Path(1, 1, "start", "end", 0.6, 0.9));
+        db.addPath(new Path(1, 4, "hello", "bonjour", 0.6, 0.9));
+
+        Log.d("Reading : ", "Reading all contacts..");
+        List<Path> paths = db.getAllPaths();
+
+        for (Path p : paths) {
+            String log = p.toString();
+            Log.d("Name : ", log);
+        }
+        */
     }
 
     @Override
@@ -97,57 +147,80 @@ public class ServerMainActivity extends Activity {
         queue.add(jsObjRequest);
     }
 
-    private void recoverAndCheckTokens() {
-        text_access_token = (TextView) findViewById(R.id.access_token);
-        text_refresh_token = (TextView) findViewById(R.id.refresh_token);
-
+    private void recoverAndCheckTokens() {;
         // On récupère le jeton et on vérifie sa validité
         access_token = settings.getString("access_token", "");
         refresh_token = settings.getString("refresh_token", "");
-
-        text_access_token.setText("access token: " + access_token);
-        text_refresh_token.setText("refresh_token: " + refresh_token);
-
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.moves-app.com/oauth/v1/tokeninfo?access_token=" + access_token;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(ServerMainActivity.this, "Access token valid", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(ServerMainActivity.this, "Access token valid", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         refreshTokens(refresh_token);
                         access_token = settings.getString("access_token", "");
-                        text_access_token.setText("access token: " + access_token);
                         refresh_token = settings.getString("refresh_token", "");
-                        text_refresh_token.setText("refresh_token: " + refresh_token);
                     }
                 });
 
         queue.add(jsObjRequest);
+    }
 
-        get_summary_daily = (Button) findViewById(R.id.get_summary_daily);
-        get_summary_daily.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                RequestQueue queue = Volley.newRequestQueue(ServerMainActivity.this);
-                String url = "https://api.moves-app.com/api/1.1/user/summary/daily/20161101?access_token=" + access_token;
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Toast.makeText(ServerMainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+    private void getPaths(final VolleyCallback callback) {
+        text_paths = (TextView) findViewById(R.id.paths);
+        final List<Path> paths = new ArrayList<>();
+        RequestQueue queue = Volley.newRequestQueue(ServerMainActivity.this);
+        String url = "https://api.moves-app.com/api/1.1/user/places/daily?pastDays=31&access_token=" + access_token;
+        JsonArrayRequest jsArrRequest = new JsonArrayRequest
+                (url, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        text_paths.setText(response.toString());
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject element = null;
+                            try {
+                                element = response.getJSONObject(i);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(ServerMainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                queue.add(jsObjRequest);
-            }
-        });
+                            try {
+                                JSONArray segments = element.getJSONArray("segments");
+                                for (int j = 0; j < segments.length(); j++) {
+                                    JSONObject segment = segments.getJSONObject(j);
+                                    Path path = new Path();
+                                    try {
+                                        path.setUserId(1); // récupérer le dernier en date et l'incrémenter, ou prendre celui de l'utilisateur courant
+                                        path.setPathId(1); // récupérer le dernier en date et l'incrémenter
+                                        path.setStartTime(segment.getString("startTime"));
+                                        path.setEndTime(segment.getString("endTime"));
+                                        path.setLat(segment.getJSONObject("place").getJSONObject("location").getDouble("lat"));
+                                        path.setLon(segment.getJSONObject("place").getJSONObject("location").getDouble("lon"));
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    paths.add(path);
+                                    db.addPath(path);
+                                }
+                            } catch (JSONException e) { }
+                        }
+                        callback.onSuccess(paths);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        text_paths.setText(error.toString());
+                    }
+                });
+        queue.add(jsArrRequest);
+    }
+
+    public interface VolleyCallback {
+        void onSuccess(List<Path> result);
     }
 }

@@ -5,13 +5,18 @@
 
     <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="com.example.agathe.tsgtest.AWSApplication">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +33,13 @@
         <activity android:name=".CarpoolingPurpose1">
 
         </activity>
+        <activity android:name=".SignInActivity">
+
+        </activity>
+        <activity android:name=".SplashActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

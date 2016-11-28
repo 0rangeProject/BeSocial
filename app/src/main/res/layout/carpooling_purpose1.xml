@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:textColor="#FF33FF"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"/>
 
     <TextView
