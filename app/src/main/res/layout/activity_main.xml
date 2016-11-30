@@ -25,7 +25,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -105,6 +105,15 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/login_but"
             android:layout_toEndOf="@+id/login_but" />
+
+        <CheckBox
+            android:text="@string/enable_push_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enable_push_checkbox"
+            android:layout_below="@+id/main_title"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>

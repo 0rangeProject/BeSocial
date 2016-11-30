@@ -10,4 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_disconnect">Disconnect</string>
     <string name="action_about">About</string>
+
+    <string name="push_demo_title">Push Notification</string>
+    <string name="enable_push_checkbox">Enable Push Notification</string>
+    <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
 </resources>
