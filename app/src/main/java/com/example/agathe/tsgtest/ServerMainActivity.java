@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedScanList;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,8 +19,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.agathe.tsgtest.Database.DatabaseHandler;
-import com.example.agathe.tsgtest.Dto.Path;
+import com.example.agathe.tsgtest.Database.GetAllItemsTask;
+import com.example.agathe.tsgtest.Database.SaveObjectTask;
+import com.example.agathe.tsgtest.Database.PathsDO;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,7 @@ public class ServerMainActivity extends Activity {
     private static final String CLIENT_SECRET = "7Is1qx1ty23ylRegAT3n1Adm3WcJGi1n2iFse87fNV3sbb6RH5Uefdn1Lwm5UOCG";
 
     private static final int REQUEST_AUTHORIZE = 2;
+    private static final String LOG_TAG = "ServerMainActivity";
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
@@ -53,7 +55,9 @@ public class ServerMainActivity extends Activity {
 
     private Button get_paths = null;
 
-    DatabaseHandler db = new DatabaseHandler(this);
+    private String userID = "";
+
+    // DatabaseHandler db = new DatabaseHandler(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class ServerMainActivity extends Activity {
         editor = settings.edit();
 
         String code = settings.getString("code", "");
+        userID = settings.getString("userID", "");
 
         // On demande l'autorisation si on n'a pas encore de code
         if (code.equals("")) {
@@ -73,42 +78,34 @@ public class ServerMainActivity extends Activity {
             recoverAndCheckTokens();
         }
 
+        // En cas de succès de la requête (récupérer les paths et enregistrer en base), on affiche tous les résultats
         get_paths = (Button) findViewById(R.id.get_paths);
         get_paths.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 getPaths(new VolleyCallback() {
                     @Override
-                    public void onSuccess(List<Path> result) {
-                        Log.i("TAG", String.valueOf(result.size()));
+                    public void onSuccess(List<PathsDO> result) {
+                        Log.i(LOG_TAG, String.valueOf(result.size()));
 
-                        db.addPath(new Path(1, 1, "start", "end", 0.6, 0.9));
-                        db.addPath(new Path(1, 4, "hello", "bonjour", 0.6, 0.9));
+                        /*
+                        GetAllItemsTask gait = new GetAllItemsTask();
+                        gait.execute();
+                        ArrayList<PathsDO> list = gait.getPaths();
+                        ù/
+                        // Log.i(LOG_TAG, String.valueOf(list.size()));
 
+                        /*
                         List<Path> paths = db.getAllPaths();
 
                         for (Path p : paths) {
                             String log = p.toString();
                             Log.d("Name", log);
                         }
+                        */
                     }
                 });
             }
         });
-
-        /*
-        Log.d("Insert :", "Inserting ..");
-
-        db.addPath(new Path(1, 1, "start", "end", 0.6, 0.9));
-        db.addPath(new Path(1, 4, "hello", "bonjour", 0.6, 0.9));
-
-        Log.d("Reading : ", "Reading all contacts..");
-        List<Path> paths = db.getAllPaths();
-
-        for (Path p : paths) {
-            String log = p.toString();
-            Log.d("Name : ", log);
-        }
-        */
     }
 
     @Override
@@ -171,11 +168,12 @@ public class ServerMainActivity extends Activity {
         queue.add(jsObjRequest);
     }
 
+    // Recover all paths from a user on Moves, and save them in database
     private void getPaths(final VolleyCallback callback) {
         text_paths = (TextView) findViewById(R.id.paths);
-        final List<Path> paths = new ArrayList<>();
+        final List<PathsDO> paths = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(ServerMainActivity.this);
-        String url = "https://api.moves-app.com/api/1.1/user/places/daily?pastDays=31&access_token=" + access_token;
+        final String url = "https://api.moves-app.com/api/1.1/user/places/daily?pastDays=31&access_token=" + access_token;
         JsonArrayRequest jsArrRequest = new JsonArrayRequest
                 (url, new Response.Listener<JSONArray>() {
                     @Override
@@ -192,20 +190,23 @@ public class ServerMainActivity extends Activity {
                                 JSONArray segments = element.getJSONArray("segments");
                                 for (int j = 0; j < segments.length(); j++) {
                                     JSONObject segment = segments.getJSONObject(j);
-                                    Path path = new Path();
+
+                                    PathsDO path = new PathsDO();
+
                                     try {
-                                        path.setUserId(1); // récupérer le dernier en date et l'incrémenter, ou prendre celui de l'utilisateur courant
-                                        path.setPathId(1); // récupérer le dernier en date et l'incrémenter
+                                        path.setUserId(userID);
+                                        path.setPathId(userID + segment.getString("startTime"));
                                         path.setStartTime(segment.getString("startTime"));
                                         path.setEndTime(segment.getString("endTime"));
                                         path.setLat(segment.getJSONObject("place").getJSONObject("location").getDouble("lat"));
                                         path.setLon(segment.getJSONObject("place").getJSONObject("location").getDouble("lon"));
-
+                                        paths.add(path);
+                                        new SaveObjectTask().execute(path);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    paths.add(path);
-                                    db.addPath(path);
+                                    // paths.add(path);
+                                    // db.addPath(path);
                                 }
                             } catch (JSONException e) { }
                         }
@@ -221,6 +222,6 @@ public class ServerMainActivity extends Activity {
     }
 
     public interface VolleyCallback {
-        void onSuccess(List<Path> result);
+        void onSuccess(List<PathsDO> result);
     }
 }
