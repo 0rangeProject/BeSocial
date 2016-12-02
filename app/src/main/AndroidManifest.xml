@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.agathe.tsgtest"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.agathe.tsgtest">
 
-    <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
+    <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".AWSApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.example.agathe.tsgtest.AWSApplication">
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA8J1zvgt2LI6RX23xxboJGVB8ad2ONir4" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,22 +33,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ServerMainActivity">
-
-        </activity>
-        <activity android:name=".AuthorizationActivity">
-
-        </activity>
-        <activity android:name=".CarpoolingPurpose1">
-
-        </activity>
-        <activity android:name=".SignInActivity">
-
-        </activity>
-        <activity android:name=".SplashActivity">
-
-        </activity>
-
+        <activity android:name=".ServerMainActivity"></activity>
+        <activity android:name=".AuthorizationActivity"></activity>
+        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SplashActivity"></activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".PurposeActivity"
+            android:label="@string/title_activity_purpose"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

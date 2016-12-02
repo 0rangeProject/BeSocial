@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (view == carpoolingButton) {
-            Intent intent = new Intent(MainActivity.this, ServerMainActivity.class);
+            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
             startActivity(intent);
         }
 
