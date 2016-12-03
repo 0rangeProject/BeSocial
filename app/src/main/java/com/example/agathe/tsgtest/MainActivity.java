@@ -235,11 +235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         SportActivity.class);
                 startActivity(intent);
         }
-
-        if (view == carpoolingButton) {
-            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
-            startActivity(intent);
-        }
     }
 
     //*************AWS push notification part start************
