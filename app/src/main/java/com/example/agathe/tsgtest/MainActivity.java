@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //*************AWS push notification part start************
     /** Class name for log messages. */
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     // if you want to take action when a google services result is received.
     private static final int REQUEST_GOOGLE_PLAY_SERVICES = 1363;
     private PushManager pushManager;
@@ -157,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        // Agathe Part
         if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
             // In the case that the activity is restarted by the OS after the application
             // is killed we must redirect to the splash activity to handle the sign-in flow.
@@ -170,10 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupButtons();
 
         final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
-
         identityManager = awsMobileClient.getIdentityManager();
 
-        // Danchao Part
         //*************AWS push notification part start************
         // register notification receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver,
@@ -190,11 +188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, SignInActivity.class));
             finish();
             return;
-        }
-
-        if (view == carpoolingButton) {
-            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
-            startActivity(intent);
         }
 
         if (view == loginButton) {
@@ -214,7 +207,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-        // go to public events activity
+
+        if (view == logoutButton) {
+            SMPLibrary.Logout();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    loginField.setText("Not Logged In");
+                }
+            });
+        }
+
         if (view == goto_PublicEvents) {
             Intent intent = null;
             switch (view.getId()) {
@@ -227,22 +230,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        if (view == logoutButton) {
-            SMPLibrary.Logout();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    loginField.setText("Not Logged In");
-                }
-            });
-        }
-
         if (view == sport_button) {
             Intent intent = new Intent(MainActivity.this,
                         SportActivity.class);
                 startActivity(intent);
-            }
-        });
+        }
+
+        if (view == carpoolingButton) {
+            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
+            startActivity(intent);
+        }
     }
 
     //*************AWS push notification part start************

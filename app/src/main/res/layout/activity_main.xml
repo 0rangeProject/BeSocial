@@ -126,15 +126,24 @@
             android:layout_marginBottom="71dp" />
 
         <Button
+            android:text="Sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sport_btn"
+            android:layout_below="@+id/enable_push_checkbox"
+            android:layout_alignLeft="@+id/enable_push_checkbox"
+            android:layout_alignStart="@+id/enable_push_checkbox"
+            android:layout_marginTop="18dp" />
+
+        <Button
             android:text="Public Events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/pevents_button"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/logout_but"
-            android:layout_toStartOf="@+id/logout_but"
-            android:layout_marginBottom="13dp" />
-
+            android:layout_alignBaseline="@+id/carpooling_but"
+            android:layout_alignBottom="@+id/carpooling_but"
+            android:layout_toLeftOf="@+id/carpooling_but"
+            android:layout_toStartOf="@+id/carpooling_but" />
 
     </RelativeLayout>
 </LinearLayout>
