@@ -8,7 +8,8 @@ import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.example.agathe.tsgtest.AWS.AWSMobileClient;
+import com.amazonaws.mobile.AWSMobileClient;
+import com.amazonaws.mobile.push.PushManager;
 
 /**
  * Application class responsible for initializing singletons and other common components.
@@ -31,7 +32,15 @@ public class AWSApplication extends MultiDexApplication {
         // Initialize the AWS Mobile Client
         AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
 
-        // ... Put any application-specific initialization logic here ...
+        // Set a listener for changes in push notification state
+        PushManager.setPushStateListener(new PushManager.PushStateListener() {
+            @Override
+            public void onPushStateChange(final PushManager pushManager, boolean isEnabled) {
+                Log.d(LOG_TAG, "Push Notifications Enabled = " + isEnabled);
+                // ...Put any application-specific push state change logic here...
+            }
+        });
+        // ...Put any application-specific initialization logic here...
     }
 }
 

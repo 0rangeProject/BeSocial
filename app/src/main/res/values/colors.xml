@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="colorAccent">#F58535</color>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
-
     <color name="top_bar_background">#F58535</color>
     <color name="splash_text">#F58535</color>
     <color name="splash_background">#FFFFFF</color>

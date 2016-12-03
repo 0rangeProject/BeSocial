@@ -1,54 +1,37 @@
 package com.example.agathe.tsgtest;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
-import com.amazonaws.mobileconnectors.cognito.Dataset;
-import com.amazonaws.mobileconnectors.cognito.DefaultSyncCallback;
 import com.amazonaws.regions.Regions;
-import com.example.agathe.tsgtest.AWS.AWSMobileClient;
-import com.example.agathe.tsgtest.AWS.user.IdentityManager;
-import com.example.agathe.tsgtest.AWS.user.IdentityProvider;
-import com.amazonaws.AmazonClientException;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.push.PushManager;
-import com.olab.smplibrary.DataResponseCallback;
+import com.amazonaws.mobile.user.IdentityManager;
+import com.amazonaws.AmazonClientException;
+
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
-import java.util.List;
 import java.util.UUID;
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //*************AWS push notification part start************
     /** Class name for log messages. */
@@ -58,14 +41,12 @@ import java.util.UUID;
     private PushManager pushManager;
     private CheckBox enablePushCheckBox;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, IdentityManager.SignInStateChangeListener {
+    private TextView loginField;
 
     private Button loginButton;
     private Button logoutButton;
     private Button carpoolingButton;
-    private TextView loginField;
-    private TextView userName;
-    private ImageView userImage;
+    private Button goto_PublicEvents;
 
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
@@ -90,12 +71,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         logoutButton = (Button) findViewById(R.id.logout_but);
         logoutButton.setOnClickListener(this);
+
+        goto_PublicEvents = (Button)findViewById(R.id.pevents_button);
+        goto_PublicEvents.setOnClickListener(this);
+
+        loginField = (TextView) findViewById(R.id.login);
     }
 
     //*************AWS push notification part end**************
-    Button login_button, logout_button, goto_PublicEvents;
-    TextView login_field, contents;
+    TextView contents;
     Context context;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,32 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         //*************AWS push notification part end**************
 
-        // go to public events activity
-        goto_PublicEvents = (Button)findViewById(R.id.pevents_button);
-        goto_PublicEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = null;
-                switch (view.getId()) {
-                    case R.id.pevents_button:
-                        intent = new Intent(MainActivity.this, PublicEventsActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
-
         context = this;
-        login_button = (Button) findViewById( R.id.login_but) ;
-        logout_button = (Button) findViewById( R.id.logout_but);
-        login_field = (TextView) findViewById( R.id.login);
-
-        loginField = (TextView) findViewById( R.id.login);
-        userName = (TextView) findViewById(R.id.userName);
-        userImage = (ImageView) findViewById(R.id.userImage);
 
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
@@ -182,8 +143,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
 
-        // Obtain a reference to the mobile client. It is created in the Application class.
-        final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
 
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
@@ -191,19 +150,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
     }
 
-    private void FunctionCalledWhenLoginIsSuccessful() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                loginField.setText("Logged as: " + SMPLibrary.LoggedUserName() );
-            }
-        });
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
 
+        // Agathe Part
         if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
             // In the case that the activity is restarted by the OS after the application
             // is killed we must redirect to the splash activity to handle the sign-in flow.
@@ -218,8 +169,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
 
         identityManager = awsMobileClient.getIdentityManager();
-        identityManager.addSignInStateChangeListener(this);
-        fetchUserIdentity();
+
+        // Danchao Part
+        //*************AWS push notification part start************
+        // register notification receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver,
+                new IntentFilter(PushListenerService.ACTION_SNS_NOTIFICATION));
+
+        //*************AWS push notification part end**************
     }
 
     @Override
@@ -254,36 +211,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-
-        //  setup logout button.
-        logout_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SMPLibrary.Logout();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        login_field.setText("Not Logged In");
-                    }
-                });
+        // go to public events activity
+        if (view == goto_PublicEvents) {
+            Intent intent = null;
+            switch (view.getId()) {
+                case R.id.pevents_button:
+                    intent = new Intent(MainActivity.this, PublicEventsActivity.class);
+                    startActivity(intent);
+                    break;
+                default:
+                    break;
             }
-        });
+        }
+
+        if (view == logoutButton) {
+            SMPLibrary.Logout();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    loginField.setText("Not Logged In");
+                }
+            });
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-        //*************AWS push notification part start************
-        final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
-
-        // register notification receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver,
-                new IntentFilter(PushListenerService.ACTION_SNS_NOTIFICATION));
-
-        //*************AWS push notification part end**************
-    }
     //*************AWS push notification part start************
     private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
         @Override
@@ -360,88 +311,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                login_field.setText("Logged as: " + SMPLibrary.LoggedUserName());
+                loginField.setText("Logged as: " + SMPLibrary.LoggedUserName());
             }
         });
-    /**
-     * Fetches the user identity safely on the background thread.  It may make a network call.
-     */
-    private void fetchUserIdentity() {
-        // Pre-fetched to avoid race condition where fragment is no longer active.
-        Log.i("TAG", "fetchUserIdentity");
-        final String unknownUserIdentityText =
-                getString(R.string.identity_demo_unknown_identity_text);
-
-        AWSMobileClient.defaultMobileClient()
-                .getIdentityManager()
-                .getUserID(new IdentityManager.IdentityHandler() {
-
-                    @Override
-                    public void handleIdentityID(String identityId) {
-
-                        clearUserInfo();
-
-                        if (identityManager.isUserSignedIn()) {
-
-                            userName.setText(identityManager.getUserName());
-
-                            if (identityManager.getUserImage() != null) {
-                                userImage.setImageBitmap(identityManager.getUserImage());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void handleError(Exception exception) {
-
-                        clearUserInfo();
-
-                        final Context context = MainActivity.this;
-
-                        if (context != null) {
-                            new AlertDialog.Builder(MainActivity.this)
-                                    .setTitle(R.string.identity_demo_error_dialog_title)
-                                    .setMessage(getString(R.string.identity_demo_error_message_failed_get_identity)
-                                            + exception.getMessage())
-                                    .setNegativeButton(R.string.identity_demo_dialog_dismiss_text, null)
-                                    .create()
-                                    .show();
-                        }
-                    }
-                });
     }
 
-    private void clearUserInfo() {
-
-        clearUserImage();
-
-        try {
-            userName.setText(getString(R.string.unknown_user));
-        } catch (final IllegalStateException e) {
-        }
-    }
-
-    private void clearUserImage() {
-
-        try {
-            userImage.setImageResource(R.mipmap.user);
-        } catch (final IllegalStateException e) {
-        }
-    }
-
-    @Override
-    public void onUserSignedIn() {
-        // Update the user identity to account for the user signing in.
-        fetchUserIdentity();
-        Log.i("TAG", "userSignIn");
-    }
-
-    @Override
-    public void onUserSignedOut() {
-        // Update the user identity to account for the user signing out.
-        fetchUserIdentity();
-        Log.i("TAG", "userSignOut");
-    }
     private AlertDialog showErrorMessage(final int resId, final Object... args) {
         return new AlertDialog.Builder(this).setMessage(getString(resId, (Object[]) args))
                 .setPositiveButton(android.R.string.ok, null)
