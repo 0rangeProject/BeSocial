@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.events;
 
 import java.util.List;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.agathe.tsgtest.R;
 
 /**
  * Created by DanchaoGU on 2016/11/8.

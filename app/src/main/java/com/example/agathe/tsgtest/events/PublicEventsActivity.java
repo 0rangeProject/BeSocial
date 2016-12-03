@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.events;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.DataResponseCallback;
-import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 public class PublicEventsActivity extends AppCompatActivity {

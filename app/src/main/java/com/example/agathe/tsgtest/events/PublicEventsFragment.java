@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.events;
 
 import java.util.ArrayList;
 import android.app.Fragment;
@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.agathe.tsgtest.R;
 
 
 public class PublicEventsFragment extends Fragment {

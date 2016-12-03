@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.carpooling;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.agathe.tsgtest.Database.SaveObjectTask;
+import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.database.SaveObjectTask;
 import com.amazonaws.models.nosql.PathsDO;
 
 import org.json.JSONArray;

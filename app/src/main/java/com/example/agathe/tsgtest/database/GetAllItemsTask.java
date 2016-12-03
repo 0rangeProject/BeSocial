@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest.Database;
+package com.example.agathe.tsgtest.database;
 
 import android.os.AsyncTask;
 import android.util.Log;

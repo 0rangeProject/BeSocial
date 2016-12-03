@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest.Database;
+package com.example.agathe.tsgtest.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.agathe.tsgtest.Dto.Path;
+import com.example.agathe.tsgtest.dto.Path;
 
 import java.util.ArrayList;
 import java.util.List;

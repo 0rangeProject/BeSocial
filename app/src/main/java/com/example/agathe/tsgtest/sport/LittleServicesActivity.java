@@ -1,9 +1,11 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.sport;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.agathe.tsgtest.R;
 
 /**
  * Created by koudm on 30/10/2016.

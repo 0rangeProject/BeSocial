@@ -25,6 +25,9 @@ import com.amazonaws.mobile.push.PushManager;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.AmazonClientException;
 
+import com.example.agathe.tsgtest.carpooling.PurposeActivity;
+import com.example.agathe.tsgtest.events.PublicEventsActivity;
+import com.example.agathe.tsgtest.sport.SportActivity;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
@@ -44,11 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView loginField, contents;
 
-    private Button loginButton;
-    private Button logoutButton;
-    private Button carpoolingButton;
-    private Button goto_PublicEvents;
-    private Button sport_button;
+    private Button loginButton, logoutButton, carpoolingButton, publicEventsButton, sportButton;
     Context context;
 
     /** The identity manager used to keep track of the current user account. */
@@ -75,13 +74,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         logoutButton = (Button) findViewById(R.id.logout_but);
         logoutButton.setOnClickListener(this);
 
-        goto_PublicEvents = (Button)findViewById(R.id.pevents_button);
-        goto_PublicEvents.setOnClickListener(this);
+        publicEventsButton = (Button)findViewById(R.id.pevents_button);
+        publicEventsButton.setOnClickListener(this);
+
+        sportButton = (Button) findViewById( R.id.sport_btn);
+        sportButton.setOnClickListener(this);
 
         loginField = (TextView) findViewById(R.id.login);
-
-        sport_button = (Button) findViewById( R.id.sport_btn);
-        sport_button.setOnClickListener(this);
     }
 
     //*************AWS push notification part end**************
@@ -218,22 +217,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
 
-        if (view == goto_PublicEvents) {
-            Intent intent = null;
-            switch (view.getId()) {
-                case R.id.pevents_button:
-                    intent = new Intent(MainActivity.this, PublicEventsActivity.class);
-                    startActivity(intent);
-                    break;
-                default:
-                    break;
-            }
+        if (view == publicEventsButton) {
+            Intent intent = new Intent(MainActivity.this,
+                    PublicEventsActivity.class);
+            startActivity(intent);
         }
 
-        if (view == sport_button) {
+        if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
                         SportActivity.class);
                 startActivity(intent);
+        }
+
+        if (view == carpoolingButton) {
+            Intent intent = new Intent(MainActivity.this,
+                    PurposeActivity.class);
+            startActivity(intent);
         }
     }
 

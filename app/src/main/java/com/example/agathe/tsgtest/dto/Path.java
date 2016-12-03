@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest.Dto;
+package com.example.agathe.tsgtest.dto;
 
 /**
  * Created by agathe on 08/11/16.
