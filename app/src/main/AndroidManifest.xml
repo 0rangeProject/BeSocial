@@ -36,6 +36,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA8J1zvgt2LI6RX23xxboJGVB8ad2ONir4" />
 
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +44,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SportActivity"
+            android:label="SPORT"
+            android:theme="@style/AppTheme" >
+        </activity>
+
+        <activity
+            android:name=".ChallengeActivity"
+            android:label="CHALLENGEFriend"
+            android:theme="@style/AppTheme" >
+        </activity>
+
+        <activity
+            android:name=".LittleServicesActivity"
+            android:label="CHALLENGEFriend"
+            android:theme="@style/AppTheme" >
+        </activity>
+
         <activity android:name=".ServerMainActivity"></activity>
         <activity android:name=".AuthorizationActivity"></activity>
         <activity android:name=".SignInActivity"></activity>

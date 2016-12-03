@@ -41,12 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PushManager pushManager;
     private CheckBox enablePushCheckBox;
 
-    private TextView loginField;
+    private TextView loginField, contents;
 
     private Button loginButton;
     private Button logoutButton;
     private Button carpoolingButton;
     private Button goto_PublicEvents;
+    private Button sport_button;
+    Context context;
 
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
@@ -76,11 +78,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         goto_PublicEvents.setOnClickListener(this);
 
         loginField = (TextView) findViewById(R.id.login);
+
+        sport_button = (Button) findViewById( R.id.sport_btn);
+        sport_button.setOnClickListener(this);
     }
 
     //*************AWS push notification part end**************
-    TextView contents;
-    Context context;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -233,6 +236,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+
+        if (view == sport_button) {
+            Intent intent = new Intent(MainActivity.this,
+                        SportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //*************AWS push notification part start************
