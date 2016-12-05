@@ -1,16 +1,13 @@
 package com.example.agathe.tsgtest.sport;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 /**

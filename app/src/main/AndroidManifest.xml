@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.agathe.tsgtest"
     xmlns:tools="http://schemas.android.com/tools">
@@ -18,10 +19,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
-
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
 
     <application
         android:allowBackup="true"
@@ -62,14 +59,12 @@
             android:label="CHALLENGEFriend"
             android:theme="@style/AppTheme" >
         </activity>
-
+        <activity android:name=".carpooling.PotentialCarpoolersActivity"></activity>
         <activity android:name=".carpooling.ServerMainActivity"></activity>
         <activity android:name=".carpooling.AuthorizationActivity"></activity>
         <activity android:name=".SignInActivity"></activity>
         <activity android:name=".SplashActivity"></activity>
-        <activity
-            android:name=".carpooling.MapsActivity"
-            android:label="@string/title_activity_maps" />
+        <activity android:name=".carpooling.MapsActivity" />
         <activity
             android:name=".carpooling.PurposeActivity"
             android:label="@string/title_activity_purpose"

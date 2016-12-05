@@ -105,5 +105,4 @@ public class PublicEventsActivity extends AppCompatActivity {
         Intent intent = new Intent(PublicEventsActivity.this, PublicEventsActivity.class);
         startActivity(intent);
     }
-
 }

@@ -43,7 +43,7 @@
             android:layout_alignParentStart="true" />
 
         <Button
-            android:text="Login"
+            android:text="@string/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/login_but"
@@ -52,7 +52,7 @@
             android:layout_toEndOf="@+id/end_main_title" />
 
         <Button
-            android:text="Logout"
+            android:text="@string/button_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/logout_but"
@@ -60,7 +60,7 @@
             android:layout_toRightOf="@+id/login_but" />
 
         <TextView
-            android:text="ORANGE"
+            android:text="@string/title_orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/end_main_title"
@@ -71,7 +71,7 @@
              />
 
         <TextView
-            android:text="ENJOY ALL TOWN POSSIBILITIES WITH"
+            android:text="@string/title_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/main_title"
@@ -84,7 +84,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="Not Logged In"
+            android:text="@string/not_logged_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/login"
@@ -98,7 +98,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_image"
             android:src="@drawable/town_image"
             android:layout_below="@+id/end_main_title"
             android:layout_alignParentLeft="true"
@@ -114,7 +113,7 @@
             android:layout_alignParentEnd="true" />
 
         <Button
-            android:text="Carpooling"
+            android:text="@string/carpooling_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/carpooling_but"
@@ -126,7 +125,7 @@
             android:layout_marginBottom="71dp" />
 
         <Button
-            android:text="Sport"
+            android:text="@string/sport_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sport_btn"
@@ -136,7 +135,7 @@
             android:layout_marginTop="18dp" />
 
         <Button
-            android:text="Public Events"
+            android:text="@string/public_events_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/pevents_button"
