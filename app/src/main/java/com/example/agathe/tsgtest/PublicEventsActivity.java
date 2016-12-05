@@ -10,16 +10,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
+import java.util.ArrayList;
+
 public class PublicEventsActivity extends AppCompatActivity {
 
     Context context;
-    TextView view_test, view_test_1;
+    private ListView cardsList;
+    //TextView view_test, view_test_1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,18 +35,18 @@ public class PublicEventsActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_pe);
         setSupportActionBar(myToolbar);
 
+        cardsList = (ListView) findViewById(R.id.cards_list);
+        setupList();
+
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(R.id.container, new PublicEventsFragment()).commit();
-        }
 
         context = this;
-        view_test = (TextView) findViewById( R.id.pe_view_test);
+        /*view_test = (TextView) findViewById( R.id.pe_view_test);
         view_test_1 = (TextView) findViewById( R.id.pe_view_test_1);
         String test_output = "Logged as: " + SMPLibrary.LoggedUserName();
         test_output += "Is logged in: " + SMPLibrary.IsLoggedIn();
@@ -53,7 +60,7 @@ public class PublicEventsActivity extends AppCompatActivity {
                 ShowMessage("Frequent Contacts\n" + data_response);
             }
         });
-        view_test.setText(test_output);
+        view_test.setText(test_output);*/
 
     }
 
@@ -89,7 +96,7 @@ public class PublicEventsActivity extends AppCompatActivity {
         }
     }
 
-    //  function displaying message in TextView box.
+    /*  function displaying message in TextView box.
     void ShowMessage(String message){
         final String to_show = message;
         runOnUiThread(new Runnable() {
@@ -99,11 +106,47 @@ public class PublicEventsActivity extends AppCompatActivity {
             }
         });
     }
-
+    */
     private void refresh() {
         finish();
         Intent intent = new Intent(PublicEventsActivity.this, PublicEventsActivity.class);
         startActivity(intent);
+    }
+
+    /************* list card ****************/
+    private void setupList() {
+        cardsList.setAdapter(createAdapter());
+        cardsList.setOnItemClickListener(new ListItemClickListener());
+    }
+
+    private CardsAdapter createAdapter() {
+        ArrayList<String> items = new ArrayList<String>();
+        for (int i = 0; i < 10; i++) {
+            items.add(i, "Text for List Item " + i);
+        }
+
+        return new CardsAdapter(this, items, new ListItemButtonClickListener());
+    }
+    private final class ListItemButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            for (int i = cardsList.getFirstVisiblePosition(); i <= cardsList.getLastVisiblePosition(); i++) {
+                if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button_1)) {
+                    // PERFORM AN ACTION WITH THE ITEM AT POSITION i
+                    Toast.makeText(context, "Clicked on Left Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
+                } else if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button_2)) {
+                    // PERFORM ANOTHER ACTION WITH THE ITEM AT POSITION i
+                    Toast.makeText(context, "Clicked on Right Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private final class ListItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(context, "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

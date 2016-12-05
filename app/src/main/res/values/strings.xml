@@ -14,4 +14,5 @@
     <string name="push_demo_title">Push Notification</string>
     <string name="enable_push_checkbox">Enable Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
