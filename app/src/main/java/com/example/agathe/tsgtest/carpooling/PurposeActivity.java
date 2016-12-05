@@ -20,8 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -29,7 +31,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PurposeActivity extends AppCompatActivity {
@@ -64,6 +71,15 @@ public class PurposeActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
     }
 
@@ -119,6 +135,22 @@ public class PurposeActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.activity_maps, container, false);
+            TextView departure = (TextView) view.findViewById(R.id.departure_place);
+            TextView destination = (TextView) view.findViewById(R.id.destination_place);
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 1:
+                    departure.setText("178 rue Nationale, 59000 LILLE");
+                    destination.setText("195 rue de Paris, 59000 LILLE");
+                    break;
+                case 2:
+                    departure.setText("178 rue Nationale, 59000 LILLE");
+                    destination.setText("1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq");
+                    break;
+                case 3:
+                    departure.setText("178 rue Nationale, 59000 LILLE");
+                    destination.setText("2 Avenue de la Porte Molitor, 75016 Paris");
+                    break;
+            }
             return view;
         }
 
@@ -138,17 +170,42 @@ public class PurposeActivity extends AppCompatActivity {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                    GoogleMap mMap;
-                    mMap = googleMap;
+                    GoogleMap mMap = googleMap;
 
-                    // Add a marker in Sydney and move the camera
-                    LatLng departure = new LatLng(-34, 151);
-                    LatLng destination = new LatLng(-38, 130);
-                    mMap.addMarker(new MarkerOptions().position(departure).title("Departure"));
-                    mMap.addMarker(new MarkerOptions().position(destination)
+                    LatLng departure = null;
+                    LatLng destination = null;
+
+                    switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+                        case 1:
+                            departure = new LatLng(50.632752, 3.052427);
+                            destination = new LatLng(50.631714, 3.068285);
+                            break;
+                        case 2:
+                            departure = new LatLng(50.632752, 3.052427);
+                            destination = new LatLng(50.625480, 3.126518);
+                            break;
+                        case 3:
+                            departure = new LatLng(50.632752, 3.052427);
+                            destination = new LatLng(48.833079, 2.265492);
+                            break;
+                    }
+
+                    List<Marker> markers = new ArrayList<Marker>();
+                    markers.add(mMap.addMarker(new MarkerOptions().position(departure).title("Departure")));
+                    markers.add(mMap.addMarker(new MarkerOptions().position(destination)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .title("Destination"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(departure));
+                            .title("Destination")));
+
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    for (Marker marker : markers) {
+                        builder.include(marker.getPosition());
+                    }
+                    LatLngBounds bounds = builder.build();
+
+                    int padding = 30; // offset from edges of the map in pixels
+                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+                    googleMap.moveCamera(cu);
                 }
             });
         }
@@ -175,6 +232,19 @@ public class PurposeActivity extends AppCompatActivity {
         public int getCount() {
             // Show 3 total pages.
             return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
+            }
+            return null;
         }
     }
 }

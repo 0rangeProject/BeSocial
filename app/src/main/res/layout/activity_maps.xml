@@ -15,26 +15,31 @@
         android:text="We detected you often take this path :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/introduction"
-        android:paddingTop="0dp"
-        android:layout_marginTop="0dp" />
+        android:id="@+id/introduction" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:paddingTop="5dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/icon_departure"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_location" />
 
         <TextView
             android:text="Departure :"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/departure" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/departure_place"
+            android:layout_alignEnd="@+id/departure"
+            android:layout_alignRight="@+id/departure" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,27 +51,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/icon_destination"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_location"/>
 
         <TextView
             android:text="Destination :"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/destination" />
-    </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="See potential carpoolers"
-        android:paddingTop="10dp"
-        android:id="@+id/button" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/destination_place"
+            android:layout_alignEnd="@+id/destination"
+            android:layout_alignRight="@+id/destination" />
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapFragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/destination">
     </LinearLayout>
 
     <!--
@@ -79,4 +85,3 @@
         android:layout_height="match_parent" />
         -->
 </LinearLayout>
-
