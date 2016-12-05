@@ -1,7 +1,11 @@
 package com.example.agathe.tsgtest.carpooling;
 
+import android.hardware.GeomagneticField;
+import android.location.Location;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -15,9 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.example.agathe.tsgtest.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class PurposeActivity extends AppCompatActivity {
@@ -52,16 +64,6 @@ public class PurposeActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -118,6 +120,37 @@ public class PurposeActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.activity_maps, container, false);
             return view;
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            FragmentManager fm = getChildFragmentManager();
+            SupportMapFragment mapFragment = (SupportMapFragment) fm.findFragmentByTag("mapFragment");
+            if (mapFragment == null) {
+                mapFragment = new SupportMapFragment();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(R.id.mapFragmentContainer, mapFragment, "mapFragment");
+                ft.commit();
+                fm.executePendingTransactions();
+            }
+
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    GoogleMap mMap;
+                    mMap = googleMap;
+
+                    // Add a marker in Sydney and move the camera
+                    LatLng departure = new LatLng(-34, 151);
+                    LatLng destination = new LatLng(-38, 130);
+                    mMap.addMarker(new MarkerOptions().position(departure).title("Departure"));
+                    mMap.addMarker(new MarkerOptions().position(destination)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                            .title("Destination"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(departure));
+                }
+            });
         }
     }
 

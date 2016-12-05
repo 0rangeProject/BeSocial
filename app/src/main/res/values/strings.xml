@@ -159,7 +159,7 @@
     <string name="nosql_dialog_title_confirm_delete_item_text">Confirm Delete</string>
     <string name="nosql_dialog_message_confirm_delete_item_text">Are you sure you want to delete the selected item?</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_purpose">PurposeActivity</string>
+    <string name="title_activity_purpose">Carpooling</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -177,4 +177,7 @@
     <string name="push_demo_title">Push Notification</string>
     <string name="enable_push_checkbox">Enable Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
+
+    <string name="carpooling_toolbar_title">Carpooling</string>
+    <string name="sport_toolbar_title">Sport</string>
 </resources>
