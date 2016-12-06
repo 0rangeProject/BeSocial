@@ -20,10 +20,11 @@ import java.util.ArrayList;
 
 public class PotentialCarpoolersFragment extends Fragment {
     private ListView cardsList;
+    private int pageNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_public_events, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_carpoolers, container, false);
         cardsList = (ListView) rootView.findViewById(R.id.cards_list);
         setupList();
         return rootView;
@@ -34,25 +35,51 @@ public class PotentialCarpoolersFragment extends Fragment {
         cardsList.setOnItemClickListener(new ListItemClickListener());
     }
 
-    private CardsAdapter createAdapter() {
-        ArrayList<String> items = new ArrayList<String>();
-        for (int i = 0; i < 100; i++) {
-            items.add(i, "Text for List Item " + i);
+    private CardsAdapterCarpooling createAdapter() {
+        ArrayList<String> itemsName = new ArrayList<String>();
+        ArrayList<String> itemsRelation = new ArrayList<String>();
+        if (pageNumber == 0) {
+            itemsName.add("Mariline Beaumont");
+            itemsName.add("Jean Delaroche");
+            itemsName.add("Sandra Rouget");
+            itemsName.add("Georges Mourin");
+            itemsRelation.add("closed friend");
+            itemsRelation.add("closed friend");
+            itemsRelation.add("closed work relation");
+            itemsRelation.add("known people");
         }
 
-        return new CardsAdapter(getActivity(), items, new ListItemButtonClickListener());
+        if (pageNumber == 1) {
+            itemsName.add("Jules Noyelles");
+            itemsName.add("Léa Dallenne");
+            itemsName.add("Caroline Dumoulin");
+            itemsName.add("Paul Martin");
+            itemsRelation.add("closed friend");
+            itemsRelation.add("family relation");
+            itemsRelation.add("closed work relation");
+            itemsRelation.add("known people");
+        }
+
+        if (pageNumber == 2) {
+            itemsName.add("Hélèna de Lila");
+            itemsName.add("Claude Sapin");
+            itemsName.add("Mélanie Lapin");
+            itemsName.add("Hector Sauvage");
+            itemsRelation.add("closed friend");
+            itemsRelation.add("closed friend");
+            itemsRelation.add("closed work relation");
+            itemsRelation.add("known people");
+        }
+
+        return new CardsAdapterCarpooling(getActivity(), itemsName, itemsRelation, new ListItemButtonClickListener());
     }
 
     private final class ListItemButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             for (int i = cardsList.getFirstVisiblePosition(); i <= cardsList.getLastVisiblePosition(); i++) {
-                if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button_1)) {
-                    // PERFORM AN ACTION WITH THE ITEM AT POSITION i
-                    Toast.makeText(getActivity(), "Clicked on Left Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
-                } else if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button_2)) {
-                    // PERFORM ANOTHER ACTION WITH THE ITEM AT POSITION i
-                    Toast.makeText(getActivity(), "Clicked on Right Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
+                if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button)) {
+                    Toast.makeText(getActivity(), "Clicked on Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
                 }
             }
         }

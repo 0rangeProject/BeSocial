@@ -2,7 +2,6 @@
 <resources>
     <color name="splash_text">#F58535</color>
     <color name="splash_background">#FFFFFF</color>
-
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>

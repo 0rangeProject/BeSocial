@@ -13,12 +13,11 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
 
     <permission
         android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -59,6 +58,7 @@
             android:label="CHALLENGEFriend"
             android:theme="@style/AppTheme" >
         </activity>
+
         <activity android:name=".carpooling.PotentialCarpoolersActivity"></activity>
         <activity android:name=".carpooling.ServerMainActivity"></activity>
         <activity android:name=".carpooling.AuthorizationActivity"></activity>
@@ -68,7 +68,7 @@
         <activity
             android:name=".carpooling.PurposeActivity"
             android:label="@string/title_activity_purpose"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".events.PublicEventsActivity"></activity>
 
@@ -81,6 +81,7 @@
                 <category android:name="com.example.agathe.tsgtest" />
             </intent-filter>
         </receiver>
+
         <!-- BEGIN - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
         <service
             android:name=".PushListenerService"

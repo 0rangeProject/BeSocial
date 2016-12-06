@@ -25,7 +25,7 @@
     <string name="little_services">LTTLE SERVICES</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
-    <string name="app_name">TSG Test</string>
+    <string name="app_name">Be Social</string>
 
     <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>
@@ -37,7 +37,10 @@
     <string name="maps_introduction">We detected you often take this path :</string>
     <string name="departure">Departure : </string>
     <string name="destination">Destination : </string>
+    <string name="list_item_button">Send message</string>
+    <string name="potential_carpoolers">Potential carpoolers</string>
 
+    <!--Titles -->
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_purpose">Carpooling</string>
     <string name="action_settings">Settings</string>
