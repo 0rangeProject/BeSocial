@@ -16,6 +16,7 @@ import com.amazonaws.mobile.push.PushManager;
  */
 public class AWSApplication extends MultiDexApplication {
 
+
     private final static String LOG_TAG = Application.class.getSimpleName();
 
     @Override
@@ -41,6 +42,7 @@ public class AWSApplication extends MultiDexApplication {
             }
         });
         // ...Put any application-specific initialization logic here...
+
     }
 }
 
