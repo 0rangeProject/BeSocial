@@ -1,18 +1,54 @@
 <resources>
-    <string name="app_name">BeSocial</string>
-    <string name="pe_toolbar_title">Public Events</string>
+
+    <!-- Home -->
+    <string name="button_text_sign_out">Sign out from Google</string>
+    <string name="button_login">Login</string>
+    <string name="button_logout">Logout</string>
+    <string name="title_main">ENJOY ALL TOWN POSSIBILITIES WITH</string>
+    <string name="title_orange">ORANGE</string>
+    <string name="not_logged_in">Not logged in</string>
+    <string name="enable_push_checkbox">Enable Push Notification</string>
+    <string name="sport_menu">Sport</string>
+    <string name="carpooling_menu">Carpooling</string>
+    <string name="public_events_menu">Public events</string>
+
+    <!--Sport Home -->
+    <string name="desc">description</string>
+    <string name="duration_text">Your course duration is  </string>
+    <string name="steps_text">You did steps today ! </string>
+    <string name="challenge_text">Challenge a friend !</string>
+
+    <!--Sport Challenge -->
+
+
+    <!--Little services -->
+    <string name="little_services">LTTLE SERVICES</string>
+    <string name="send_message">SEND MESSAGE</string>
+    <string name="call">CALL</string>
+    <string name="app_name">TSG Test</string>
+
+    <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>
     <string name="dialog_ok">OK</string>
     <string name="list_item_left_button">Left</string>
     <string name="list_item_right_button">Right</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Carpooling -->
+    <string name="maps_introduction">We detected you often take this path :</string>
+    <string name="departure">Departure : </string>
+    <string name="destination">Destination : </string>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_purpose">Carpooling</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Example for cards adapter-->
     <string name="action_disconnect">Disconnect</string>
     <string name="action_about">About</string>
 
+    <!-- Titles for tool bar -->
+    <string name="pe_toolbar_title">Public Events</string>
     <string name="push_demo_title">Push Notification</string>
-    <string name="enable_push_checkbox">Enable Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
-    <string name="title_activity_main2">Main2Activity</string>
+
 </resources>
