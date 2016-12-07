@@ -19,8 +19,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.dto.CommonTravel;
+import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,7 @@ public class PurposeActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static View view;
     private ViewPager mViewPager;
+    ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,44 +69,81 @@ public class PurposeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
                 intent.putExtra("pageNumber", currentPage);
+                intent.putParcelableArrayListExtra("travels", travels);
                 startActivity(intent);
             }
         });
-    }
 
+        // Initialize trajects and users, just for test
+        // After, these informations will be provided by API based on NoSQL database which contains all trajects of users
+        ArrayList<User> users1 = new ArrayList<User>() {{
+            add(new User("Marilyne Beaumont", "closed friend", "0612345678"));
+            add(new User("Jean Delaroche", "closed friend", "0612345678"));
+            add(new User("Sandra Rouget", "closed work relation", "0612345678"));
+            add(new User("Georges Mourin", "known people", "0612345678"));
+        }};
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_purpose, menu);
-        return true;
+        ArrayList<User> users2 = new ArrayList<User>() {{
+            add(new User("Jules Noyelles", "closed friend", "0612345678"));
+            add(new User("Léa Dallenne", "family relation", "0612345678"));
+            add(new User("Caroline Dumoulin", "closed work relation", "0612345678"));
+            add(new User("Paul Martin", "known relation", "0612345678"));
+        }};
+
+        ArrayList<User> users3 = new ArrayList<User>() {{
+            add(new User("Hélèna de Lila", "closed friend", "0612345678"));
+            add(new User("Claude Sapin", "closed friend", "0612345678"));
+            add(new User("Mélanie Lapin", "closed work relation", "0612345678"));
+            add(new User("Hector Sauvage", "known people", "0612345678"));
+        }};
+
+        travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
+                users1));
+        travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
+                users2));
+        travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
+                users3));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_disconnect:
+                SMPLibrary.Logout();
+                return true;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.action_about:
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
+                builder.setPositiveButton(R.string.dialog_ok, null);
+                builder.setIcon(R.mipmap.ic_launcher);
+
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        // private int pageNumber = 0;
+        private static ArrayList<CommonTravel> travels = new ArrayList<>();
 
         public PlaceholderFragment() {
         }
@@ -110,10 +152,11 @@ public class PurposeActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber, ArrayList<CommonTravel> travels) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putParcelableArrayList("travels", travels);
             fragment.setArguments(args);
             return fragment;
         }
@@ -121,23 +164,13 @@ public class PurposeActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            travels = getArguments().getParcelableArrayList("travels");
+
             view = inflater.inflate(R.layout.activity_maps, container, false);
             TextView departure = (TextView) view.findViewById(R.id.departure_place);
             TextView destination = (TextView) view.findViewById(R.id.destination_place);
-            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-                case 1:
-                    departure.setText("178 rue Nationale, 59000 LILLE");
-                    destination.setText("195 rue de Paris, 59000 LILLE");
-                    break;
-                case 2:
-                    departure.setText("178 rue Nationale, 59000 LILLE");
-                    destination.setText("1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq");
-                    break;
-                case 3:
-                    departure.setText("178 rue Nationale, 59000 LILLE");
-                    destination.setText("2 Avenue de la Porte Molitor, 75016 Paris");
-                    break;
-            }
+            departure.setText(travels.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).departure);
+            destination.setText(travels.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).destination);
 
             return view;
         }
@@ -160,23 +193,8 @@ public class PurposeActivity extends AppCompatActivity {
                 public void onMapReady(GoogleMap googleMap) {
                     GoogleMap mMap = googleMap;
 
-                    LatLng departure = null;
-                    LatLng destination = null;
-
-                    switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
-                        case 1:
-                            departure = new LatLng(50.632752, 3.052427);
-                            destination = new LatLng(50.631714, 3.068285);
-                            break;
-                        case 2:
-                            departure = new LatLng(50.632752, 3.052427);
-                            destination = new LatLng(50.625480, 3.126518);
-                            break;
-                        case 3:
-                            departure = new LatLng(50.632752, 3.052427);
-                            destination = new LatLng(48.833079, 2.265492);
-                            break;
-                    }
+                    LatLng departure = travels.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).departurePosition;
+                    LatLng destination = travels.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).destinationPosition;
 
                     List<Marker> markers = new ArrayList<Marker>();
                     markers.add(mMap.addMarker(new MarkerOptions().position(departure).title("Departure")));
@@ -197,10 +215,6 @@ public class PurposeActivity extends AppCompatActivity {
                 }
             });
         }
-
-        public int getPageNumber() {
-            return getArguments().getInt(ARG_SECTION_NUMBER);
-        }
     }
 
     /**
@@ -217,7 +231,7 @@ public class PurposeActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return new PlaceholderFragment().newInstance(position + 1, travels);
         }
 
         @Override

@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:navigationIcon="@drawable/ic_drawer_home"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
@@ -156,6 +154,16 @@
             android:layout_toEndOf="@+id/pevents_button"
             android:layout_marginTop="128dp" />
 
+
+        <Button
+            android:text="@string/home_map_hidden_lservices"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/lServices_btn"
+            android:layout_marginTop="67dp"
+            android:layout_below="@+id/sport_btn"
+            android:layout_toRightOf="@+id/sport_btn"
+            android:layout_toEndOf="@+id/sport_btn" />
 
     </RelativeLayout>
 </LinearLayout>

@@ -49,7 +49,7 @@ public class PublicEventsActivity extends AppCompatActivity {
             //  returns response code and JSON in form of string.
             public void OnResponse( int response_code, String data_response ){
                 Log.i("PublicEvents:Response", "GetFrequentContacts response code " + response_code );
-                Log.i("PublicEvents:Respwonse", "GetFrequentContacts - " + data_response);
+                Log.i("PublicEvents:Response", "GetFrequentContacts - " + data_response);
                 ShowMessage("Frequent Contacts\n" + data_response);
             }
         });
@@ -59,7 +59,7 @@ public class PublicEventsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_layout, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -72,13 +72,16 @@ public class PublicEventsActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_about:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
                 builder.setPositiveButton(R.string.dialog_ok, null);
                 builder.setIcon(R.mipmap.ic_launcher);
 
-                AlertDialog dialog = builder.create();
+                android.support.v7.app.AlertDialog dialog = builder.create();
                 dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
                 return true;
 
             default:

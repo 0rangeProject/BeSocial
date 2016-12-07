@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(myToolbar);
 
         //*************AWS push notification part start************
-       // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
+        enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
         // Obtain a reference to the mobile client. It is created in the Application class,
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
@@ -151,6 +151,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         identityManager = awsMobileClient.getIdentityManager();
 
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_disconnect:
+                SMPLibrary.Logout();
+                return true;
+
+            case R.id.action_about:
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
+                builder.setPositiveButton(R.string.dialog_ok, null);
+                builder.setIcon(R.mipmap.ic_launcher);
+
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     @Override
@@ -225,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        SportActivity.class);
+                        FirstSportActivity.class);
                 startActivity(intent);
         }
 
@@ -234,6 +269,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     PurposeActivity.class);
             startActivity(intent);
         }
+
+       if (view == littleServicesButton) {
+                Intent intent = new Intent(MainActivity.this,
+                        LittleServicesActivity.class);
+                startActivity(intent);
+            }
     }
 
     //*************AWS push notification part start************
