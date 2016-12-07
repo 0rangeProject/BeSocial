@@ -8,10 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.example.agathe.tsgtest.R;
-import com.example.agathe.tsgtest.sport.ContactAdapter;
-import com.example.agathe.tsgtest.sport.ContactChallenge;
 
 import java.util.ArrayList;
 import java.util.List;

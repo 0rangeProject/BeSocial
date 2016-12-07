@@ -54,7 +54,7 @@
         </activity>
 
         <activity
-            android:name=".ChallengeActivity"
+            android:name=".sport.ChallengeActivity"
             android:label="SPORT"
             android:theme="@style/AppTheme" >
         </activity>

@@ -38,9 +38,10 @@
     <!--Sport Home -->
     <string name="desc">description</string>
     <string name="challenge_text">Challenge a friend !</string>
+    <string name="first_sport">Sport</string>
 
     <!--Little Services -->
-    <string name="little_services">LTTLE SERVICES</string>
+    <string name="little_services">Little Services</string>
     <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>

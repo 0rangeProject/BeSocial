@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.agathe.tsgtest.sport.ChallengeActivity;
+
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 import static android.hardware.Sensor.TYPE_STEP_DETECTOR;
 

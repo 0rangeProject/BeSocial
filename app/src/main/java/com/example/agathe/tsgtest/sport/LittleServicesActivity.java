@@ -3,6 +3,7 @@ package com.example.agathe.tsgtest.sport;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -33,6 +34,9 @@ public class LittleServicesActivity extends AppCompatActivity {
         btn_send_message = (ImageButton) findViewById(R.id.img_btn_sms);
         btn_call = (ImageButton) findViewById(R.id.img_btn_call);
         contacts_list = (ListView) findViewById(R.id.ls_contact_list);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
        /** btn_send_message.setImageResource(R.drawable.envelop);
         btn_call.setImageResource(R.drawable.call_icon);
