@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-feature android:name="@string/step_detector" android:required="true"/>
+    <uses-feature android:name="@string/step_counter" android:required="true"/>
+    <uses-feature android:name="android.hardware.location" android:required="true" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -19,22 +25,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".SportActivity"
+            android:name=".FirstSportActivity"
+            android:label="SPORT"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".ChallengeActivity"
             android:label="SPORT"
             android:theme="@style/AppTheme" >
         </activity>
 
         <activity
-            android:name=".ChallengeActivity"
-            android:label="CHALLENGEFriend"
-            android:theme="@style/AppTheme" >
-        </activity>
-
-        <activity
             android:name=".LittleServicesActivity"
-            android:label="CHALLENGEFriend"
+            android:label="Orange Little Services"
             android:theme="@style/AppTheme" >
         </activity>
 

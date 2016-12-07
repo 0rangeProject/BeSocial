@@ -16,7 +16,7 @@ import com.olab.smplibrary.SMPLibrary;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button login_button, logout_button, sport_button;
+    Button login_button, logout_button, sport_button, little_services_button;
     TextView login_field, contents;
     Context context;
     @Override
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         logout_button = (Button) findViewById( R.id.logout_but);
         login_field = (TextView) findViewById( R.id.login);
         sport_button = (Button) findViewById( R.id.sport_btn) ;
+        little_services_button = (Button) findViewById( R.id.lServices_btn) ;
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
@@ -74,7 +75,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,
-                        SportActivity.class);
+                        FirstSportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //  setup little services button.
+        little_services_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,
+                        LittleServicesActivity.class);
                 startActivity(intent);
             }
         });

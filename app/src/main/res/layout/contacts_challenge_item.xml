@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/runner"
+        android:contentDescription="@string/describe_runner_pic"
+        android:id="@+id/img_avatar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="21dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_name"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_alignTop="@+id/img_avatar"
+        android:layout_toRightOf="@+id/img_avatar"
+        android:layout_toEndOf="@+id/img_avatar"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/contact_run_duration"
+        android:layout_below="@+id/contact_name"
+        android:layout_alignLeft="@+id/contact_name"
+        android:layout_alignStart="@+id/contact_name"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/contact_kilometers_average"
+        android:layout_below="@+id/contact_run_duration"
+        android:layout_alignLeft="@+id/contact_run_duration"
+        android:layout_alignStart="@+id/contact_run_duration" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/call_icon"
+        android:id="@+id/img_btn_call"
+        android:contentDescription="@string/describe_call_pic"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/img_btn_sms"
+        android:layout_above="@+id/contact_kilometers_average" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/envelop"
+        android:id="@+id/img_btn_sms"
+        android:contentDescription="@string/describe_sms_pic"
+        android:layout_alignTop="@+id/contact_name"
+        android:layout_toLeftOf="@+id/img_btn_call"
+        android:layout_toStartOf="@+id/img_btn_call" />
+
+</RelativeLayout>

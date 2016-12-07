@@ -72,7 +72,7 @@
         android:layout_below="@+id/end_main_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:contentDescription="@string/desc"/>
+        android:contentDescription="@string/describe_town"/>
 
     <Button
         android:text="@string/home_map_hidden_sport"
@@ -80,13 +80,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/sport_btn"
         style="@style/Widget.AppCompat.Button.Small"
-        android:visibility="invisible"
         android:layout_marginTop="32dp"
         android:layout_alignTop="@+id/main_image"
         android:layout_toRightOf="@+id/login_but"
         android:layout_toEndOf="@+id/login_but"
         android:layout_marginLeft="25dp"
         android:layout_marginStart="25dp" />
+
+    <Button
+        android:text="@string/home_map_hidden_lservices"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/lServices_btn"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/sport_btn"
+        android:layout_toRightOf="@+id/sport_btn"
+        android:layout_toEndOf="@+id/sport_btn" />
 
 
 </RelativeLayout>
