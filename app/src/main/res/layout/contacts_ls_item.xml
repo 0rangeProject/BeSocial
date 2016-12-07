@@ -43,7 +43,7 @@
         android:layout_marginStart="22dp" />
 
     <ImageButton
-        android:layout_width="40dp"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/call_icon"
         android:id="@+id/img_btn_call"
