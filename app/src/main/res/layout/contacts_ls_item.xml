@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_ls_name"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp"
+        tools:ignore="RelativeOverlap"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/contact_location"
+        android:layout_below="@+id/contact_ls_name"
+        android:layout_alignLeft="@+id/contact_ls_name"
+        android:layout_alignStart="@+id/contact_ls_name" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/envelop"
+        android:id="@+id/img_btn_sms"
+        android:contentDescription="@string/describe_sms_pic"
+        android:layout_alignTop="@+id/contact_ls_name"
+        android:layout_toRightOf="@+id/contact_ls_name"
+        android:layout_toEndOf="@+id/contact_ls_name"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/call_icon"
+        android:id="@+id/img_btn_call"
+        android:contentDescription="@string/describe_call_pic"
+        android:layout_alignBottom="@+id/img_btn_sms"
+        android:layout_toRightOf="@+id/img_btn_sms"
+        android:layout_toEndOf="@+id/img_btn_sms" />
+
+</RelativeLayout>

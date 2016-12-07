@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView loginField, contents;
 
-    private Button loginButton, logoutButton, carpoolingButton, publicEventsButton, sportButton;
+    private Button loginButton, logoutButton, carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
 
     /** The identity manager used to keep track of the current user account. */
@@ -77,8 +77,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         publicEventsButton = (Button)findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
 
-        sportButton = (Button) findViewById( R.id.sport_btn);
+        sportButton = (Button) findViewById(R.id.sport_btn);
         sportButton.setOnClickListener(this);
+
+        littleServicesButton = (Button) findViewById(R.id.lServices_btn);
+        littleServicesButton.setOnClickListener(this);
 
         loginField = (TextView) findViewById(R.id.login);
     }
@@ -234,6 +237,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     PurposeActivity.class);
             startActivity(intent);
         }
+
+       if (view == littleServicesButton) {
+                Intent intent = new Intent(MainActivity.this,
+                        LittleServicesActivity.class);
+                startActivity(intent);
+            }
     }
 
     //*************AWS push notification part start************
