@@ -13,8 +13,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
+
+import java.util.ArrayList;
 
 /**
  * Created by agathe on 05/12/16.
@@ -22,9 +25,11 @@ import com.olab.smplibrary.SMPLibrary;
 
 public class PotentialCarpoolersActivity extends AppCompatActivity {
 
-        Context context;
+    private static final String LOG_TAG = "CarpoolersActivity";
+    Context context;
         TextView view_test, view_test_1;
         public int pageNumber;
+        public ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +38,11 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
 
             Bundle extras = getIntent().getExtras();
 
-            if (extras != null)
+            if (extras != null) {
                 pageNumber = extras.getInt("pageNumber");
+                travels = extras.getParcelableArrayList("travels");
+                Log.i(LOG_TAG, "pageNumber = " + pageNumber);
+            }
 
             // Set toolbar
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
@@ -47,7 +55,12 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
 
             if (savedInstanceState == null) {
-                getFragmentManager().beginTransaction().add(R.id.container, new PotentialCarpoolersFragment()).commit();
+                Bundle args = new Bundle();
+                args.putInt("pageNumber", pageNumber);
+                args.putParcelableArrayList("travels", travels);
+                PotentialCarpoolersFragment pcf = new PotentialCarpoolersFragment();
+                pcf.setArguments(args);
+                getFragmentManager().beginTransaction().add(R.id.container, pcf).commit();
             }
         }
 
