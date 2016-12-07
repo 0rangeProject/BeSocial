@@ -31,7 +31,6 @@ import com.amazonaws.AmazonClientException;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.LittleServicesActivity;
-import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 import java.util.UUID;
