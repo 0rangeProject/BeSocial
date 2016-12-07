@@ -74,7 +74,8 @@
         <activity
             android:name=".carpooling.PurposeActivity"
             android:label="@string/title_activity_purpose"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".events.PublicEventsActivity"
             android:parentActivityName=".MainActivity"></activity>
