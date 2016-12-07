@@ -62,17 +62,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Initializes the sign-in and sign-out buttons.
      */
     private void setupButtons() {
-        logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
-        logoutButtonGoogle.setOnClickListener(this);
+        //logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
+        //logoutButtonGoogle.setOnClickListener(this);
 
         carpoolingButton = (Button) findViewById(R.id.carpooling_but) ;
         carpoolingButton.setOnClickListener(this);
 
-        loginButton = (Button) findViewById(R.id.login_but) ;
-        loginButton.setOnClickListener(this);
+       // loginButton = (Button) findViewById(R.id.login_but) ;
+       // loginButton.setOnClickListener(this);
 
-        logoutButton = (Button) findViewById(R.id.logout_but);
-        logoutButton.setOnClickListener(this);
+      //  logoutButton = (Button) findViewById(R.id.logout_but);
+       // logoutButton.setOnClickListener(this);
 
         publicEventsButton = (Button)findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sportButton = (Button) findViewById( R.id.sport_btn);
         sportButton.setOnClickListener(this);
 
-        loginField = (TextView) findViewById(R.id.login);
+       // loginField = (TextView) findViewById(R.id.login);
     }
 
     //*************AWS push notification part end**************
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(myToolbar);
 
         //*************AWS push notification part start************
-        enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
+       // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
         // Obtain a reference to the mobile client. It is created in the Application class,
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);

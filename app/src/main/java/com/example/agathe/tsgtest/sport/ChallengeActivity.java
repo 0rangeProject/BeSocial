@@ -24,8 +24,8 @@ public class ChallengeActivity extends AppCompatActivity {
         //  setup layout and its elements
         setContentView(R.layout.sport_challenge);
         context = this;
-        challenge_texte = (TextView) findViewById( R.id.login);
-        btn_challenge = (Button) findViewById( R.id.logout_but) ;
+       // challenge_texte = (TextView) findViewById( R.id.login);
+        //btn_challenge = (Button) findViewById( R.id.logout_but) ;
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
