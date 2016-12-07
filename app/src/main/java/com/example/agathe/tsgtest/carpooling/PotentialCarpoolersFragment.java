@@ -46,8 +46,8 @@ public class PotentialCarpoolersFragment extends Fragment {
     }
 
     private CardsAdapterCarpooling createAdapter() {
-        ArrayList<String> itemsName = new ArrayList<String>();
-        ArrayList<String> itemsRelation = new ArrayList<String>();
+        ArrayList<String> itemsName = new ArrayList<>();
+        ArrayList<String> itemsRelation = new ArrayList<>();
 
         for (int i = 0; i < travels.size(); i++) {
             itemsName.add(travels.get(pageNumber).users.get(i).name);
@@ -66,7 +66,8 @@ public class PotentialCarpoolersFragment extends Fragment {
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                     String phoneNumber = travels.get(pageNumber).users.get(i).phoneNumber;
                     smsIntent.putExtra("address", phoneNumber);
-                    smsIntent.putExtra("sms_body","Hello, I saw we often do the same trajects, from ... to ... Are you interested by carpooling together ?");
+                    smsIntent.putExtra("sms_body","Hello, I saw thatwe often do the same trajects, from "
+                            + travels.get(pageNumber).departure + " to " + travels.get(pageNumber).destination + ". Are you interested by carpooling together ?");
                     smsIntent.setData(Uri.parse("smsto:" + phoneNumber));
                     startActivity(smsIntent);
                 }

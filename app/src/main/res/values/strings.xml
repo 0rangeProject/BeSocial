@@ -1,23 +1,7 @@
 <resources>
     <string name="app_name">Orange Social Services</string>
-    //Map Home
-    <string name="home_orange">ORANGE</string>
-    <string name="home_map_enjoy">Enjoy all town possibilities with</string>
-    <string name="home_map_login">LOGIN</string>
-    <string name="home_map_not_login">Not Logged In</string>
-    <string name="home_map_logout">LOGOUT</string>
-    <string name="home_map_hidden_sport">sport</string>
-    <string name="home_map_hidden_lservices">ls</string>
-    <string name="describe_town">town picture</string>
 
-    //Side menu
-    <string name="drawer_open">Open menu</string>
-    <string name="drawer_close">Close menu</string>
-    <string name="menu_settings">Settings</string>
-    <string name="menu_challenge">Challenge a friend !</string>
-
-    //Sport Home
-    //descriptions
+    <!-- Descriptions -->
     <string name="describe_steps">steps feet</string>
     <string name="describe_challenge">challenge pic</string>
     <string name="describe_time_pic">time picture</string>
@@ -28,13 +12,15 @@
     <string name="start_running">Start a running session</string>
     <string name="steps_text">You did </string>
     <string name="duration_text">Your time is </string>
-    //buttons text
+
+    <!-- Buttons text -->
     <string name="start_chrono">Start chronometer</string>
     <string name="stop_chrono">Stop</string>
     <string name="save_sport">Save performance </string>
     <string name="send_sms_challenge">Send SMS </string>
     <string name="step_counter">android.hardware.sensor.stepcounter</string>
     <string name="step_detector">android.hardware.sensor.stepdetector</string>
+
     <!-- Home -->
     <string name="button_text_sign_out">Sign out from Google</string>
     <string name="button_login">Login</string>
@@ -46,22 +32,18 @@
     <string name="sport_menu">Sport</string>
     <string name="carpooling_menu">Carpooling</string>
     <string name="public_events_menu">Public events</string>
+    <string name="home_map_hidden_sport">sport</string>
+    <string name="home_map_hidden_lservices">ls</string>
 
     <!--Sport Home -->
     <string name="desc">description</string>
-    <string name="duration_text">Your course duration is  </string>
-    <string name="steps_text">You did steps today ! </string>
     <string name="challenge_text">Challenge a friend !</string>
 
-    //Sport Challenge
-    <string name="challenge_text">Challenge a friend !</string>
-
-    //Little Services
+    <!--Little Services -->
     <string name="little_services">LTTLE SERVICES</string>
     <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
-    <string name="app_name">Be Social</string>
 
     <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>

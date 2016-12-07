@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".LittleServicesActivity"
+            android:name=".sport.LittleServicesActivity"
             android:label="Orange Little Services"
             android:theme="@style/AppTheme" >
         </activity>
@@ -76,7 +76,8 @@
             android:label="@string/title_activity_purpose"
             android:theme="@style/AppTheme"></activity>
         <activity
-            android:name=".events.PublicEventsActivity"></activity>
+            android:name=".events.PublicEventsActivity"
+            android:parentActivityName=".MainActivity"></activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

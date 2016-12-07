@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,7 +29,7 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
-import com.example.agathe.tsgtest.sport.SportActivity;
+import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //  Setup layout and its elements
         setContentView(R.layout.activity_main);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -154,6 +157,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         identityManager = awsMobileClient.getIdentityManager();
 
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_disconnect:
+                SMPLibrary.Logout();
+                return true;
+
+            case R.id.action_about:
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
+                builder.setPositiveButton(R.string.dialog_ok, null);
+                builder.setIcon(R.mipmap.ic_launcher);
+
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     @Override
@@ -228,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        SportActivity.class);
+                        FirstSportActivity.class);
                 startActivity(intent);
         }
 

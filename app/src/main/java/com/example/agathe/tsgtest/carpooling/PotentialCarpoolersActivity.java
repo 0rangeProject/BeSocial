@@ -26,8 +26,6 @@ import java.util.ArrayList;
 public class PotentialCarpoolersActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "CarpoolersActivity";
-    Context context;
-        TextView view_test, view_test_1;
         public int pageNumber;
         public ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
 
@@ -48,12 +46,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
             setSupportActionBar(myToolbar);
 
-            // Get a support ActionBar corresponding to this toolbar
-            ActionBar ab = getSupportActionBar();
-
-            // Enable the Up button
-            ab.setDisplayHomeAsUpEnabled(true);
-
             if (savedInstanceState == null) {
                 Bundle args = new Bundle();
                 args.putInt("pageNumber", pageNumber);
@@ -61,38 +53,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
                 PotentialCarpoolersFragment pcf = new PotentialCarpoolersFragment();
                 pcf.setArguments(args);
                 getFragmentManager().beginTransaction().add(R.id.container, pcf).commit();
-            }
-        }
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.card_layout, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_disconnect:
-                    SMPLibrary.Logout();
-                    refresh();
-                    return true;
-
-                case R.id.action_about:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
-                    builder.setPositiveButton(R.string.dialog_ok, null);
-                    builder.setIcon(R.mipmap.ic_launcher);
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    return true;
-
-                default:
-                    // If we got here, the user's action was not recognized.
-                    // Invoke the superclass to handle it.
-                    return super.onOptionsItemSelected(item);
-
             }
         }
 
