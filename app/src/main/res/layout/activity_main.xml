@@ -12,8 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:navigationIcon="@drawable/ic_drawer_home"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
         <TextView
@@ -38,26 +37,10 @@
             android:layout_height="wrap_content"
             android:text="@string/button_text_sign_out"
             android:id="@+id/button_signout"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:text="@string/button_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_but"
-            android:layout_below="@+id/button_signout"
-            android:layout_toRightOf="@+id/end_main_title"
-            android:layout_toEndOf="@+id/end_main_title" />
-
-        <Button
-            android:text="@string/button_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logout_but"
-            android:layout_below="@+id/button_signout"
-            android:layout_toRightOf="@+id/login_but" />
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/enable_push_checkbox"
+            android:layout_toLeftOf="@+id/enable_push_checkbox" />
 
         <TextView
             android:text="@string/title_orange"
@@ -83,6 +66,53 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/town_image"
+            android:layout_below="@+id/end_main_title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="@string/sport_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sport_btn"
+            android:layout_marginRight="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_alignBaseline="@+id/carpooling_but"
+            android:layout_alignBottom="@+id/carpooling_but"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:text="@string/public_events_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pevents_button"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/carpooling_but"
+            android:layout_toStartOf="@+id/carpooling_but" />
+
+        <Button
+            android:text="@string/carpooling_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/carpooling_but"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/sport_btn"
+            android:layout_toStartOf="@+id/sport_btn" />
+
+        <CheckBox
+            android:text="@string/enable_push_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enable_push_checkbox"
+            android:layout_above="@+id/sport_btn"
+            android:layout_alignRight="@+id/sport_btn"
+            android:layout_alignEnd="@+id/sport_btn" />
+
         <TextView
             android:text="@string/not_logged_in"
             android:layout_width="wrap_content"
@@ -92,57 +122,28 @@
             android:textSize="15sp"
             android:gravity="center_vertical"
             android:layout_below="@+id/login_but"
-            android:layout_alignRight="@+id/logout_but"
-            android:layout_alignEnd="@+id/logout_but" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/town_image"
-            android:layout_below="@+id/end_main_title"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <CheckBox
-            android:text="@string/enable_push_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/enable_push_checkbox"
-            android:layout_below="@+id/main_title"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_toRightOf="@+id/pevents_button"
+            android:layout_toEndOf="@+id/pevents_button" />
 
         <Button
-            android:text="@string/carpooling_menu"
+            android:text="@string/button_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/carpooling_but"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/login"
-            android:layout_alignEnd="@+id/login"
-            android:layout_marginRight="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="71dp" />
+            android:id="@+id/logout_but"
+            android:layout_above="@+id/login"
+            android:layout_alignRight="@+id/enable_push_checkbox"
+            android:layout_alignEnd="@+id/enable_push_checkbox"
+            android:layout_alignParentTop="true" />
 
         <Button
-            android:text="@string/sport_menu"
+            android:text="@string/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/sport_btn"
-            android:layout_below="@+id/enable_push_checkbox"
-            android:layout_alignLeft="@+id/enable_push_checkbox"
-            android:layout_alignStart="@+id/enable_push_checkbox"
-            android:layout_marginTop="18dp" />
-
-        <Button
-            android:text="@string/public_events_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pevents_button"
-            android:layout_alignBaseline="@+id/carpooling_but"
-            android:layout_alignBottom="@+id/carpooling_but"
-            android:layout_toLeftOf="@+id/carpooling_but"
-            android:layout_toStartOf="@+id/carpooling_but" />
+            android:id="@+id/login_but"
+            android:layout_alignBottom="@+id/button_signout"
+            android:layout_toLeftOf="@+id/logout_but"
+            android:layout_toStartOf="@+id/logout_but"
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 </LinearLayout>

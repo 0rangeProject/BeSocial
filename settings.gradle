@@ -1,1 +1,1 @@
-include ':app', ':smp-lib'
+include ':app', ':smp-lib', ':nineoldandroids-library-2.4.0', ':swipelistview-release-dec8'

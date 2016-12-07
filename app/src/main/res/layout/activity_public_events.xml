@@ -5,10 +5,12 @@
     android:id="@+id/activity_public_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.agathe.tsgtest.PublicEventsActivity">
+    android:fitsSystemWindows="true"
+    tools:context="com.example.agathe.tsgtest.events.PublicEventsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="170dp">
 
@@ -16,11 +18,11 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:expandedTitleMarginEnd="64dp"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:statusBarScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/coll_toolbar_image"
@@ -51,24 +53,12 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/container"
-        android:orientation="vertical"
+    <ListView
+        android:id="@+id/my_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <ListView
-            android:id="@+id/cards_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="10dp"
-            android:padding="10dp"
-            android:scrollbarStyle="outsideOverlay"
-            tools:listitem="@layout/list_item_card" />
-    </LinearLayout>
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -76,7 +66,7 @@
         android:clickable="true"
         app:fabSize="normal"
         android:src="@drawable/ic_add_white"
-        app:layout_anchor="@id/container"
+        app:layout_anchor="@id/my_list"
         app:layout_anchorGravity="bottom|right"
         android:id="@+id/floatingActionButton"
         android:layout_marginRight="10dp"

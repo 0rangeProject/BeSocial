@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,7 +34,6 @@ import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 import java.util.UUID;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
+        context = this;
         // Initialize the Amazon Cognito credentials provider
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
@@ -112,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //  Setup layout and its elements
-        setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         //*************AWS push notification part end**************
 
-        context = this;
+
 
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
@@ -149,9 +150,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
-
-        setContentView(R.layout.activity_main);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.card_layout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -322,4 +343,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
+
 }
