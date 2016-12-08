@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.sport;
 
 /**
  * Created by koudm on 06/12/2016.

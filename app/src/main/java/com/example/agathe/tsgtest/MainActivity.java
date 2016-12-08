@@ -38,8 +38,6 @@ import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.FirstSportActivity;
 import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
-
-import java.util.ArrayList;
 import java.util.UUID;
 
 

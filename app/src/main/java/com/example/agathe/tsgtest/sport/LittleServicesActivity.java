@@ -14,7 +14,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.agathe.tsgtest.ContactLS;
 import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.SMPLibrary;
 
