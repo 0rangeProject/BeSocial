@@ -1,43 +1,73 @@
 <resources>
 
+    <string name="app_name">Be Social</string>
+
+    <!-- Descriptions -->
+    <string name="describe_steps">steps feet</string>
+    <string name="describe_challenge">challenge pic</string>
+    <string name="describe_time_pic">time picture</string>
+    <string name="describe_runner_pic">runner avatar picture</string>
+    <string name="describe_sms_pic">sms picture</string>
+    <string name="describe_call_pic">call picture</string>
+
+    <string name="start_running">Start a running session</string>
+    <string name="steps_text">You did </string>
+    <string name="duration_text">Your time is </string>
+
+    <!-- Buttons text -->
+    <string name="start_chrono">Start chronometer</string>
+    <string name="stop_chrono">Stop</string>
+    <string name="save_sport">Save performance </string>
+    <string name="send_sms_challenge">Send SMS </string>
+    <string name="step_counter">android.hardware.sensor.stepcounter</string>
+    <string name="step_detector">android.hardware.sensor.stepdetector</string>
+
     <!-- Home -->
     <string name="button_text_sign_out">Sign out from Google</string>
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
-    <string name="title_main">ENJOY ALL TOWN POSSIBILITIES WITH</string>
-    <string name="title_orange">ORANGE</string>
+    <string name="title_main">What do you want to do with Orange ?"</string>
+    <string name="howto_text">"Click on one item below to choose between : carpooling (pink), public events(blue), sport (green) and little services(orange)."</string>
     <string name="not_logged_in">Not logged in</string>
     <string name="enable_push_checkbox">Enable Push Notification</string>
     <string name="sport_menu">Sport</string>
     <string name="carpooling_menu">Carpooling</string>
     <string name="public_events_menu">Public events</string>
+    <string name="home_map_hidden_sport">sport</string>
+    <string name="home_map_hidden_lservices">ls</string>
 
     <!--Sport Home -->
     <string name="desc">description</string>
-    <string name="duration_text">Your course duration is  </string>
-    <string name="steps_text">You did steps today ! </string>
     <string name="challenge_text">Challenge a friend !</string>
+    <string name="first_sport">Sport</string>
 
-    <!--Sport Challenge -->
-
-
-    <!--Little services -->
-    <string name="little_services">LTTLE SERVICES</string>
+    <!--Little Services -->
+    <string name="little_services">Little Services</string>
+    <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
-    <string name="app_name">TSG Test</string>
 
     <!--Public events -->
-    <string name="dialog_message">Created by Danchao GU - 2016</string>
+    <string name="dialog_message">Created by BeSocial Team - 2016</string>
     <string name="dialog_ok">OK</string>
-    <string name="list_item_left_button">View</string>
-    <string name="list_item_right_button">Interested</string>
+    <string name="list_item_left_button">Left</string>
+    <string name="list_item_right_button">Right</string>
+    <string name="filter_button1">Family, Best friends</string>
+    <string name="filter_button2">Friends</string>
+    <string name="filter_button3">Profession</string>
+    <string name="filter_button4">Known(except work relation)</string>
+    <string name="filter_button5">Known of work relation</string>
+    <string name="filter_button_reset">RESET</string>
+    <string name="filter_button_confirm">CONFIRM</string>
 
     <!--Carpooling -->
     <string name="maps_introduction">We detected you often take this path :</string>
     <string name="departure">Departure : </string>
     <string name="destination">Destination : </string>
+    <string name="list_item_button">Send message</string>
+    <string name="potential_carpoolers">Potential carpoolers</string>
 
+    <!--Titles -->
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_purpose">Carpooling</string>
     <string name="action_settings">Settings</string>
@@ -51,12 +81,8 @@
     <string name="push_demo_title">Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
 
-    <!-- Filter's buttons -->
-    <string name="filter_button1">Family, Best friends</string>
-    <string name="filter_button2">Friends</string>
-    <string name="filter_button3">Profession</string>
-    <string name="filter_button4">Known(except work relation)</string>
-    <string name="filter_button5">Known of work relation</string>
-    <string name="filter_button_reset">RESET</string>
-    <string name="filter_button_confirm">CONFIRM</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
 </resources>

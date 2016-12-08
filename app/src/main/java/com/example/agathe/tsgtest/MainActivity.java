@@ -6,8 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.LocalBroadcastManager;
 import android.content.SharedPreferences;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,8 +21,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -29,13 +35,13 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
-import com.example.agathe.tsgtest.sport.SportActivity;
-import com.olab.smplibrary.LoginResponseCallback;
+import com.example.agathe.tsgtest.sport.FirstSportActivity;
+import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
-
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     //*************AWS push notification part start************
     /** Class name for log messages. */
@@ -48,40 +54,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView loginField, contents;
 
-    private Button loginButton, logoutButton, carpoolingButton, publicEventsButton, sportButton;
+    private ImageButton carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
 
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
 
-    private Button logoutButtonGoogle;
-
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
+
+    protected DrawerLayout drawer;
 
     /**
      * Initializes the sign-in and sign-out buttons.
      */
     private void setupButtons() {
-        logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
-        logoutButtonGoogle.setOnClickListener(this);
+        //logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
+        //logoutButtonGoogle.setOnClickListener(this);
 
-        carpoolingButton = (Button) findViewById(R.id.carpooling_but) ;
+        carpoolingButton = (ImageButton) findViewById(R.id.carpooling_but) ;
         carpoolingButton.setOnClickListener(this);
 
-        loginButton = (Button) findViewById(R.id.login_but) ;
-        loginButton.setOnClickListener(this);
+       // loginButton = (Button) findViewById(R.id.login_but) ;
+       // loginButton.setOnClickListener(this);
 
-        logoutButton = (Button) findViewById(R.id.logout_but);
-        logoutButton.setOnClickListener(this);
+      //  logoutButton = (Button) findViewById(R.id.logout_but);
+       // logoutButton.setOnClickListener(this);
 
-        publicEventsButton = (Button)findViewById(R.id.pevents_button);
+        publicEventsButton = (ImageButton)findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
 
-        sportButton = (Button) findViewById( R.id.sport_btn);
+        sportButton = (ImageButton) findViewById(R.id.sport_btn);
         sportButton.setOnClickListener(this);
 
-        loginField = (TextView) findViewById(R.id.login);
+        littleServicesButton = (ImageButton) findViewById(R.id.lServices_btn);
+        littleServicesButton.setOnClickListener(this);
+
+       // loginField = (TextView) findViewById(R.id.login);
     }
 
     //*************AWS push notification part end**************
@@ -90,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this;
+
         // Initialize the Amazon Cognito credentials provider
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
@@ -113,14 +122,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("userID", userID).commit();
         }
 
-        //  Setup layout and its elements
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //*************AWS push notification part start************
-        enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
+        // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
         // Obtain a reference to the mobile client. It is created in the Application class,
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
@@ -128,9 +144,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Obtain a reference to the mobile client. It is created in the Application class.
         final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
 
-        pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
+        // pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
 
-        enablePushCheckBox.setChecked(pushManager.isPushEnabled());
+        /* enablePushCheckBox.setChecked(pushManager.isPushEnabled());
         enablePushCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,8 +154,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         //*************AWS push notification part end**************
+        */
 
-
+        context = this;
 
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
@@ -149,23 +166,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
 
-
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_layout, menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.action_disconnect:
+                SMPLibrary.Logout();
                 return true;
 
+            case R.id.action_about:
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
+                builder.setPositiveButton(R.string.dialog_ok, null);
+                builder.setIcon(R.mipmap.ic_launcher);
+
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -175,19 +215,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
 
-        /*if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
+        if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
             // In the case that the activity is restarted by the OS after the application
             // is killed we must redirect to the splash activity to handle the sign-in flow.
             Intent intent = new Intent(this, SplashActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             return;
-        }*/
+        }
 
         setupButtons();
 
@@ -204,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(final View view) {
-        if (view == logoutButtonGoogle) {
+        /*if (view == logoutButtonGoogle) {
             // The user is currently signed in with a provider. Sign out of that provider.
             identityManager.signOut();
             startActivity(new Intent(this, SignInActivity.class));
@@ -239,6 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+        */
 
         if (view == publicEventsButton) {
             Intent intent = new Intent(MainActivity.this,
@@ -248,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        SportActivity.class);
+                        FirstSportActivity.class);
                 startActivity(intent);
         }
 
@@ -256,6 +296,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this,
                     PurposeActivity.class);
             startActivity(intent);
+        }
+
+       if (view == littleServicesButton) {
+                Intent intent = new Intent(MainActivity.this,
+                        LittleServicesActivity.class);
+                startActivity(intent);
         }
     }
 
@@ -346,4 +392,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.carpooling_draw) {
+            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.ls_draw) {
+            Intent intent = new Intent(MainActivity.this, LittleServicesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.pe_draw) {
+            Intent intent = new Intent(MainActivity.this, PublicEventsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.sport_draw) {
+            Intent intent = new Intent(MainActivity.this, FirstSportActivity.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

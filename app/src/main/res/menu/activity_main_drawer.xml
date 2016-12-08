@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/carpooling_draw"
+            android:title="Carpooling"/>
+        <item android:id="@+id/ls_draw"
+            android:title="Little services" />
+        <item android:id="@+id/sport_draw"
+            android:title="Sport" />
+        <item android:id="@+id/pe_draw"
+            android:title="Public Events" />
+    </group>
+</menu>

@@ -1,6 +1,5 @@
-package com.example.agathe.tsgtest.events;
+package com.example.agathe.tsgtest.carpooling;
 
-import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,30 +11,34 @@ import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
 
+import java.util.List;
+
 /**
  * Created by DanchaoGU on 2016/11/8.
  */
 
-public class CardsAdapter extends BaseAdapter {
+public class CardsAdapterCarpooling extends BaseAdapter {
 
-    private List<String> items;
+    private List<String> itemsName;
+    private List<String> itemsRelation;
     private final OnClickListener itemButtonClickListener;
     private final Context context;
 
-    public CardsAdapter(Context context, List<String> items, OnClickListener itemButtonClickListener) {
+    public CardsAdapterCarpooling(Context context, List<String> itemsName, List<String> itemsRelation, OnClickListener itemButtonClickListener) {
         this.context = context;
-        this.items = items;
+        this.itemsName = itemsName;
+        this.itemsRelation = itemsRelation;
         this.itemButtonClickListener = itemButtonClickListener;
     }
 
     @Override
     public int getCount() {
-        return items.size();
+        return itemsName.size();
     }
 
     @Override
     public String getItem(int position) {
-        return items.get(position);
+        return itemsName.get(position);
     }
 
     @Override
@@ -49,32 +52,32 @@ public class CardsAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_card, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_card_carpooling, null);
 
             holder = new ViewHolder();
-            holder.itemText = (TextView) convertView.findViewById(R.id.list_item_card_text);
-            holder.itemButton1 = (Button) convertView.findViewById(R.id.list_item_card_button_1);
-            holder.itemButton2 = (Button) convertView.findViewById(R.id.list_item_card_button_2);
+            holder.itemName = (TextView) convertView.findViewById(R.id.name);
+            holder.itemRelation = (TextView) convertView.findViewById(R.id.type_of_relation);
+            holder.itemButton = (Button) convertView.findViewById(R.id.list_item_card_button);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.itemText.setText(items.get(position));
+        holder.itemName.setText(itemsName.get(position));
+        holder.itemRelation.setText(itemsRelation.get(position));
 
         if (itemButtonClickListener != null) {
-            holder.itemButton1.setOnClickListener(itemButtonClickListener);
-            holder.itemButton2.setOnClickListener(itemButtonClickListener);
+            holder.itemButton.setOnClickListener(itemButtonClickListener);
         }
 
         return convertView;
     }
 
     private static class ViewHolder {
-        private TextView itemText;
-        private Button itemButton1;
-        private Button itemButton2;
+        private TextView itemName;
+        private TextView itemRelation;
+        private Button itemButton;
     }
 
 }

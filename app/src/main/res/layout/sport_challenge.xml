@@ -4,7 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/black_background">
+    android:background="@drawable/background_allee">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_toolbar_challenge"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Challenge"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:layout_width="80dp"
@@ -12,10 +30,30 @@
         app:srcCompat="@drawable/sport_challenge"
         android:id="@+id/challengeImg"
         android:layout_gravity="end"
-        android:contentDescription="@string/desc"
+        android:contentDescription="@string/describe_challenge"
         android:adjustViewBounds="true"
         android:layout_marginTop="28dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/challenge_text"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:background="@color/colorGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/see_challenge"
+        android:layout_below="@+id/challengeImg"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/see_challenge"
+        android:layout_marginTop="82dp"
+        android:id="@+id/challenge_contact_list"/>
+
 
 </RelativeLayout>

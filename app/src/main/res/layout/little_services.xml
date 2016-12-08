@@ -2,39 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/black_background">
+    android:background="@color/colorWhite">
 
-    <TextView
-        android:text="@string/little_services"
-        android:textColor="@color/colorOrange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:id="@+id/little_services_tittle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_toolbar_little_services"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-    <Button
-        android:text="@string/send_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="79dp"
-        android:id="@+id/btn_send_message_little_services"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/little_service_text"
-        android:layout_alignStart="@+id/little_service_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:text="@string/little_services"/>
 
-    <Button
-        android:text="@string/call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_send_message_little_services"
-        android:layout_alignRight="@+id/little_service_text"
-        android:layout_alignEnd="@+id/little_service_text"
-        android:id="@+id/btn_call_little_services" />
+    </android.support.v7.widget.Toolbar>
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,7 +30,30 @@
         android:background="@color/colorGray"
         android:id="@+id/little_service_text"
         android:textAppearance="@android:style/TextAppearance.Widget.PopupMenu.Large"
-        android:layout_below="@+id/little_services_tittle"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/little_services_description"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="17dp"
+        android:id="@+id/ls_contact_list"
+        android:layout_below="@+id/little_service_text"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/ls_description"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/little_services_description"
+        android:layout_below="@+id/my_toolbar_little_services"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
