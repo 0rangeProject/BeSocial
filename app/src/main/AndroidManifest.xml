@@ -28,7 +28,6 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -48,24 +47,25 @@
         </activity>
 
         <activity
-            android:name=".FirstSportActivity"
-            android:label="SPORT"
-            android:theme="@style/AppTheme" >
+            android:name=".sport.FirstSportActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
         </activity>
 
         <activity
             android:name=".sport.ChallengeActivity"
-            android:label="SPORT"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".sport.FirstSportActivity">
         </activity>
 
         <activity
             android:name=".sport.LittleServicesActivity"
-            android:label="Orange Little Services"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
         </activity>
 
-        <activity android:name=".carpooling.PotentialCarpoolersActivity"></activity>
+        <activity android:name=".carpooling.PotentialCarpoolersActivity"
+            android:parentActivityName=".carpooling.PurposeActivity"></activity>
         <activity android:name=".carpooling.ServerMainActivity"></activity>
         <activity android:name=".carpooling.AuthorizationActivity"></activity>
         <activity android:name=".SignInActivity"></activity>
@@ -73,7 +73,6 @@
         <activity android:name=".carpooling.MapsActivity" />
         <activity
             android:name=".carpooling.PurposeActivity"
-            android:label="@string/title_activity_purpose"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity"></activity>
         <activity

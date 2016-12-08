@@ -2,7 +2,9 @@ package com.example.agathe.tsgtest.sport;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +31,16 @@ public class ChallengeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //  setup layout and its elements
         setContentView(R.layout.sport_challenge);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_challenge);
+        setSupportActionBar(myToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
         context = this;
         challenge_texte = (TextView) findViewById( R.id.see_challenge);
         img_challenge = (ImageView) findViewById(R.id.challengeImg);

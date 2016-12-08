@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
@@ -37,6 +38,8 @@ public class PotentialCarpoolersFragment extends Fragment {
         pageNumber = getArguments().getInt("pageNumber");
         travels = getArguments().getParcelableArrayList("travels");
         setupList();
+        //TextView textView = (TextView) rootView;
+        //textView.setText("Path #" + pageNumber);
         return rootView;
     }
 

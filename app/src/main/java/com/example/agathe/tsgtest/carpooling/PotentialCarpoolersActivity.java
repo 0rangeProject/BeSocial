@@ -34,7 +34,16 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_carpoolers);
 
+            Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_potential_carpoolers);
+            setSupportActionBar(toolbar);
+
             Bundle extras = getIntent().getExtras();
+
+            // Get a support ActionBar corresponding to this toolbar
+            ActionBar ab = getSupportActionBar();
+
+            // Enable the Up button
+            ab.setDisplayHomeAsUpEnabled(true);
 
             if (extras != null) {
                 pageNumber = extras.getInt("pageNumber");
@@ -61,4 +70,39 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
             Intent intent = new Intent(PotentialCarpoolersActivity.this, PotentialCarpoolersActivity.class);
             startActivity(intent);
         }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_disconnect:
+                SMPLibrary.Logout();
+                return true;
+
+            case R.id.action_about:
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
+                builder.setPositiveButton(R.string.dialog_ok, null);
+                builder.setIcon(R.mipmap.ic_launcher);
+
+                android.support.v7.app.AlertDialog dialog = builder.create();
+                dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
     }

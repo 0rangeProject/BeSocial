@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.support.v4.content.LocalBroadcastManager;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -30,6 +31,7 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
+import com.example.agathe.tsgtest.sport.FirstSportActivity;
 import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
 
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView loginField, contents;
 
-    private Button loginButton, logoutButton, carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
+    private ImageButton carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
 
     /** The identity manager used to keep track of the current user account. */
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
         //logoutButtonGoogle.setOnClickListener(this);
 
-        carpoolingButton = (Button) findViewById(R.id.carpooling_but) ;
+        carpoolingButton = (ImageButton) findViewById(R.id.carpooling_but) ;
         carpoolingButton.setOnClickListener(this);
 
        // loginButton = (Button) findViewById(R.id.login_but) ;
@@ -75,13 +77,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       //  logoutButton = (Button) findViewById(R.id.logout_but);
        // logoutButton.setOnClickListener(this);
 
-        publicEventsButton = (Button)findViewById(R.id.pevents_button);
+        publicEventsButton = (ImageButton)findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
 
-        sportButton = (Button) findViewById(R.id.sport_btn);
+        sportButton = (ImageButton) findViewById(R.id.sport_btn);
         sportButton.setOnClickListener(this);
 
-        littleServicesButton = (Button) findViewById(R.id.lServices_btn);
+        littleServicesButton = (ImageButton) findViewById(R.id.lServices_btn);
         littleServicesButton.setOnClickListener(this);
 
        // loginField = (TextView) findViewById(R.id.login);
@@ -117,14 +119,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //  Setup layout and its elements
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
 
         //*************AWS push notification part start************
         // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
@@ -147,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //*************AWS push notification part end**************
         */
 
-
         context = this;
 
         //  Library initialisation is required to be done once before any library function is called.
@@ -157,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Obtain a reference to the mobile client. It is created in the Application class,
         // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
-
 
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
