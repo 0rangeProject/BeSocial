@@ -23,34 +23,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:text="@string/stop_chrono"
-        android:background="@color/colorSoftRed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_stop_chrono"
-        android:layout_alignBaseline="@+id/btn_start_chrono"
-        android:layout_alignBottom="@+id/btn_start_chrono"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/sport_steps"
-        android:layout_marginTop="50dp"
-        android:id="@+id/img_feet"
-        android:layout_below="@+id/btn_start_chrono"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:contentDescription="@string/describe_steps"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
-
     <TextView
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
@@ -59,47 +31,7 @@
         android:layout_alignBottom="@+id/img_feet"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="19dp"
-        android:id="@+id/stepscounts"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
-
-    <Button
-        android:text="@string/save_sport"
-        android:textSize="12sp"
-        android:background="@color/colorOrange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/chrono"
-        android:layout_toStartOf="@+id/chrono"
-        android:layout_marginBottom="14dp"
-        android:id="@+id/btn_save_perf"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
-
-    <Chronometer
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:textSize="30sp"
-        android:background="@color/colorGray"
-        android:id="@+id/chrono"
-        android:layout_marginTop="84dp"
-        android:layout_below="@+id/start_sport"
-        android:layout_toRightOf="@+id/btn_start_chrono"
-        android:layout_toEndOf="@+id/btn_start_chrono" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/sport_challenge"
-        android:id="@+id/img_btn_challenge"
-        android:contentDescription="@string/describe_challenge"
-        android:layout_alignBottom="@+id/btn_save_perf"
-        android:layout_alignRight="@+id/btn_stop_chrono"
-        android:layout_alignEnd="@+id/btn_stop_chrono"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
+        android:id="@+id/stepscounts" />
 
     <TextView
         android:text="@string/start_running"
@@ -112,8 +44,59 @@
         android:background="@color/colorGray"
         android:layout_marginTop="32dp"
         android:layout_below="@+id/my_toolbar_first_sport"
-        android:layout_alignLeft="@+id/btn_save_perf"
-        android:layout_alignStart="@+id/btn_save_perf" />
+        android:layout_alignLeft="@+id/btn_start_chrono"
+        android:layout_alignStart="@+id/btn_start_chrono"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:textSize="30sp"
+        android:background="@color/colorGray"
+        android:id="@+id/chrono"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/start_sport"
+        android:layout_alignRight="@+id/stepscounts"
+        android:layout_alignEnd="@+id/stepscounts" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/sport_challenge"
+        android:id="@+id/img_btn_challenge"
+        android:contentDescription="@string/describe_challenge"
+        android:layout_below="@+id/stepscounts"
+        android:layout_alignRight="@+id/btn_stop_chrono"
+        android:layout_alignEnd="@+id/btn_stop_chrono"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:text="@string/save_sport"
+        android:textSize="12sp"
+        android:background="@color/colorOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_save_perf"
+        android:layout_alignBottom="@+id/img_btn_challenge"
+        android:layout_toLeftOf="@+id/img_btn_challenge"
+        android:layout_toStartOf="@+id/img_btn_challenge"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp" />
+
+    <Button
+        android:text="@string/stop_chrono"
+        android:background="@color/colorSoftRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_stop_chrono"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_alignBaseline="@+id/btn_start_chrono"
+        android:layout_alignBottom="@+id/btn_start_chrono"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="@string/start_chrono"
@@ -121,10 +104,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_start_chrono"
-        android:layout_marginTop="60dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:layout_below="@+id/chrono"
-        android:layout_alignRight="@+id/stepscounts"
-        android:layout_alignEnd="@+id/stepscounts" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/sport_steps"
+        android:layout_marginTop="53dp"
+        android:id="@+id/img_feet"
+        android:contentDescription="@string/describe_steps"
+        android:layout_below="@+id/btn_start_chrono"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp" />
 </RelativeLayout>
