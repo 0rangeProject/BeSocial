@@ -24,18 +24,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="96dp"
-        app:srcCompat="@drawable/sport_challenge"
-        android:id="@+id/challengeImg"
-        android:layout_gravity="end"
-        android:contentDescription="@string/describe_challenge"
-        android:adjustViewBounds="true"
-        android:layout_marginTop="28dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:text="@string/challenge_text"
         android:textColor="@color/colorWhite"
@@ -54,6 +42,17 @@
         android:layout_below="@+id/see_challenge"
         android:layout_marginTop="82dp"
         android:id="@+id/challenge_contact_list"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="96dp"
+        app:srcCompat="@drawable/sport_challenge"
+        android:id="@+id/challengeImg"
+        android:layout_gravity="end"
+        android:contentDescription="@string/describe_challenge"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/my_toolbar_challenge"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
