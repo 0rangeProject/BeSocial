@@ -76,6 +76,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="identity_demo_text_view_description">Displays the user identity.</string>
+    <string name="unknown_user">Guest User</string>
+    <string name="user_id">USER IDENTIFIER</string>
+    <string name="identity_demo_textview_username_description">User\'s name</string>
+    <string name="identity_demo_textview_userid_description">User\'s unique identifier</string>
+    <string name="identity_demo_unknown_identity_text">&lt;UNKNOWN IDENTITY&gt;</string>
+    <string name="identity_demo_dialog_dismiss_text">DISMISS</string>
+    <string name="identity_demo_error_dialog_title">Failed Identity Retrieval</string>
+    <string name="identity_demo_error_message_failed_get_identity">Could not retrieve the user identity:\u0020</string>
+
 
     <!-- Filter's buttons -->
     <string name="filter_button1">Family, Best friends</string>

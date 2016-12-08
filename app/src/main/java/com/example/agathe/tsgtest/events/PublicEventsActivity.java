@@ -45,9 +45,6 @@ public class PublicEventsActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_pe);
         setSupportActionBar(myToolbar);
 
-        cardsList = (ListView) findViewById(R.id.cards_list);
-        setupList();
-
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
