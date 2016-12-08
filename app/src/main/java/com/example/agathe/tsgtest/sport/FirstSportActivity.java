@@ -90,7 +90,6 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
             @Override
             public void onClick(View view) {
                 chrono.stop();
-
             }
         });
         //  setup save day,steps and chronometer time button.
@@ -100,6 +99,7 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
                 //save
                 //and reset the chronometer
                 chrono.setBase(SystemClock.elapsedRealtime());
+                steps.setText("You did 0 steps");
             }
         });
         img_feet.setImageResource(R.drawable.sport_steps);
@@ -165,17 +165,14 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
         float[] values = event.values;
         int value = -1;
 
-        if (values.length > 0) {
-            value = (int) values[0];
-        }
-        while (chrono.isActivated()) {
-            if (sensor.getType() == TYPE_STEP_COUNTER) {
-                steps.setText("You did " + value + "steps !");
-            } /**else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
+        if (values.length > 0) {value = (int) values[0];}
+        if (sensor.getType() == TYPE_STEP_COUNTER) {
+                steps.setText("You did " + value + " steps ");
+        } /**else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
                 // For test only. Only allowed value is 1.0 i.e. for step taken
                 steps.setText("Step Detector Detected : " + value);
-            }**/
-        }
+         }**/
+
     }
 
     @Override
@@ -183,10 +180,11 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
 
     }
 
+    @Override
     protected void onStop() {
         super.onStop();
-      /**  mSensorManager.unregisterListener(this, mStepCounterSensor);
+        mSensorManager.unregisterListener(this, mStepCounterSensor);
         mSensorManager.unregisterListener(this, mStepDetectorSensor);
-        **/
+
     }
 }
