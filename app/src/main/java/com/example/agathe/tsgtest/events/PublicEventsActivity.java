@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,9 @@ import java.util.ArrayList;
 public class PublicEventsActivity extends AppCompatActivity {
 
     Context context;
-    private ListView mylist;
+    RecyclerView mylist;
+    CheckBox filter_button1, filter_button2, filter_button3, filter_button4, filter_button5;
+    Button filter_button_reset, filter_button_confirm;
     //TextView view_test, view_test_1;
 
 
@@ -45,12 +51,23 @@ public class PublicEventsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
-        mylist = (ListView) findViewById(R.id.my_list);
-        setupList();
-
         context = this;
+
+        //filter
+        filter_button1 = (CheckBox) findViewById(R.id.filter_button1);
+        filter_button2 = (CheckBox) findViewById(R.id.filter_button2);
+        filter_button3 = (CheckBox) findViewById(R.id.filter_button3);
+        filter_button4 = (CheckBox) findViewById(R.id.filter_button4);
+        filter_button5 = (CheckBox) findViewById(R.id.filter_button5);
+        filter_button_reset = (Button) findViewById(R.id.filter_button_reset);
+        filter_button_confirm = (Button) findViewById(R.id.filter_button_confirm);
+        filter_button_reset.getBackground().setAlpha(255);
+        filter_button_confirm.getBackground().setAlpha(255);
+        //list
+        mylist = (RecyclerView) findViewById(R.id.my_list);
+        mylist.setHasFixedSize(true);
+        mylist.setLayoutManager(new LinearLayoutManager(this));//这里用线性显示 类似于listview
+        mylist.setAdapter(createAdapter());
         /*view_test = (TextView) findViewById( R.id.pe_view_test);
         view_test_1 = (TextView) findViewById( R.id.pe_view_test_1);
         String test_output = "Logged as: " + SMPLibrary.LoggedUserName();
@@ -120,18 +137,19 @@ public class PublicEventsActivity extends AppCompatActivity {
     }
 
     /************* list card ****************/
-    private void setupList() {
+    private EventListAdapter createAdapter() {
+        ArrayList<ListItem> items = new ArrayList<ListItem>();
+        for (int i = 0; i < 10; i++) {
+            items.add(i, new ListItem("New event title "+i,"Place: Urbawood","Time: 12/12/2016","event_example",false));
+        }
+        return new EventListAdapter(this, items);
+    }
+    /*private void setupList() {
         mylist.setAdapter(createAdapter());
         mylist.setOnItemClickListener(new ListItemClickListener());
     }
 
-    private EventListAdapter createAdapter() {
-        ArrayList<ListItem> items = new ArrayList<ListItem>();
-        for (int i = 0; i < 10; i++) {
-            items.add(i, new ListItem("New events title "+i,"Place: Urbawood","Time: 12/12/2016","event_example.jpg",false));
-        }
-        return new EventListAdapter(this, items, new ListItemButtonClickListener());
-    }
+
 
     private final class ListItemButtonClickListener implements View.OnClickListener {
         @Override
@@ -153,6 +171,6 @@ public class PublicEventsActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Toast.makeText(context, "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 }

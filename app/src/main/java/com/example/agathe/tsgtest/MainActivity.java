@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //  Setup layout and its elements
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         //*************AWS push notification part start************
         enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);

@@ -51,4 +51,12 @@
     <string name="push_demo_title">Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
 
+    <!-- Filter's buttons -->
+    <string name="filter_button1">Family, Best friends</string>
+    <string name="filter_button2">Friends</string>
+    <string name="filter_button3">Profession</string>
+    <string name="filter_button4">Known(except work relation)</string>
+    <string name="filter_button5">Known of work relation</string>
+    <string name="filter_button_reset">RESET</string>
+    <string name="filter_button_confirm">CONFIRM</string>
 </resources>

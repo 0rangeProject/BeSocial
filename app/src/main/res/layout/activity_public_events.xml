@@ -12,7 +12,7 @@
         android:id="@+id/appbar"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="170dp">
+        android:layout_height="230dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -24,17 +24,95 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:id="@+id/coll_toolbar_image"
-                app:layout_collapseParallaxMultiplier="0.6"
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:scaleType="fitXY"
-                android:background="@color/colorPrimary"
-                app:layout_collapseMode="parallax" />
+                android:layout_height="wrap_content"
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"/>
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:layout_gravity="center_horizontal">
+
+                    <CheckBox
+                        android:text="@string/filter_button1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button1"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                    <CheckBox
+                        android:text="@string/filter_button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button2"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button3"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button4"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button5"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                </GridLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:text="@string/filter_button_reset"
+                        android:id="@+id/filter_button_reset"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"/>
+
+                    <Button
+                        android:text="@string/filter_button_confirm"
+                        android:id="@+id/filter_button_confirm"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <android.support.v7.widget.Toolbar
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/my_toolbar_pe"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -50,15 +128,17 @@
                     android:textColor="#FFFFFF" />
             </android.support.v7.widget.Toolbar>
 
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/my_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </ListView>
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
