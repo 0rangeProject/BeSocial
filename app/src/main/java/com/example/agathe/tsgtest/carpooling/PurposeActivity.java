@@ -76,7 +76,7 @@ public class PurposeActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(0).setText("Path #1");
         mTabLayout.getTabAt(1).setText("Path #2");
-        mTabLayout.getTabAt(2).setText("Path #");
+        mTabLayout.getTabAt(2).setText("Path #3");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

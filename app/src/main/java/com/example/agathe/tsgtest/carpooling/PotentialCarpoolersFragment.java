@@ -38,8 +38,6 @@ public class PotentialCarpoolersFragment extends Fragment {
         pageNumber = getArguments().getInt("pageNumber");
         travels = getArguments().getParcelableArrayList("travels");
         setupList();
-        //TextView textView = (TextView) rootView;
-        //textView.setText("Path #" + pageNumber);
         return rootView;
     }
 
