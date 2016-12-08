@@ -93,10 +93,10 @@ public class LittleServicesActivity extends AppCompatActivity {
 
     private List<ContactLS>  genererContact(){
         List<ContactLS> contacts = new ArrayList<ContactLS>();
-        contacts.add(new ContactLS("Sarah Liousse", "Very closed (around 10km)"));
+        contacts.add(new ContactLS("Sarah Liousse", "Close Friend (around 10km)"));
         contacts.add(new ContactLS("Arthur Dubois", "Known (around 50km)"));
         contacts.add(new ContactLS("Martin Delarre", "Known (around 300km)"));
-        contacts.add(new ContactLS("Lili Rose", "New known (around 200km)"));
+        contacts.add(new ContactLS("Lili Rose", "New Friend (around 200km)"));
 
         return contacts;
     }
