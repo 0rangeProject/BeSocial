@@ -1,43 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_public_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.example.agathe.tsgtest.events.PublicEventsActivity">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/my_toolbar_pe"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        android:layout_height="230dp">
 
-        <TextView
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pe_toolbar_title"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF" />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    </android.support.v7.widget.Toolbar>
-    <TextView
-        android:id="@+id/pe_view_test"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-    <TextView
-        android:id="@+id/pe_view_test_1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"/>
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:layout_gravity="center_horizontal">
+
+                    <CheckBox
+                        android:text="@string/filter_button1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button1"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                    <CheckBox
+                        android:text="@string/filter_button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button2"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button3"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button4"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+
+                    <CheckBox
+                        android:text="@string/filter_button5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/filter_button5"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                </GridLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Button
+                        android:text="@string/filter_button_reset"
+                        android:id="@+id/filter_button_reset"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"/>
+
+                    <Button
+                        android:text="@string/filter_button_confirm"
+                        android:id="@+id/filter_button_confirm"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dip"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/my_toolbar_pe"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pe_toolbar_title"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF" />
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.agathe.tsgtest.events.PublicEventsActivity"
-        tools:ignore="MergeRootFrame" />
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:src="@drawable/ic_add_white"
+        app:layout_anchor="@id/my_list"
+        app:layout_anchorGravity="bottom|right"
+        android:id="@+id/floatingActionButton"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
+
+</android.support.design.widget.CoordinatorLayout>
+
+

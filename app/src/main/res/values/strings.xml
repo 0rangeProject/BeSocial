@@ -49,8 +49,8 @@
     <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>
     <string name="dialog_ok">OK</string>
-    <string name="list_item_left_button">Left</string>
-    <string name="list_item_right_button">Right</string>
+    <string name="list_item_left_button">View</string>
+    <string name="list_item_right_button">Interested</string>
 
     <!--Carpooling -->
     <string name="maps_introduction">We detected you often take this path :</string>
@@ -76,4 +76,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+
+    <!-- Filter's buttons -->
+    <string name="filter_button1">Family, Best friends</string>
+    <string name="filter_button2">Friends</string>
+    <string name="filter_button3">Profession</string>
+    <string name="filter_button4">Known(except work relation)</string>
+    <string name="filter_button5">Known of work relation</string>
+    <string name="filter_button_reset">RESET</string>
+    <string name="filter_button_confirm">CONFIRM</string>
 </resources>
