@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Orange Social Services</string>
+    <string name="app_name">Be Social</string>
 
     <!-- Descriptions -->
     <string name="describe_steps">steps feet</string>
@@ -25,8 +25,8 @@
     <string name="button_text_sign_out">Sign out from Google</string>
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
-    <string name="title_main">ENJOY ALL TOWN POSSIBILITIES WITH</string>
-    <string name="title_orange">ORANGE ?</string>
+    <string name="title_main">What do you want to do with Orange ?"</string>
+    <string name="howto_text">"Click on one item below to choose between : carpooling (pink), public events(blue), sport (green) and little services(orange)."</string>
     <string name="not_logged_in">Not logged in</string>
     <string name="enable_push_checkbox">Enable Push Notification</string>
     <string name="sport_menu">Sport</string>
@@ -72,5 +72,8 @@
     <string name="pe_toolbar_title">Public Events</string>
     <string name="push_demo_title">Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>

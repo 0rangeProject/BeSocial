@@ -6,9 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
-import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.LocalBroadcastManager;
 import android.content.SharedPreferences;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +21,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,10 +39,11 @@ import com.example.agathe.tsgtest.sport.FirstSportActivity;
 import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     //*************AWS push notification part start************
     /** Class name for log messages. */
@@ -57,9 +62,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
 
-
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
+
+    protected DrawerLayout drawer;
 
     /**
      * Initializes the sign-in and sign-out buttons.
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // Initialize the Amazon Cognito credentials provider
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
@@ -117,11 +124,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("userID", userID).commit();
         }
 
-        //  Setup layout and its elements
-        setContentView(R.layout.activity_main);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //*************AWS push notification part start************
         // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
@@ -156,8 +170,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
+    }
 
-        setContentView(R.layout.activity_main);
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -282,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this,
                         LittleServicesActivity.class);
                 startActivity(intent);
-            }
+        }
     }
 
     //*************AWS push notification part start************
@@ -370,5 +392,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return new AlertDialog.Builder(this).setMessage(getString(resId, (Object[]) args))
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.carpooling_draw) {
+            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.ls_draw) {
+            Intent intent = new Intent(MainActivity.this, LittleServicesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.pe_draw) {
+            Intent intent = new Intent(MainActivity.this, PublicEventsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.sport_draw) {
+            Intent intent = new Intent(MainActivity.this, FirstSportActivity.class);
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
