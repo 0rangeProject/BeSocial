@@ -4,80 +4,101 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/maps_activity_vertical_margin"
+    android:paddingLeft="@dimen/maps_activity_horizontal_margin"
+    android:paddingRight="@dimen/maps_activity_horizontal_margin"
+    android:paddingTop="@dimen/maps_activity_vertical_margin"
     tools:context="com.example.agathe.tsgtest.carpooling.PurposeActivity$PlaceholderFragment">
 
-    <TextView
-        android:text="@string/maps_introduction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_location" />
-
-        <TextView
-            android:text="@string/departure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/departure" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/departure_place"
-            android:layout_alignEnd="@+id/departure"
-            android:layout_alignRight="@+id/departure" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_location"/>
-
-        <TextView
-            android:text="@string/destination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/destination" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/destination_place"
-            android:layout_alignEnd="@+id/destination"
-            android:layout_alignRight="@+id/destination" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mapFragmentContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/destination">
-    </LinearLayout>
-
-    <!--
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        -->
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/maps_introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:maxLines="3"
+                android:padding="8dp"
+                android:textColor="#222"
+                android:textStyle="bold"
+                android:textSize="22dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:maxLines="3"
+                android:padding="8dp"
+                android:textColor="#666"
+                android:textSize="14dp"
+                android:layout_below="@id/title"
+                android:id="@+id/ll">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:text="@string/departure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/departure" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/departure_place"
+                    android:layout_alignEnd="@+id/departure"
+                    android:layout_alignRight="@+id/departure" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:maxLines="3"
+                android:padding="8dp"
+                android:textColor="#666"
+                android:textSize="14dp"
+                android:layout_below="@id/ll"
+                android:id="@+id/ll2"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location"/>
+
+                <TextView
+                    android:text="@string/destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/destination" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/destination_place"
+                    android:layout_alignEnd="@+id/destination"
+                    android:layout_alignRight="@+id/destination" />
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/mapFragmentContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/ll2">
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.agathe.tsgtest.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,14 +44,14 @@ public class PublicEventsActivity extends AppCompatActivity {
         //set toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_pe);
         setSupportActionBar(myToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
         // Enable the Up button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
         context = this;
 
         //filter
@@ -59,10 +60,6 @@ public class PublicEventsActivity extends AppCompatActivity {
         filter_button3 = (CheckBox) findViewById(R.id.filter_button3);
         filter_button4 = (CheckBox) findViewById(R.id.filter_button4);
         filter_button5 = (CheckBox) findViewById(R.id.filter_button5);
-        filter_button_reset = (Button) findViewById(R.id.filter_button_reset);
-        filter_button_confirm = (Button) findViewById(R.id.filter_button_confirm);
-        filter_button_reset.getBackground().setAlpha(255);
-        filter_button_confirm.getBackground().setAlpha(255);
         //list
         mylist = (RecyclerView) findViewById(R.id.my_list);
         mylist.setHasFixedSize(true);
@@ -84,7 +81,6 @@ public class PublicEventsActivity extends AppCompatActivity {
         });
         view_test.setText(test_output);*/
 
-        /* RecyclerView */
     }
 
     @Override
