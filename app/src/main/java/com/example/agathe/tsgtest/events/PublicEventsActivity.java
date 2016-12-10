@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
@@ -85,7 +86,7 @@ public class PublicEventsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_layout, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -95,6 +96,9 @@ public class PublicEventsActivity extends AppCompatActivity {
             case R.id.action_disconnect:
                 SMPLibrary.Logout();
                 refresh();
+                return true;
+
+            case R.id.action_main_settings:
                 return true;
 
             case R.id.action_about:
@@ -128,7 +132,7 @@ public class PublicEventsActivity extends AppCompatActivity {
     */
     private void refresh() {
         finish();
-        Intent intent = new Intent(PublicEventsActivity.this, PublicEventsActivity.class);
+        Intent intent = new Intent(PublicEventsActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
