@@ -63,15 +63,15 @@
         <activity
             android:name=".sport.FirstSportActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".sport.ChallengeActivity"
             android:parentActivityName=".sport.FirstSportActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".sport.LittleServicesActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".carpooling.PotentialCarpoolersActivity"
             android:parentActivityName=".carpooling.PurposeActivity" />

@@ -72,6 +72,14 @@ public class EventListAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+        holder.itemButton1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra("Events", items.get(j));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -101,6 +109,8 @@ public class EventListAdapter extends RecyclerView.Adapter {
             rootView = itemView.findViewById(R.id.event_list_CardView);
             rootView.setOnClickListener(this);
             rootView.setOnLongClickListener(this);
+            itemButton1.setOnClickListener(this);
+            itemButton2.setOnClickListener(this);
         }
 
         @Override

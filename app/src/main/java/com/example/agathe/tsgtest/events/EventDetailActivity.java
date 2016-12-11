@@ -49,7 +49,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_layout, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -58,17 +58,19 @@ public class EventDetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_disconnect:
                 SMPLibrary.Logout();
-                refresh();
                 return true;
 
             case R.id.action_about:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
                 builder.setPositiveButton(R.string.dialog_ok, null);
                 builder.setIcon(R.mipmap.ic_launcher);
 
-                AlertDialog dialog = builder.create();
+                android.support.v7.app.AlertDialog dialog = builder.create();
                 dialog.show();
+                return true;
+
+            case R.id.action_main_settings:
                 return true;
 
             default:
