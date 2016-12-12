@@ -113,6 +113,8 @@ public class PurposeActivity extends AppCompatActivity {
             add(new User("Hector Sauvage", "known people", "0612345678"));
         }};
 
+
+
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
                 users1));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
