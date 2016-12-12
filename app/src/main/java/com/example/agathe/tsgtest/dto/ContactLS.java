@@ -1,12 +1,14 @@
-package com.example.agathe.tsgtest.sport;
+package com.example.agathe.tsgtest.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 /**
  * Created by koudm on 06/12/2016.
  */
 
 public class ContactLS {
-    private String ls_name;
-    private String location;
+    public String ls_name;
+    public String location;
 
     public ContactLS(String ls_name, String location){
         this.ls_name = ls_name;

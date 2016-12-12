@@ -18,6 +18,8 @@
     <string name="stop_chrono">Stop</string>
     <string name="save_sport">Save performance </string>
     <string name="send_sms_challenge">Send SMS </string>
+    <string name="list_item_sms_button">Send message</string>
+    <string name="list_item_call_button">Call</string>
     <string name="step_counter">android.hardware.sensor.stepcounter</string>
     <string name="step_detector">android.hardware.sensor.stepdetector</string>
     <string name="dialog_message">Created by BeSocial Team - 2016</string>
