@@ -1,0 +1,4 @@
+<resources>
+    <item type="drawable" name="btn_default_normal">#00000000</item>
+    <item type="drawable" name="btn_default_pressed">#dedede</item>
+</resources>
