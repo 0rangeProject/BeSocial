@@ -20,6 +20,29 @@
     <string name="send_sms_challenge">Send SMS </string>
     <string name="step_counter">android.hardware.sensor.stepcounter</string>
     <string name="step_detector">android.hardware.sensor.stepdetector</string>
+    <string name="app_name">Be Social</string>
+    <string name="dialog_message">Created by BeSocial Team - 2016</string>
+    <string name="dialog_ok">OK</string>
+
+    <!-- Descriptions -->
+    <string name="describe_steps">steps feet</string>
+    <string name="describe_challenge">challenge pic</string>
+    <string name="describe_time_pic">time picture</string>
+    <string name="describe_runner_pic">runner avatar picture</string>
+    <string name="describe_sms_pic">sms picture</string>
+    <string name="describe_call_pic">call picture</string>
+
+    <string name="start_running">Start a running session</string>
+    <string name="steps_text">You did </string>
+    <string name="duration_text">Your time is </string>
+
+    <!-- Buttons text -->
+    <string name="start_chrono">Start chronometer</string>
+    <string name="stop_chrono">Stop</string>
+    <string name="save_sport">Save performance </string>
+    <string name="send_sms_challenge">Send SMS </string>
+    <string name="step_counter">android.hardware.sensor.stepcounter</string>
+    <string name="step_detector">android.hardware.sensor.stepdetector</string>
 
     <!-- Home -->
     <string name="button_text_sign_out">Sign out from Google</string>
@@ -37,6 +60,8 @@
 
     <!--Sport Home -->
     <string name="desc">description</string>
+    <string name="duration_text">Your course duration is  </string>
+    <string name="steps_text">You did steps today ! </string>
     <string name="challenge_text">Challenge a friend !</string>
     <string name="first_sport">Sport</string>
 
@@ -45,6 +70,7 @@
     <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
+    <string name="app_name">TSG Test</string>
 
     <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp">
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/event_list_CardView"
@@ -11,8 +12,9 @@
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="8dp">
+        app:cardCornerRadius="0dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,7 +69,7 @@
                 <Button
                     android:id="@+id/event_list_item_button_1"
                     android:text="READ MORE"
-                    android:background="#00000000"
+                    android:background="@drawable/btn_style"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"

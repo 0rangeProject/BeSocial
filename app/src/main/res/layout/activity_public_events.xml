@@ -12,7 +12,7 @@
         android:id="@+id/appbar"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="230dp">
+        android:layout_height="180dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -78,38 +78,6 @@
                         android:textColor="@color/white"
                         android:buttonTint="@color/white"/>
                 </GridLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:text="@string/filter_button_reset"
-                        android:id="@+id/filter_button_reset"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dip"
-                        android:layout_weight="1"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:textSize="12sp"
-                        android:textStyle="normal"
-                        android:textColor="@color/white"/>
-
-                    <Button
-                        android:text="@string/filter_button_confirm"
-                        android:id="@+id/filter_button_confirm"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dip"
-                        android:layout_weight="1"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:textSize="12sp"
-                        android:textStyle="normal"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar

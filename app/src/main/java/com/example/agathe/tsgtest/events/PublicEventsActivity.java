@@ -9,17 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
@@ -60,10 +55,6 @@ public class PublicEventsActivity extends AppCompatActivity {
         filter_button3 = (CheckBox) findViewById(R.id.filter_button3);
         filter_button4 = (CheckBox) findViewById(R.id.filter_button4);
         filter_button5 = (CheckBox) findViewById(R.id.filter_button5);
-        filter_button_reset = (Button) findViewById(R.id.filter_button_reset);
-        filter_button_confirm = (Button) findViewById(R.id.filter_button_confirm);
-        filter_button_reset.getBackground().setAlpha(255);
-        filter_button_confirm.getBackground().setAlpha(255);
         //list
         mylist = (RecyclerView) findViewById(R.id.my_list);
         mylist.setHasFixedSize(true);
@@ -89,7 +80,7 @@ public class PublicEventsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.card_layout, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -99,6 +90,9 @@ public class PublicEventsActivity extends AppCompatActivity {
             case R.id.action_disconnect:
                 SMPLibrary.Logout();
                 refresh();
+                return true;
+
+            case R.id.action_main_settings:
                 return true;
 
             case R.id.action_about:
@@ -132,7 +126,7 @@ public class PublicEventsActivity extends AppCompatActivity {
     */
     private void refresh() {
         finish();
-        Intent intent = new Intent(PublicEventsActivity.this, PublicEventsActivity.class);
+        Intent intent = new Intent(PublicEventsActivity.this, MainActivity.class);
         startActivity(intent);
     }
 

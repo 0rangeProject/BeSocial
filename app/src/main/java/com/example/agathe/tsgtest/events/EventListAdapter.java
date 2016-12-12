@@ -1,7 +1,9 @@
 package com.example.agathe.tsgtest.events;
 
 import java.util.List;
+import java.io.Serializable;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -61,6 +63,23 @@ public class EventListAdapter extends RecyclerView.Adapter {
         holder.itemPlace.setText(items.get(i).getPlace());
         int img_src_id = context.getResources().getIdentifier(items.get(i).getImage(), "drawable", context.getPackageName());
         holder.itemImg.setImageResource(img_src_id);
+        final int j = i;
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,EventDetailActivity.class);
+                intent.putExtra("Events",items.get(j));
+                context.startActivity(intent);
+            }
+        });
+        holder.itemButton1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EventDetailActivity.class);
+                intent.putExtra("Events", items.get(j));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -90,6 +109,8 @@ public class EventListAdapter extends RecyclerView.Adapter {
             rootView = itemView.findViewById(R.id.event_list_CardView);
             rootView.setOnClickListener(this);
             rootView.setOnLongClickListener(this);
+            itemButton1.setOnClickListener(this);
+            itemButton2.setOnClickListener(this);
         }
 
         @Override
@@ -111,7 +132,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
 }
 
 
-class ListItem{
+class ListItem implements Serializable{
     private String list_title;
     private String list_time;
     private String list_place;
