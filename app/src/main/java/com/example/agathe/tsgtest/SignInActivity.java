@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSMobileClient;
@@ -31,6 +32,8 @@ public class SignInActivity extends Activity {
 
     /** The Google OnClick listener, since we must override it to get permissions on Marshmallow and above. */
     private View.OnClickListener googleOnClickListener;
+
+    private Button skipButton;
 
     /**
      * SignInResultsHandler handles the final result from sign in. Making it static is a best
@@ -110,6 +113,15 @@ public class SignInActivity extends Activity {
         // Initialize sign-in buttons.
         googleOnClickListener =
                 signInManager.initializeSignInButton(GoogleSignInProvider.class, findViewById(R.id.g_login_button));
+
+        skipButton = (Button) findViewById(R.id.skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mainActivityIntent = new Intent(SignInActivity.this, MainActivity.class);
+                mainActivityIntent.putExtra("skip", true);
+                startActivity(mainActivityIntent);
+            }
+        });
 
         if (googleOnClickListener != null) {
             // if the onClick listener was null, initializeSignInButton will have removed the view.

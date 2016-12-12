@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.User;
-import com.example.agathe.tsgtest.events.CardsAdapter;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

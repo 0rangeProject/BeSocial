@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected DrawerLayout drawer;
 
+    boolean skip = false;
+
     /**
      * Initializes the sign-in and sign-out buttons.
      */
@@ -219,16 +221,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        /*
-        if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
-            // In the case that the activity is restarted by the OS after the application
-            // is killed we must redirect to the splash activity to handle the sign-in flow.
-            Intent intent = new Intent(this, SplashActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            return;
+        try {
+            Intent intent = getIntent();
+            skip = intent.getBooleanExtra("skip", false);
+        } catch (Exception e){
+
         }
-        */
+        if (skip == false) {
+            if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
+                // In the case that the activity is restarted by the OS after the application
+                // is killed we must redirect to the splash activity to handle the sign-in flow.
+                Intent intent = new Intent(this, SplashActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return;
+            }
+        }
 
         setupButtons();
 
