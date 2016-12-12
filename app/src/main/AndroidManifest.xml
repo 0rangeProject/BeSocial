@@ -49,7 +49,7 @@
         </activity>
 
         <activity
-            android:name=".sport.FirstSportActivity"
+            android:name=".sport.SportActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
         </activity>
@@ -57,7 +57,7 @@
         <activity
             android:name=".sport.ChallengeActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".sport.FirstSportActivity">
+            android:parentActivityName=".sport.SportActivity">
         </activity>
 
         <activity

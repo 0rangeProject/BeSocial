@@ -12,7 +12,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.content.SharedPreferences;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
-import com.example.agathe.tsgtest.sport.FirstSportActivity;
+import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.sport.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.UUID;
@@ -288,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        FirstSportActivity.class);
+                        SportActivity.class);
                 startActivity(intent);
         }
 
@@ -407,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, PublicEventsActivity.class);
             startActivity(intent);
         } else if (id == R.id.sport_draw) {
-            Intent intent = new Intent(MainActivity.this, FirstSportActivity.class);
+            Intent intent = new Intent(MainActivity.this, SportActivity.class);
             startActivity(intent);
         }
 

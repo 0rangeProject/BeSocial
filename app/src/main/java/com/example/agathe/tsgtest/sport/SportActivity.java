@@ -33,7 +33,7 @@ import static android.hardware.Sensor.TYPE_STEP_DETECTOR;
  * Created by koudm on 29/11/2016.
  */
 
-public class FirstSportActivity extends AppCompatActivity implements SensorEventListener {
+public class SportActivity extends AppCompatActivity implements SensorEventListener {
     private Context context;
 
     private Chronometer chrono;
@@ -51,7 +51,7 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //layout elements initialization
-        setContentView(R.layout.first_sport);
+        setContentView(R.layout.activity_sport);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_first_sport);
         setSupportActionBar(toolbar);
@@ -109,7 +109,7 @@ public class FirstSportActivity extends AppCompatActivity implements SensorEvent
         challenge_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FirstSportActivity.this,
+                Intent intent = new Intent(SportActivity.this,
                         ChallengeActivity.class);
                 startActivity(intent);
             }
