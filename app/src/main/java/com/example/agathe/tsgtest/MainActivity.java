@@ -33,7 +33,6 @@ import com.amazonaws.mobile.push.PushManager;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.AmazonClientException;
 
-import com.example.agathe.tsgtest.carpooling.GPSHandler;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.FirstSportActivity;
@@ -308,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == carpoolingButton) {
             Intent intent = new Intent(MainActivity.this,
-                    GPSHandler.class);
+                    PurposeActivity.class);
             startActivity(intent);
         }
 

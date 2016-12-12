@@ -95,4 +95,10 @@
     <string name="filter_button5">Known of work relation</string>
     <string name="filter_button_reset">RESET</string>
     <string name="filter_button_confirm">CONFIRM</string>
+
+
+    <string name="provider_enabled">The provider %s is now enabled</string>
+    <string name="provider_disabled">The provider %s is now disabled</string>
+    <string name="provider_new_status">The provider %1$s has now a new status %2$s</string>
+    <string name="new_location">New Location : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.agathe.tsgtest.carpooling;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -47,11 +49,20 @@ public class PurposeActivity extends AppCompatActivity {
     private static View view;
     private ViewPager mViewPager;
     ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
+    private String userID;
+
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purpose);
+
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        editor = settings.edit();
+
+        userID = settings.getString("userID", "");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
         setSupportActionBar(toolbar);
@@ -119,6 +130,12 @@ public class PurposeActivity extends AppCompatActivity {
                 users2));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
+
+        GPSManager gps = new GPSManager(
+                PurposeActivity.this, userID);
+        gps.start();
+
+
     }
 
     @Override
