@@ -103,19 +103,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         // Initialize the Amazon Cognito credentials provider
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(),
-                "us-west-2:db5f1441-bab5-4dcc-9082-d5d744e2033e", // Identity Pool ID
-                Regions.US_WEST_2 // Region
+                "us-east-1:af846312-d9d1-4007-8825-869fdfc2a3ae", // Identity Pool ID
+                Regions.US_EAST_1 // Region
         );
 
         // Initialize the Cognito Sync client
         CognitoSyncManager syncClient = new CognitoSyncManager(
                 getApplicationContext(),
-                Regions.US_WEST_2, // Region
+                Regions.US_EAST_1, // Region
                 credentialsProvider);
 
+        */
         // Recover or create user ID
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
@@ -140,12 +142,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //*************AWS push notification part start************
         // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
-        // Obtain a reference to the mobile client. It is created in the Application class,
-        // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
 
         // Obtain a reference to the mobile client. It is created in the Application class.
         final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
+
+        // Obtain a reference to the identity manager.
+        identityManager = awsMobileClient.getIdentityManager();
 
         // pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
 
@@ -164,13 +167,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
-
-        // Obtain a reference to the mobile client. It is created in the Application class,
-        // but in case a custom Application class is not used, we initialize it here if necessary.
-        AWSMobileClient.initializeMobileClientIfNecessary(this);
-
-        // Obtain a reference to the identity manager.
-        identityManager = awsMobileClient.getIdentityManager();
     }
 
     @Override

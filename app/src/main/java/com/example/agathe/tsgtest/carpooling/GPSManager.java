@@ -72,7 +72,7 @@ public class GPSManager {
             return;
         }
         // toutes les minutes
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1 * 60 * 1000, 1, gpsListener);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, gpsListener);
 
         if (mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null)
             Toast.makeText(activity, "LAST Location null", Toast.LENGTH_SHORT)
