@@ -1,9 +1,5 @@
 package com.example.agathe.tsgtest;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/public_events
 /**
  * Created by agathe on 22/11/16.
  */

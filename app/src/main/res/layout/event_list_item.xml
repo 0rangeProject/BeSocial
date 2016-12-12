@@ -66,8 +66,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/event_list_item_place">
 
-                <!--android:background="@drawable/btn_style"-->
                 <Button
+                    android:background="@drawable/btn_style"
                     android:id="@+id/event_list_item_button_1"
                     android:text="READ MORE"
                     android:textColor="@color/colorPrimary"
