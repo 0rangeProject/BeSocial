@@ -25,18 +25,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/contacts_challenge_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/see_challenge"
-        android:clipToPadding="false"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"
-        android:padding="10dp"
-        android:scrollbarStyle="outsideOverlay"
-        tools:listitem="@layout/list_item_contacts_challenge" />
-
     <TextView
         android:text="@string/challenge_text"
         android:textColor="@color/colorWhite"
@@ -49,6 +37,18 @@
         android:layout_below="@+id/my_toolbar_challenge"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="74dp" />
+
+    <ListView
+        android:id="@+id/contacts_challenge_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/see_challenge"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:scrollbarStyle="outsideOverlay"
+        tools:listitem="@layout/list_item_contacts_challenge" />
 
     <ImageView
         android:layout_width="80dp"

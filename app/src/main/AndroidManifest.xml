@@ -61,7 +61,7 @@
         </activity>
 
         <activity
-            android:name=".sport.LittleServicesActivity"
+            android:name=".littleservices.LittleServicesActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
         </activity>
