@@ -25,18 +25,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:text="@string/challenge_text"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:background="@color/colorGray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/see_challenge"
-        android:layout_below="@+id/challengeImg"
-        android:layout_centerHorizontal="true" />
-
     <ListView
         android:id="@+id/contacts_challenge_list"
         android:layout_width="match_parent"
@@ -49,13 +37,18 @@
         android:scrollbarStyle="outsideOverlay"
         tools:listitem="@layout/list_item_contacts_challenge" />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.agathe.tsgtest.sport.ChallengeActivity"
-        tools:ignore="MergeRootFrame" />
+    <TextView
+        android:text="@string/challenge_text"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:background="@color/colorGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/see_challenge"
+        android:layout_below="@+id/my_toolbar_challenge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp" />
 
     <ImageView
         android:layout_width="80dp"
@@ -65,8 +58,15 @@
         android:layout_gravity="end"
         android:contentDescription="@string/describe_challenge"
         android:adjustViewBounds="true"
-        android:layout_below="@+id/my_toolbar_challenge"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/contacts_challenge_list"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
 
-
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.agathe.tsgtest.sport.ChallengeActivity"
+        tools:ignore="MergeRootFrame" />
 </RelativeLayout>
