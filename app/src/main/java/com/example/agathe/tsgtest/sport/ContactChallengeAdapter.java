@@ -17,10 +17,10 @@ import java.util.List;
  * Created by koudm on 06/12/2016.
  */
 
-public class ContactAdapter extends ArrayAdapter<ContactChallenge> {
+public class ContactChallengeAdapter extends ArrayAdapter<ContactChallenge> {
 
     //challenge_contacts est la liste des models de contact à afficher
-    public ContactAdapter(Context context, List<ContactChallenge> challenge_contacts) {
+    public ContactChallengeAdapter(Context context, List<ContactChallenge> challenge_contacts) {
         super(context, 0, challenge_contacts);
     }
 
