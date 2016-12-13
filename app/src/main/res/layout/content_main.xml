@@ -62,7 +62,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/town_image"
+                android:src="@drawable/home"
                 android:id="@+id/imageView"
                 android:layout_marginTop="25dp"
                 android:layout_below="@id/howto"/>
