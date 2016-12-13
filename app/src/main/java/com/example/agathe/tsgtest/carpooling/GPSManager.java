@@ -68,12 +68,20 @@ public class GPSManager {
     }
 
     public void findLoc() {
-        if (ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
         // toutes les 30 secondes
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30 * 1000 , 1, gpsListener);
+        /*
+        provider 	String: the name of the provider with which to register
+        minTime 	long: minimum time interval between location updates, in milliseconds
+        minDistance 	float: minimum distance between location updates, in meters
+        listener 	LocationListener: a LocationListener whose onLocationChanged(Location) method will be called for each location update
+         */
 
         if (mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null)
             Toast.makeText(activity, "LAST Location null", Toast.LENGTH_SHORT)

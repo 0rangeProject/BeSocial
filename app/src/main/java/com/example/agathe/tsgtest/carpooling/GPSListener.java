@@ -12,6 +12,11 @@ import android.widget.Toast;
 import com.amazonaws.models.nosql.PathsDO;
 import com.example.agathe.tsgtest.database.SaveObjectTask;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import static java.lang.Math.abs;
+
 
 /**
  * Created by agathe on 12/12/16.
@@ -22,7 +27,9 @@ public class GPSListener implements LocationListener {
     private static final double RAYON = 0.5;
     private static final String TAG = "GPSListener";
     private Activity activity;
-    private Location previousLoc;
+    private Location initLoc = null;
+    private String startTime = "";
+    private String endTime = "";
     private String userID;
 
     public GPSListener(Activity activity, String userID) {
@@ -39,34 +46,36 @@ public class GPSListener implements LocationListener {
         String message;
 
         if (loc != null) {
-            message = "Current location is:  Latitude = "
+             message = "Current location is:  Latitude = "
                     + loc.getLatitude() + ", Longitude = "
                     + loc.getLongitude();
 
-            if (previousLoc != null) {
-                Log.i(TAG, "previousloc lat : " + String.valueOf(previousLoc.getLatitude()));
-                Log.i(TAG, "previousloc lon : " + String.valueOf(previousLoc.getLongitude()));
-                Log.i(TAG, "loc lat : " + String.valueOf(loc.getLatitude()));
-                Log.i(TAG, "loc lon : " + String.valueOf(loc.getLongitude()));
+            if (initLoc != null) {
 
-                if (previousLoc.getLatitude() - loc.getLatitude() < RAYON || previousLoc.getLongitude() - loc.getLongitude() < RAYON) {
-                    Log.i(TAG, "Match");
-                    PathsDO path = new PathsDO();
-                    path.setUserId(userID);
-                    path.setPathId(userID + loc.getLatitude());
-                    path.setStartTime(String.valueOf(previousLoc.getTime()));
-                    path.setEndTime(String.valueOf(loc.getTime()));
-                    path.setLat(loc.getLatitude());
-                    path.setLon(loc.getLongitude());
-                    new SaveObjectTask().execute(path);
+                // Si l'utilisateur n'a pas bougé (ou presque pas)
+                if (abs(loc.getLongitude() - initLoc.getLongitude()) < RAYON && abs(loc.getLatitude() - initLoc.getLatitude()) < RAYON) {
+                    endTime = String.valueOf(loc.getTime());
+                } else {
+                    if (!endTime.equals("")) {
+                        PathsDO path = new PathsDO();
+                        path.setUserId(userID);
+                        path.setPathId(userID + loc.getLatitude());
+                        path.setStartTime(startTime);
+                        path.setEndTime(endTime);
+                        path.setLat(initLoc.getLatitude());
+                        path.setLon(initLoc.getLongitude());
+                        new SaveObjectTask().execute(path);
+                    }
+                    initLoc = loc; // on change d'endroit, donc de position initiale
+                    startTime = String.valueOf(loc.getTime());
+                    endTime = "";
                 }
+            } else {
+                initLoc = loc;
+                startTime = String.valueOf(loc.getTime());
             }
         } else
             message = "Location null";
-
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-        
-        previousLoc = loc;
     }
 
     @Override
