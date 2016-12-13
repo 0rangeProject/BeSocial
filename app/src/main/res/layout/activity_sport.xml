@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_allee">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_toolbar_first_sport"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:text="@string/first_sport"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <Button
+        android:text="@string/stop_chrono"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_stop_chrono"
+        android:layout_alignBaseline="@+id/btn_start_chrono"
+        android:layout_alignBottom="@+id/btn_start_chrono"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/sport_steps"
+        android:layout_marginTop="50dp"
+        android:id="@+id/img_feet"
+        android:layout_below="@+id/btn_start_chrono"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/describe_steps"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_feet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/stepscounts"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <Button
+        android:text="@string/save_sport"
+        android:textSize="12sp"
+        android:background="@color/colorAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/chrono"
+        android:layout_toStartOf="@+id/chrono"
+        android:layout_marginBottom="14dp"
+        android:id="@+id/btn_save_perf"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/sport_challenge"
+        android:id="@+id/img_btn_challenge"
+        android:contentDescription="@string/describe_challenge"
+        android:layout_alignBottom="@+id/btn_save_perf"
+        android:layout_alignRight="@+id/btn_stop_chrono"
+        android:layout_alignEnd="@+id/btn_stop_chrono"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <Button
+        android:text="@string/start_chrono"
+        android:background="@color/colorGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_start_chrono"
+        android:layout_marginTop="60dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_below="@+id/chrono"
+        android:layout_alignRight="@+id/stepscounts"
+        android:layout_alignEnd="@+id/stepscounts" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:textSize="30sp"
+        android:background="@color/colorGray"
+        android:id="@+id/chrono"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/start_sport"
+        android:layout_alignLeft="@+id/stepscounts"
+        android:layout_alignStart="@+id/stepscounts" />
+
+    <TextView
+        android:text="@string/start_running"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_sport"
+        android:background="@color/colorGray"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/my_toolbar_first_sport"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

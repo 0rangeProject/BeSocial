@@ -35,8 +35,8 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
-import com.example.agathe.tsgtest.sport.FirstSportActivity;
-import com.example.agathe.tsgtest.sport.LittleServicesActivity;
+import com.example.agathe.tsgtest.sport.SportActivity;
+import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.UUID;
 
@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //*************AWS push notification part start************
         // enablePushCheckBox = (CheckBox) findViewById(R.id.enable_push_checkbox);
+        // Obtain a reference to the mobile client. It is created in the Application class,
+        // but in case a custom Application class is not used, we initialize it here if necessary.
         AWSMobileClient.initializeMobileClientIfNecessary(this);
 
         // Obtain a reference to the mobile client. It is created in the Application class.
@@ -297,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        FirstSportActivity.class);
+                        SportActivity.class);
                 startActivity(intent);
         }
 
@@ -416,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, PublicEventsActivity.class);
             startActivity(intent);
         } else if (id == R.id.sport_draw) {
-            Intent intent = new Intent(MainActivity.this, FirstSportActivity.class);
+            Intent intent = new Intent(MainActivity.this, SportActivity.class);
             startActivity(intent);
         }
 
