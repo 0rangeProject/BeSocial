@@ -23,7 +23,6 @@ import com.amazonaws.mobile.util.ThreadUtils;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

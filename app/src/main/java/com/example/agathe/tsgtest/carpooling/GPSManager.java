@@ -64,15 +64,16 @@ public class GPSManager {
     }
 
     public void setUp() {
-        gpsListener = new GPSListener(activity, mlocManager, userID);
+        gpsListener = new GPSListener(activity, userID);
     }
 
     public void findLoc() {
         if (ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.activity.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        // toutes les minutes
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, gpsListener);
+
+        // toutes les 30 secondes
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30 * 1000 , 1, gpsListener);
 
         if (mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) == null)
             Toast.makeText(activity, "LAST Location null", Toast.LENGTH_SHORT)

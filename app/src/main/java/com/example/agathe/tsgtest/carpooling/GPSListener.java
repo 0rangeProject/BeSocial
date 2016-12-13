@@ -22,13 +22,11 @@ public class GPSListener implements LocationListener {
     private static final double RAYON = 0.5;
     private static final String TAG = "GPSListener";
     private Activity activity;
-    private LocationManager lm;
     private Location previousLoc;
     private String userID;
 
-    public GPSListener(Activity activity, LocationManager lm, String userID) {
+    public GPSListener(Activity activity, String userID) {
         this.activity = activity;
-        this.lm = lm;
         this.userID = userID;
     }
 
@@ -56,8 +54,8 @@ public class GPSListener implements LocationListener {
                     PathsDO path = new PathsDO();
                     path.setUserId(userID);
                     path.setPathId(userID + loc.getLatitude());
-                    path.setStartTime(String.valueOf(loc.getTime()));
-                    path.setEndTime("0");
+                    path.setStartTime(String.valueOf(previousLoc.getTime()));
+                    path.setEndTime(String.valueOf(loc.getTime()));
                     path.setLat(loc.getLatitude());
                     path.setLon(loc.getLongitude());
                     new SaveObjectTask().execute(path);
@@ -85,5 +83,4 @@ public class GPSListener implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
-
 }
