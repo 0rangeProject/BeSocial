@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Challenge"
+        android:text="@string/challenge"
         android:textSize="20sp"
         android:textColor="#FFFFFF" />
 
@@ -54,7 +54,6 @@
         android:layout_width="80dp"
         android:layout_height="96dp"
         app:srcCompat="@drawable/sport_challenge"
-        android:id="@+id/challengeImg"
         android:layout_gravity="end"
         android:contentDescription="@string/describe_challenge"
         android:adjustViewBounds="true"

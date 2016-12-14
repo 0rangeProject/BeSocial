@@ -20,7 +20,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#FF6600"
-        android:text="Sign in with your Google Account"/>
+        android:text="@string/sign_in"/>
 
     <ImageButton
         android:id="@+id/g_login_button"
@@ -32,22 +32,10 @@
         android:padding="0dp"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="500dp"
-        android:layout_height="200dp"
-        android:text="HELLO"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:textColor="#FF6600"
-        android:textAlignment="center"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Skip"
+        android:text="@string/skip"
         android:id="@+id/skip_button"
         android:layout_below="@+id/ll"
         android:layout_centerHorizontal="true"

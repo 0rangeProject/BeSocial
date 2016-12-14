@@ -34,9 +34,6 @@ import java.util.List;
  */
 
 public class HomeCarpoolingActivity extends AppCompatActivity {
-    private String userID;
-    private SharedPreferences settings = null;
-    private SharedPreferences.Editor editor = null;
     private ToggleButton enableButton;
     private Button tripsButton;
 
@@ -45,11 +42,6 @@ public class HomeCarpoolingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_carpooling);
 
-        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
-        editor = settings.edit();
-
-        userID = settings.getString("userID", "");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_carpooling_home);
         setSupportActionBar(toolbar);
 
@@ -57,13 +49,10 @@ public class HomeCarpoolingActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         ToggleButton toggle = (ToggleButton) findViewById(R.id.enable_button);
-        toggle.setTextOn("Detection enabled");
-        toggle.setTextOff("Detection disabled");
 
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Intent intent = new Intent(HomeCarpoolingActivity.this, GeolocationService.class);
-                intent.putExtra("userID", userID);
                 if (isChecked) {
                     startService(intent);
                 } else {

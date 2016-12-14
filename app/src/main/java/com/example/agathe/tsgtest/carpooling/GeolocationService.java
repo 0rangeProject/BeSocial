@@ -5,17 +5,22 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.models.nosql.PathsDO;
+import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.SaveObjectTask;
 
 import static java.lang.Math.abs;
@@ -25,15 +30,18 @@ import static java.lang.Math.abs;
  */
 
 public class GeolocationService extends Service {
-    private static final double RAYON = 0.1;
+    private static final double RAYON = 0.01;
     private static final String TAG = "GeolocationService";
     private Location initLoc = null;
     private String startTime = "";
     private String endTime = "";
     private String userID;
 
+    private SharedPreferences settings = null;
+
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 30 * 60 * 1000;
+    // private static final int LOCATION_INTERVAL = 30 * 60 * 1000;
+    private static final int LOCATION_INTERVAL = 1;
     private static final float LOCATION_DISTANCE = 1;
     final DynamoDBMapper mapper = null;
 
@@ -49,6 +57,15 @@ public class GeolocationService extends Service {
 
         @Override
         public void onLocationChanged(Location location) {
+            PathsDO path = new PathsDO();
+            path.setUserId(userID);
+            path.setPathId(userID + location.getLatitude());
+            path.setStartTime(String.valueOf(location.getTime()));
+            path.setEndTime(String.valueOf(location.getTime()));
+            path.setLat(location.getLatitude());
+            path.setLon(location.getLongitude());
+            new SaveObjectTask(mapper).execute(path);
+
             Log.w("LAT", String.valueOf(location.getLatitude()));
             Log.w("LONG", String.valueOf(location.getLongitude()));
 
@@ -59,7 +76,7 @@ public class GeolocationService extends Service {
                     endTime = String.valueOf(location.getTime());
                 } else {
                     if (!endTime.equals("")) {
-                        PathsDO path = new PathsDO();
+                        // PathsDO path = new PathsDO();
                         path.setUserId(userID);
                         path.setPathId(userID + location.getLatitude());
                         path.setStartTime(startTime);
@@ -80,17 +97,28 @@ public class GeolocationService extends Service {
 
         @Override
         public void onProviderDisabled(String provider) {
-            Log.i(TAG, "onProviderDisabled: " + provider);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), R.string.provider_disabled,Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Log.i(TAG, "onProviderEnabled: " + provider);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), R.string.provider_enabled,Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.i(TAG, "onStatusChanged: " + provider);
         }
     }
 
@@ -103,13 +131,15 @@ public class GeolocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        userID = intent.getStringExtra("userID");
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
     @Override
     public void onCreate() {
+
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        userID = settings.getString("userID", "");
 
         initializeLocationManager();
         AWSMobileClient.initializeMobileClientIfNecessary(this);
@@ -165,7 +195,6 @@ public class GeolocationService extends Service {
     }
 
     private void initializeLocationManager() {
-        Log.i(TAG, "initializeLocationManager");
         if (mLocationManager == null) {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }

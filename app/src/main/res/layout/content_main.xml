@@ -8,7 +8,6 @@
 
     <android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -19,14 +18,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="@string/app_name"
             android:textSize="20sp"
             android:textColor="#FFFFFF" />
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -44,7 +42,7 @@
                 android:textColor="#FF6633"
                 android:maxLines="3"
                 android:padding="8dp"
-                android:text="What do you want to do with Orange ?"
+                android:text="@string/title_main"
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
@@ -55,7 +53,7 @@
                 android:layout_below="@+id/main_title"
                 android:maxLines="3"
                 android:padding="8dp"
-                android:text="Click on one item below to choose between : carpooling (pink), public events(blue), sport (green) and little services(orange)."
+                android:text="@string/howto_text"
                 android:textColor="#666"
                 android:textSize="14dp" />
 

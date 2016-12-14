@@ -21,14 +21,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First we need to authorize this app to access to Moves app"/>
+            android:text="@string/authorize_moves"/>
 
         <Button
             android:id="@+id/authorizeInApp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="App-to-App"/>
+            android:text="@string/app_to_app"/>
 
     </LinearLayout>
 

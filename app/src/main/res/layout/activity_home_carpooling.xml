@@ -16,14 +16,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="@string/title_activity_purpose"
             android:textSize="20sp"
             android:textColor="#FFFFFF" />
 
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -41,7 +40,7 @@
                 android:textColor="@color/colorAccent"
                 android:maxLines="3"
                 android:padding="8dp"
-                android:text="Check your usual trajects and go carpooling"
+                android:text="@string/title_home_carpooling"
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
@@ -52,7 +51,7 @@
                 android:layout_below="@+id/main_title"
                 android:maxLines="3"
                 android:padding="8dp"
-                android:text="We are analyzing all your daily trips and compare them to those of your contacts in order to purpose you the best way to carpooling easily and securely."
+                android:text="@string/description_home_carpooling"
                 android:textColor="#666"
                 android:textSize="14dp" />
 
@@ -61,15 +60,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/howto"
                 android:layout_centerHorizontal="true"
-                android:text="Enable tracking"
-                android:id="@+id/enable_button"/>
+                android:textOn="@string/detection_enabled"
+                android:textOff="@string/detection_disabled"
+                android:id="@+id/enable_button" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/enable_button"
                 android:layout_centerHorizontal="true"
-                android:text="See your daily trips"
+                android:text="@string/daily_trips"
                 android:id="@+id/trips_button"/>
 
         </RelativeLayout>
