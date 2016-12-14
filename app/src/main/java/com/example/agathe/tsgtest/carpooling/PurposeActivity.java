@@ -16,14 +16,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
@@ -89,7 +87,6 @@ public class PurposeActivity extends AppCompatActivity {
         mTabLayout.getTabAt(1).setText("Path #2");
         mTabLayout.getTabAt(2).setText("Path #3");
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +129,6 @@ public class PurposeActivity extends AppCompatActivity {
                 users2));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
-
-        GPSManager gps = new GPSManager(
-                PurposeActivity.this, userID);
-        gps.start();
-
-
     }
 
     @Override

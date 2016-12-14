@@ -200,7 +200,7 @@ public class ServerMainActivity extends Activity {
                                         path.setLat(segment.getJSONObject("place").getJSONObject("location").getDouble("lat"));
                                         path.setLon(segment.getJSONObject("place").getJSONObject("location").getDouble("lon"));
                                         paths.add(path);
-                                        new SaveObjectTask().execute(path);
+                                        // new SaveObjectTask().execute(path);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

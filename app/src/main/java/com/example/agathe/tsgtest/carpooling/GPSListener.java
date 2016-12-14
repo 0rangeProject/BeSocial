@@ -43,13 +43,7 @@ public class GPSListener implements LocationListener {
         Log.w("LAT", String.valueOf(loc.getLatitude()));
         Log.w("LONG", String.valueOf(loc.getLongitude()));
 
-        String message;
-
         if (loc != null) {
-             message = "Current location is:  Latitude = "
-                    + loc.getLatitude() + ", Longitude = "
-                    + loc.getLongitude();
-
             if (initLoc != null) {
 
                 // Si l'utilisateur n'a pas bougé (ou presque pas)
@@ -64,7 +58,7 @@ public class GPSListener implements LocationListener {
                         path.setEndTime(endTime);
                         path.setLat(initLoc.getLatitude());
                         path.setLon(initLoc.getLongitude());
-                        new SaveObjectTask().execute(path);
+                        // new SaveObjectTask().execute(path);
                     }
                     initLoc = loc; // on change d'endroit, donc de position initiale
                     startTime = String.valueOf(loc.getTime());
@@ -74,8 +68,7 @@ public class GPSListener implements LocationListener {
                 initLoc = loc;
                 startTime = String.valueOf(loc.getTime());
             }
-        } else
-            message = "Location null";
+        }
     }
 
     @Override

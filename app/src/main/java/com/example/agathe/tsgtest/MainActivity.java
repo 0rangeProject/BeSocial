@@ -33,6 +33,7 @@ import com.amazonaws.mobile.push.PushManager;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.AmazonClientException;
 
+import com.example.agathe.tsgtest.carpooling.HomeCarpoolingActivity;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
@@ -244,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 return;
             }
+        }
 
         setupButtons();
 
@@ -311,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == carpoolingButton) {
             Intent intent = new Intent(MainActivity.this,
-                    PurposeActivity.class);
+                    HomeCarpoolingActivity.class);
             startActivity(intent);
         }
 

@@ -15,9 +15,11 @@ import com.amazonaws.models.nosql.PathsDO;
 public class SaveObjectTask extends AsyncTask<PathsDO, Void, String> {
 
     private static final String LOG_TAG = "SaveObjectTask";
+    private final DynamoDBMapper mapper;
 
-    // Fetch the default configured DynamoDB ObjectMapper
-    final DynamoDBMapper mapper = AWSMobileClient.defaultMobileClient().getDynamoDBMapper();
+    public SaveObjectTask(DynamoDBMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     protected String doInBackground(PathsDO... pathsDOs) {
