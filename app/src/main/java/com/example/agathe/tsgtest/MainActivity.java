@@ -25,9 +25,6 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.push.PushManager;
 import com.amazonaws.mobile.user.IdentityManager;
@@ -102,22 +99,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        // Initialize the Amazon Cognito credentials provider
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "us-east-1:af846312-d9d1-4007-8825-869fdfc2a3ae", // Identity Pool ID
-                Regions.US_EAST_1 // Region
-        );
-
-        // Initialize the Cognito Sync client
-        CognitoSyncManager syncClient = new CognitoSyncManager(
-                getApplicationContext(),
-                Regions.US_EAST_1, // Region
-                credentialsProvider);
-
-        */
         // Recover or create user ID
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
@@ -150,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
 
-        // pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
+        pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
 
         /* enablePushCheckBox.setChecked(pushManager.isPushEnabled());
         enablePushCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         //*************AWS push notification part end**************
         */
-
+        toggleNotification(true);
         context = this;
 
         //  Library initialisation is required to be done once before any library function is called.
@@ -169,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SMPLibrary.Initialise(this, "0000", "0000");
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -177,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -357,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             protected void onPostExecute(final String errorMessage) {
-                enablePushCheckBox.setChecked(pushManager.isPushEnabled());
+                //enablePushCheckBox.setChecked(pushManager.isPushEnabled());
                 System.out.println((errorMessage == null) ? "Register succeed......" : "Fail to register......" + errorMessage);
                 if (errorMessage != null) {
                     showErrorMessage(R.string.error_message_update_notification, errorMessage);
