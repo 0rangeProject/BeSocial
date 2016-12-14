@@ -1,16 +1,10 @@
 package com.example.agathe.tsgtest.carpooling;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,16 +12,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import com.amazonaws.models.nosql.PathsDO;
-import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
-import com.example.agathe.tsgtest.dto.CommonTravel;
-import com.example.agathe.tsgtest.dto.User;
-import com.google.android.gms.maps.model.LatLng;
 import com.olab.smplibrary.SMPLibrary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by agathe on 14/12/16.

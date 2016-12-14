@@ -16,8 +16,6 @@ import android.widget.CheckBox;
 
 import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.DataResponseCallback;
-import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;

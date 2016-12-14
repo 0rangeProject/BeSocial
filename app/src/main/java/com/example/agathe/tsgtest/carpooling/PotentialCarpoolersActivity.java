@@ -1,20 +1,16 @@
 package com.example.agathe.tsgtest.carpooling;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
-import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;

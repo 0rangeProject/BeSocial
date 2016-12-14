@@ -9,16 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
-import com.example.agathe.tsgtest.dto.User;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by agathe on 05/12/16.

@@ -19,7 +19,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.agathe.tsgtest.R;
-import com.example.agathe.tsgtest.database.SaveObjectTask;
 import com.amazonaws.models.nosql.PathsDO;
 
 import org.json.JSONArray;
