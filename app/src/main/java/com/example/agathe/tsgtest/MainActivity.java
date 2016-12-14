@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
 
-        // pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
+        pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
 
         /* enablePushCheckBox.setChecked(pushManager.isPushEnabled());
         enablePushCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -163,15 +163,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         //*************AWS push notification part end**************
         */
-
+        toggleNotification(true);
         context = this;
 
         //  Library initialisation is required to be done once before any library function is called.
         //  You use your clientId and secret obtained from SMP website at developer tab.
         SMPLibrary.Initialise(this, "0000", "0000");
+
+        // Obtain a reference to the mobile client. It is created in the Application class,
+        // but in case a custom Application class is not used, we initialize it here if necessary.
+        AWSMobileClient.initializeMobileClientIfNecessary(this);
+
+        // Obtain a reference to the identity manager.
+        identityManager = awsMobileClient.getIdentityManager();
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -179,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -237,7 +244,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 return;
             }
-        }
 
         setupButtons();
 
@@ -359,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             protected void onPostExecute(final String errorMessage) {
-                enablePushCheckBox.setChecked(pushManager.isPushEnabled());
+                //enablePushCheckBox.setChecked(pushManager.isPushEnabled());
                 System.out.println((errorMessage == null) ? "Register succeed......" : "Fail to register......" + errorMessage);
                 if (errorMessage != null) {
                     showErrorMessage(R.string.error_message_update_notification, errorMessage);
