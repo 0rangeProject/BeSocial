@@ -70,7 +70,7 @@ public class GeolocationService extends Service {
 
             mLastLocation.set(location);
             if (initLoc != null) {
-                // Si l'utilisateur n'a pas bougé (ou presque pas)
+                // If the user didn't move
                 if (abs(location.getLongitude() - initLoc.getLongitude()) < RAYON && abs(location.getLatitude() - initLoc.getLatitude()) < RAYON) {
                     endTime = String.valueOf(location.getTime());
                 } else {
@@ -84,7 +84,7 @@ public class GeolocationService extends Service {
                         path.setLon(initLoc.getLongitude());
                         new SaveObjectTask(mapper).execute(path);
                     }
-                    initLoc = location; // on change d'endroit, donc de position initiale
+                    initLoc = location;
                     startTime = String.valueOf(location.getTime());
                     endTime = "";
                 }
@@ -190,7 +190,6 @@ public class GeolocationService extends Service {
     @Override
     public boolean stopService(Intent name) {
         return super.stopService(name);
-
     }
 
     private void initializeLocationManager() {

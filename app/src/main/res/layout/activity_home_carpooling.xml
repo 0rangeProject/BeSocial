@@ -55,22 +55,46 @@
                 android:textColor="#666"
                 android:textSize="14dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/way_1"
+                android:text="@string/way_1"
+                android:layout_below="@id/howto"/>
+
             <ToggleButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/howto"
+                android:layout_below="@id/way_1"
                 android:layout_centerHorizontal="true"
                 android:textOn="@string/detection_enabled"
                 android:textOff="@string/detection_disabled"
                 android:id="@+id/enable_button" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/way_2"
+                android:text="@string/way_2"
+                android:layout_below="@id/enable_button"
+                android:layout_marginTop="20dp"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/enable_button"
+                android:layout_below="@id/way_2"
+                android:layout_centerHorizontal="true"
+                android:text="@string/manual_entry"
+                android:id="@+id/manual_entry"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/manual_entry"
                 android:layout_centerHorizontal="true"
                 android:text="@string/daily_trips"
-                android:id="@+id/trips_button"/>
+                android:id="@+id/trips_button"
+                android:layout_marginTop="20dp"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
