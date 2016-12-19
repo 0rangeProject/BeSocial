@@ -48,6 +48,7 @@
     <string name="daily_trips">See your daily trips</string>
     <string name="manual_entry">Enter trips manually</string>
     <string name="finally_text">Finally, </string>
+    <string name="dialog_description">Enter manually a regular departure and destination</string>
 
     <!--Titles -->
     <string name="title_activity_purpose">Carpooling</string>
