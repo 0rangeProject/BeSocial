@@ -47,6 +47,7 @@
             </intent-filter>
         </activity>
 
+        <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"
             android:theme="@style/AppTheme"
@@ -59,24 +60,23 @@
             android:parentActivityName=".sport.SportActivity">
         </activity>
 
+        <!-- Little Services -->
         <activity
             android:name=".littleservices.LittleServicesActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
         </activity>
 
+        <!-- Carpooling -->
+        <activity
+            android:name=".carpooling.HomeCarpoolingActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
         <activity
             android:name=".carpooling.PotentialCarpoolersActivity"
             android:parentActivityName=".carpooling.PurposeActivity">
         </activity>
-
-        <activity android:name=".carpooling.ServerMainActivity"></activity>
-
-        <activity android:name=".carpooling.AuthorizationActivity"></activity>
-
-        <activity android:name=".SignInActivity"></activity>
-
-        <activity android:name=".SplashActivity"></activity>
 
         <activity android:name=".carpooling.MapsActivity" />
 
@@ -87,37 +87,11 @@
         </activity>
 
         <activity
-            android:name=".events.PublicEventsActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".carpooling.EntriesVisualisationActivity"
+            android:parentActivityName=".carpooling.HomeCarpoolingActivity" >
         </activity>
 
-        <activity
-            android:name=".carpooling.HomeCarpoolingActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
-
-        <activity
-            android:name=".carpooling.PotentialCarpoolersActivity"
-            android:parentActivityName=".carpooling.PurposeActivity">
-        </activity>
-
-        <activity android:name=".carpooling.ServerMainActivity" />
-
-        <activity android:name=".carpooling.AuthorizationActivity" />
-
-        <activity android:name=".SignInActivity" />
-
-        <activity android:name=".SplashActivity" />
-
-        <activity android:name=".carpooling.MapsActivity" />
-
-        <activity
-            android:name=".carpooling.PurposeActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
-
+        <!-- Public Events -->
         <activity
             android:name=".events.PublicEventsActivity"
             android:parentActivityName=".MainActivity">
@@ -127,6 +101,10 @@
             android:name=".events.EventDetailActivity"
             android:parentActivityName=".events.PublicEventsActivity" >
         </activity>
+
+        <activity android:name=".SignInActivity"></activity>
+
+        <activity android:name=".SplashActivity"></activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

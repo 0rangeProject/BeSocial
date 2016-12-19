@@ -40,9 +40,6 @@
     <string name="list_item_button">Send message</string>
     <string name="potential_carpoolers">Potential carpoolers</string>
     <string name="title_home_carpooling">Check your usual trajects and go carpooling</string>
-    <!--
-    <string name="description_home_carpooling">We are analyzing all your daily trips and compare them to those of your contacts in order to purpose you the best way to carpooling easily and securely.</string>
-    -->
     <string name="description_home_carpooling">2 ways of doing : </string>
     <string name="way_1">- Enable detection and let program check your daily trips</string>
     <string name="way_2">- Enter manually your daily trips</string>
@@ -50,6 +47,7 @@
     <string name="detection_disabled">Detection disabled</string>
     <string name="daily_trips">See your daily trips</string>
     <string name="manual_entry">Enter trips manually</string>
+    <string name="finally_text">Finally, </string>
 
     <!--Titles -->
     <string name="title_activity_purpose">Carpooling</string>
@@ -88,9 +86,4 @@
     <!-- Sign in -->
     <string name="sign_in">Sign in with your Google Account</string>
     <string name="skip">Skip</string>
-
-    <!-- Moves -->
-    <string name="get_paths">Get paths</string>
-    <string name="authorize_moves">First we need to authorize this app to access to Moves app</string>
-    <string name="app_to_app">App-to-App</string>
 </resources>

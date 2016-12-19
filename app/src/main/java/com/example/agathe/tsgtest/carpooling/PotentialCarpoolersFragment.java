@@ -31,7 +31,7 @@ public class PotentialCarpoolersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_carpoolers, container, false);
         cardsList = (ListView) rootView.findViewById(R.id.cards_list);
         pageNumber = getArguments().getInt("pageNumber");
-        travels = getArguments().getParcelableArrayList("travels");
+        travels = getArguments().getParcelableArrayList("manualEntries");
         setupList();
         return rootView;
     }

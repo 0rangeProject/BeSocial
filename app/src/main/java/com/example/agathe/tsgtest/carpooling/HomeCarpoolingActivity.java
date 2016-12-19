@@ -21,7 +21,7 @@ import com.olab.smplibrary.SMPLibrary;
 
 public class HomeCarpoolingActivity extends AppCompatActivity {
     private ToggleButton enableButton;
-    private Button tripsButton;
+    private Button tripsButton, manualEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,14 @@ public class HomeCarpoolingActivity extends AppCompatActivity {
         tripsButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCarpoolingActivity.this, PurposeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        manualEntry = (Button) findViewById(R.id.manual_entry);
+        manualEntry.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCarpoolingActivity.this, EntriesVisualisationActivity.class);
                 startActivity(intent);
             }
         });
