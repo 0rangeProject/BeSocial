@@ -1,15 +1,12 @@
 package com.example.agathe.tsgtest.carpooling;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -23,9 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.agathe.tsgtest.AKDialogFragment;
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.ListTravels;
 import com.example.agathe.tsgtest.R;
@@ -42,6 +39,7 @@ import java.util.ArrayList;
 
 public class EntriesVisualisationActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "EntriesVisualisationA";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static View view;
     private ViewPager mViewPager;
@@ -49,6 +47,11 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
+
+    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+    private static final String OUT_JSON = "/json";
+    private static final String API_KEY = "------your api key here -------";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,30 +105,11 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.dialog_layout, (ViewGroup) findViewById(R.id.layout_root));
-                // layout_root should be the name of the "top-level" layout node in the dialog_layout.xml file.
-                final EditText departure = (EditText) layout.findViewById(R.id.departure_place);
-                final EditText destination = (EditText) layout.findViewById(R.id.destination_place);
-
-                //Building dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(EntriesVisualisationActivity.this);
-                builder.setView(layout);
-                builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        //save info where you want it
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                AKDialogFragment newFragment = new AKDialogFragment();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
             }
         });
     }

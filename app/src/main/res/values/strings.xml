@@ -37,6 +37,8 @@
     <string name="maps_introduction">We detected you often take this path :</string>
     <string name="departure">Departure : </string>
     <string name="destination">Destination : </string>
+    <string name="departure_2">Departure</string>
+    <string name="destination_2">Destination</string>
     <string name="list_item_button">Send message</string>
     <string name="potential_carpoolers">Potential carpoolers</string>
     <string name="title_home_carpooling">Check your usual trajects and go carpooling</string>
@@ -48,7 +50,11 @@
     <string name="daily_trips">See your daily trips</string>
     <string name="manual_entry">Enter trips manually</string>
     <string name="finally_text">Finally, </string>
-    <string name="dialog_description">Enter manually a regular departure and destination</string>
+    <string name="new_trip">New Trip</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="set_departure_hour">Departure hour</string>
+    <string name="set_destination_hour">Destination hour</string>
 
     <!--Titles -->
     <string name="title_activity_purpose">Carpooling</string>
