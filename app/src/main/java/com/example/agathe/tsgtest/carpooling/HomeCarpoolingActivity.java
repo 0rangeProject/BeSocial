@@ -20,7 +20,6 @@ import com.olab.smplibrary.SMPLibrary;
  */
 
 public class HomeCarpoolingActivity extends AppCompatActivity {
-    private ToggleButton enableButton;
     private Button tripsButton, manualEntry;
 
     @Override

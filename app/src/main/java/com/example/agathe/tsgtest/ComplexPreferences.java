@@ -1,24 +1,18 @@
 package com.example.agathe.tsgtest;
 
-import java.lang.reflect.Type;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class ComplexPreferences {
 
 	private static ComplexPreferences complexPreferences;
-	private Context context;
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
 	private static Gson GSON = new Gson();
-	Type typeOfObject = new TypeToken<Object>() {
-	}.getType();
 
 	private ComplexPreferences(Context context, String namePreferences, int mode) {
-		this.context = context;
 		if (namePreferences == null || namePreferences.equals("")) {
 			namePreferences = "complex_preferences";
 		}

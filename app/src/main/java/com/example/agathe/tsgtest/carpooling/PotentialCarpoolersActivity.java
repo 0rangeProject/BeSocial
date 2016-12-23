@@ -43,7 +43,7 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
 
             if (extras != null) {
                 pageNumber = extras.getInt("pageNumber");
-                travels = extras.getParcelableArrayList("manualEntries");
+                travels = extras.getParcelableArrayList("travels");
                 Log.i(LOG_TAG, "pageNumber = " + pageNumber);
             }
 
@@ -54,17 +54,11 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
             if (savedInstanceState == null) {
                 Bundle args = new Bundle();
                 args.putInt("pageNumber", pageNumber);
-                args.putParcelableArrayList("manualEntries", travels);
+                args.putParcelableArrayList("travels", travels);
                 PotentialCarpoolersFragment pcf = new PotentialCarpoolersFragment();
                 pcf.setArguments(args);
                 getFragmentManager().beginTransaction().add(R.id.container, pcf).commit();
             }
-        }
-
-        private void refresh() {
-            finish();
-            Intent intent = new Intent(PotentialCarpoolersActivity.this, PotentialCarpoolersActivity.class);
-            startActivity(intent);
         }
 
     @Override

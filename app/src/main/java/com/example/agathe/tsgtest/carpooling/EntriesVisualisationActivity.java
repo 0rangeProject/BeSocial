@@ -51,33 +51,16 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
     private static View view;
     private ViewPager mViewPager;
 
-    private SharedPreferences settings = null;
-    private SharedPreferences.Editor editor = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entries_visualisation);
-
-        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
-        editor = settings.edit();
-
-        // Récupérer les informations stockées manuellement pr l'utilisateur
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, "PREFERENCES_FILE", MODE_PRIVATE);
-
-        ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
-
-        if (complexObject != null) {
-
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_manual_entry);
         setSupportActionBar(toolbar);
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -157,14 +140,11 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         private List<ManualTrip> manualEntries = new ArrayList<>();
         private Context context;
 
-        public PlaceholderFragment() {
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, Context context) {
+        public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -176,6 +156,7 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
+            context = getContext();
             ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "PREFERENCES_FILE", MODE_PRIVATE);
             ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
 
@@ -259,7 +240,7 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new PlaceholderFragment().newInstance(position + 1, getApplicationContext());
+            return new PlaceholderFragment().newInstance(position + 1);
         }
 
         @Override

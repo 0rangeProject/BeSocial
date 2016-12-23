@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -69,14 +68,11 @@ public class NewTripDialogFragment extends DialogFragment {
     private static final String TAG = "NewTripDialogFragment";
     private Button departureHourButton, destinationHourButton;
     private AutoCompleteTextView autoCompView, autoCompView2;
-    private Calendar calDeparture = Calendar.getInstance(), calDestination = Calendar.getInstance();
-    private String startTime, endTime;
+    private int startTime, endTime;
     private String userID;
 
     private SharedPreferences settings = null;
     private DynamoDBMapper mapper = null;
-
-    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
 
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
@@ -107,9 +103,7 @@ public class NewTripDialogFragment extends DialogFragment {
                 mTimePicker = new TimePickerDialog(rootView.getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        calDeparture.set(Calendar.HOUR_OF_DAY, selectedHour);
-                        calDeparture.set(Calendar.MINUTE, selectedMinute);
-                        startTime = String.valueOf(selectedHour);
+                        startTime = selectedHour;
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time for Departure");
@@ -128,9 +122,7 @@ public class NewTripDialogFragment extends DialogFragment {
                 mTimePicker = new TimePickerDialog(rootView.getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        calDestination.set(Calendar.HOUR_OF_DAY, selectedHour);
-                        calDestination.set(Calendar.MINUTE, selectedMinute);
-                        endTime = String.valueOf(selectedHour);
+                        endTime = selectedHour;
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time for Destination");
@@ -187,7 +179,7 @@ public class NewTripDialogFragment extends DialogFragment {
 
         if (id == R.id.action_save) {
             // envoyer toutes les infos si c'est rempli dans la BDD et dans les préférences
-            if (calDeparture != null && calDestination != null && autoCompView != null && autoCompView2 != null) {
+            if (startTime != 0 && endTime != 0 && autoCompView != null && autoCompView2 != null) {
                 ManualTripsDO trip = new ManualTripsDO();
                 trip.setUserId(userID);
                 trip.setPathId(userID + autoCompView);
@@ -236,12 +228,6 @@ public class NewTripDialogFragment extends DialogFragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void onItemClick(AdapterView adapterView, View view, int position, long id) {
-        String str = (String) adapterView.getItemAtPosition(position);
-        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
     }
 
     public static ArrayList autocomplete(String input) {

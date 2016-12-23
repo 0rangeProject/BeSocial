@@ -31,14 +31,13 @@ public class PotentialCarpoolersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_carpoolers, container, false);
         cardsList = (ListView) rootView.findViewById(R.id.cards_list);
         pageNumber = getArguments().getInt("pageNumber");
-        travels = getArguments().getParcelableArrayList("manualEntries");
+        travels = getArguments().getParcelableArrayList("travels");
         setupList();
         return rootView;
     }
 
     private void setupList() {
         cardsList.setAdapter(createAdapter());
-        cardsList.setOnItemClickListener(new ListItemClickListener());
     }
 
     private CardsAdapterCarpooling createAdapter() {
@@ -58,23 +57,15 @@ public class PotentialCarpoolersFragment extends Fragment {
         public void onClick(View v) {
             for (int i = cardsList.getFirstVisiblePosition(); i <= cardsList.getLastVisiblePosition(); i++) {
                 if (v == cardsList.getChildAt(i - cardsList.getFirstVisiblePosition()).findViewById(R.id.list_item_card_button)) {
-                    Toast.makeText(getActivity(), "Clicked on Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                     String phoneNumber = travels.get(pageNumber).users.get(i).phoneNumber;
                     smsIntent.putExtra("address", phoneNumber);
-                    smsIntent.putExtra("sms_body","Hello, I saw thatwe often do the same trajects, from "
+                    smsIntent.putExtra("sms_body","Hello, I saw that we often do the same trajects, from "
                             + travels.get(pageNumber).departure + " to " + travels.get(pageNumber).destination + ". Are you interested by carpooling together ?");
                     smsIntent.setData(Uri.parse("smsto:" + phoneNumber));
                     startActivity(smsIntent);
                 }
             }
-        }
-    }
-
-    private final class ListItemClickListener implements AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
         }
     }
 }

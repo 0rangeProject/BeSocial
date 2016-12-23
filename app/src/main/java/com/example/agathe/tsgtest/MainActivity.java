@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /** Class name for log messages. */
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    // if you want to take action when a google services result is received.
-    private static final int REQUEST_GOOGLE_PLAY_SERVICES = 1363;
     private PushManager pushManager;
     private CheckBox enablePushCheckBox;
 

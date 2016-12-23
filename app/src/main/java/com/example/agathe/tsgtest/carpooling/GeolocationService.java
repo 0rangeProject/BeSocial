@@ -45,7 +45,6 @@ public class GeolocationService extends Service {
     // private static final int LOCATION_INTERVAL = 30 * 60 * 1000;
     private static final int LOCATION_INTERVAL = 1;
     private static final float LOCATION_DISTANCE = 1;
-    final DynamoDBMapper mapper = null;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -198,11 +197,6 @@ public class GeolocationService extends Service {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean stopService(Intent name) {
-        return super.stopService(name);
     }
 
     private void initializeLocationManager() {

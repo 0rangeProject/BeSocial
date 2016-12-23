@@ -15,10 +15,10 @@ import java.util.Set;
 
 public class ManualTripsDO {
     private String _pathId;
-    private String _endTime;
+    private int _endTime;
     private String _departure;
     private String _destination;
-    private String _startTime;
+    private int _startTime;
     private String _userId;
 
     @DynamoDBHashKey(attributeName = "pathId")
@@ -31,11 +31,11 @@ public class ManualTripsDO {
         this._pathId = _pathId;
     }
     @DynamoDBAttribute(attributeName = "endTime")
-    public String getEndTime() {
+    public int getEndTime() {
         return _endTime;
     }
 
-    public void setEndTime(final String _endTime) {
+    public void setEndTime(final int _endTime) {
         this._endTime = _endTime;
     }
     @DynamoDBAttribute(attributeName = "departure")
@@ -55,11 +55,11 @@ public class ManualTripsDO {
         this._destination = _destination;
     }
     @DynamoDBAttribute(attributeName = "startTime")
-    public String getStartTime() {
+    public int getStartTime() {
         return _startTime;
     }
 
-    public void setStartTime(final String _startTime) {
+    public void setStartTime(final int _startTime) {
         this._startTime = _startTime;
     }
     @DynamoDBAttribute(attributeName = "userId")

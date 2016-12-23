@@ -47,28 +47,17 @@ public class PurposeActivity extends AppCompatActivity {
     private static View view;
     private ViewPager mViewPager;
     ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
-    private String userID;
-
-    private SharedPreferences settings = null;
-    private SharedPreferences.Editor editor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purpose);
 
-        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
-        editor = settings.edit();
-
-        userID = settings.getString("userID", "");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
         setSupportActionBar(toolbar);
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

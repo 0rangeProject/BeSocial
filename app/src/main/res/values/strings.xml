@@ -59,6 +59,7 @@
     <string name="title_entries_visualization">Manual entries</string>
 
     <!--Titles -->
+    <string name="title_carpooling">Carpooling</string>
     <string name="title_activity_purpose">Potential carpoolers</string>
     <string name="action_settings">Settings</string>
 
