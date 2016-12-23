@@ -65,13 +65,7 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
 
         if (complexObject != null) {
-            String[] arrayTravels = new String[complexObject.travels.size()];
 
-            int i = 0;
-            for(CommonTravel item : complexObject.travels){
-                // arrayTravels[i] = item.getName();
-                // i++;
-            }
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_manual_entry);

@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest.carpooling;
 
 import com.example.agathe.tsgtest.dto.CommonTravel;
+import com.example.agathe.tsgtest.dto.ManualTrip;
 
 import java.util.List;
 
@@ -10,13 +11,13 @@ import java.util.List;
 
 public class ListTravels {
 
-    public List<CommonTravel> travels;
+    public List<ManualTrip> travels;
 
-    public List<CommonTravel> getUsers() {
+    public List<ManualTrip> getTravels() {
         return travels;
     }
 
-    public void setUsers(List<CommonTravel> users) {
-        this.travels = users;
+    public void setTravels(List<ManualTrip> travels) {
+        this.travels = travels;
     }
 }

@@ -37,6 +37,9 @@ import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.SaveObjectTaskManualTrip;
 import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
+import com.example.agathe.tsgtest.dto.ManualTrip;
+import com.example.agathe.tsgtest.dto.User;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +53,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -68,6 +72,8 @@ public class NewTripDialogFragment extends DialogFragment {
 
     private SharedPreferences settings = null;
     private DynamoDBMapper mapper = null;
+
+    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
 
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
@@ -159,17 +165,11 @@ public class NewTripDialogFragment extends DialogFragment {
 
         // Récupérer les informations stockées manuellement pr l'utilisateur
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-
         ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
+        List<ManualTrip> manualTrips = null;
 
         if (complexObject != null) {
-            String[] arrayTravels = new String[complexObject.travels.size()];
-
-            int i = 0;
-            for(CommonTravel item : complexObject.travels){
-                // arrayTravels[i] = item.getName();
-                // i++;
-            }
+            manualTrips = complexObject.getTravels();
         }
 
         return rootView;
@@ -204,6 +204,21 @@ public class NewTripDialogFragment extends DialogFragment {
                 trip.setDeparture(autoCompView.getText().toString());
                 trip.setDestination(autoCompView2.getText().toString());
                 new SaveObjectTaskManualTrip(mapper).execute(trip);
+
+                ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+                ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
+
+                ListTravels list = new ListTravels();
+                List<ManualTrip> manualTrips = new ArrayList<>();
+
+                if (complexObject != null) {
+                    manualTrips = complexObject.getTravels();
+                }
+
+                manualTrips.add(new ManualTrip(autoCompView.getText().toString(), autoCompView2.getText().toString()));
+                list.setTravels(manualTrips);
+                complexPreferences.putObject("list", list);
+                complexPreferences.commit();
             }
 
             dismiss();
