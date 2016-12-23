@@ -20,7 +20,7 @@ import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.models.nosql.PathsDO;
 import com.example.agathe.tsgtest.R;
-import com.example.agathe.tsgtest.database.SaveObjectTask;
+import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 
 import static java.lang.Math.abs;
 
@@ -63,7 +63,7 @@ public class GeolocationService extends Service {
             path.setEndTime(String.valueOf(location.getTime()));
             path.setLat(location.getLatitude());
             path.setLon(location.getLongitude());
-            new SaveObjectTask(mapper).execute(path);
+            new SaveObjectTaskPath(mapper).execute(path);
 
             Log.w("LAT", String.valueOf(location.getLatitude()));
             Log.w("LONG", String.valueOf(location.getLongitude()));
@@ -82,7 +82,7 @@ public class GeolocationService extends Service {
                         path.setEndTime(endTime);
                         path.setLat(initLoc.getLatitude());
                         path.setLon(initLoc.getLongitude());
-                        new SaveObjectTask(mapper).execute(path);
+                        new SaveObjectTaskPath(mapper).execute(path);
                     }
                     initLoc = location;
                     startTime = String.valueOf(location.getTime());

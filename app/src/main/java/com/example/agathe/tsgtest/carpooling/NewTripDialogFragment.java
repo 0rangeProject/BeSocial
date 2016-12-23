@@ -3,6 +3,7 @@ package com.example.agathe.tsgtest.carpooling;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -27,8 +28,14 @@ import android.widget.Filterable;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.amazonaws.mobile.AWSMobileClient;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.models.nosql.ManualTripsDO;
+import com.amazonaws.models.nosql.PathsDO;
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.database.SaveObjectTaskManualTrip;
+import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 
 import org.json.JSONArray;
@@ -54,7 +61,13 @@ public class NewTripDialogFragment extends DialogFragment {
 
     private static final String TAG = "NewTripDialogFragment";
     private Button departureHourButton, destinationHourButton;
+    private AutoCompleteTextView autoCompView, autoCompView2;
     private Calendar calDeparture = Calendar.getInstance(), calDestination = Calendar.getInstance();
+    private String startTime, endTime;
+    private String userID;
+
+    private SharedPreferences settings = null;
+    private DynamoDBMapper mapper = null;
 
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
@@ -69,6 +82,11 @@ public class NewTripDialogFragment extends DialogFragment {
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.new_trip);
 
+        mapper = AWSMobileClient.defaultMobileClient().getDynamoDBMapper();
+
+        settings = getContext().getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        userID = settings.getString("userID", "");
+
         departureHourButton = (Button) rootView.findViewById(R.id.btn_departure_hour);
         departureHourButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +100,7 @@ public class NewTripDialogFragment extends DialogFragment {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         calDeparture.set(Calendar.HOUR_OF_DAY, selectedHour);
                         calDeparture.set(Calendar.MINUTE, selectedMinute);
+                        startTime = String.valueOf(selectedHour);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time for Departure");
@@ -102,6 +121,7 @@ public class NewTripDialogFragment extends DialogFragment {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         calDestination.set(Calendar.HOUR_OF_DAY, selectedHour);
                         calDestination.set(Calendar.MINUTE, selectedMinute);
+                        endTime = String.valueOf(selectedHour);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time for Destination");
@@ -119,7 +139,7 @@ public class NewTripDialogFragment extends DialogFragment {
         }
         setHasOptionsMenu(true);
 
-        AutoCompleteTextView autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.departure_place);
+        autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.departure_place);
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(getContext(), R.layout.list_item));
         autoCompView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +148,7 @@ public class NewTripDialogFragment extends DialogFragment {
             }
         });
 
-        AutoCompleteTextView autoCompView2 = (AutoCompleteTextView) rootView.findViewById(R.id.destination_place);
+        autoCompView2 = (AutoCompleteTextView) rootView.findViewById(R.id.destination_place);
         autoCompView2.setAdapter(new GooglePlacesAutocompleteAdapter(getContext(), R.layout.list_item));
         autoCompView2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +194,18 @@ public class NewTripDialogFragment extends DialogFragment {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            // envoyer toutes les infos si c'est rempli dans la BDD ou dans les préférences
+            // envoyer toutes les infos si c'est rempli dans la BDD et dans les préférences
+            if (calDeparture != null && calDestination != null && autoCompView != null && autoCompView2 != null) {
+                ManualTripsDO trip = new ManualTripsDO();
+                trip.setUserId(userID);
+                trip.setPathId(userID + autoCompView);
+                trip.setStartTime(startTime);
+                trip.setEndTime(endTime);
+                trip.setDeparture(autoCompView.getText().toString());
+                trip.setDestination(autoCompView2.getText().toString());
+                new SaveObjectTaskManualTrip(mapper).execute(trip);
+            }
+
             dismiss();
             return true;
         } else if (id == android.R.id.home) {
