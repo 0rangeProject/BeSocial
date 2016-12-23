@@ -25,11 +25,20 @@ import android.widget.TextView;
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
+import com.example.agathe.tsgtest.dto.ManualTrip;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by agathe on 18/12/16.
@@ -41,15 +50,9 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static View view;
     private ViewPager mViewPager;
-    ArrayList<CommonTravel> manualEntries = new ArrayList<CommonTravel>();
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
-
-    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
-    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
-    private static final String OUT_JSON = "/json";
-    private static final String API_KEY = "------your api key here -------";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +92,9 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-        // mTabLayout.getTabAt(0).setText("Path #1");
-        // mTabLayout.getTabAt(1).setText("Path #2");
-        // mTabLayout.getTabAt(2).setText("Path #3");
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +154,8 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static ArrayList<CommonTravel> manualEntries = new ArrayList<>();
+        private List<ManualTrip> manualEntries = new ArrayList<>();
+        private Context context;
 
         public PlaceholderFragment() {
         }
@@ -160,11 +164,10 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber, ArrayList<CommonTravel> manualEntries) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Context context) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            args.putParcelableArrayList("manualEntries", manualEntries);
             fragment.setArguments(args);
             return fragment;
         }
@@ -172,11 +175,19 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            manualEntries = getArguments().getParcelableArrayList("manualEntries");
 
-            view = inflater.inflate(R.layout.activity_maps, container, false);
+            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "PREFERENCES_FILE", MODE_PRIVATE);
+            ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
+
+            if (complexObject != null) {
+                manualEntries = complexObject.getTravels();
+            }
+
+            view = inflater.inflate(R.layout.activity_maps_manual, container, false);
             TextView departure = (TextView) view.findViewById(R.id.departure_place);
             TextView destination = (TextView) view.findViewById(R.id.destination_place);
+            departure.setText(manualEntries.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).departure);
+            destination.setText(manualEntries.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).destination);
 
             return view;
         }
@@ -197,7 +208,29 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
+                    GoogleMap mMap = googleMap;
 
+                    LatLng departure = manualEntries.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).departurePosition;
+                    LatLng destination = manualEntries.get(getArguments().getInt(ARG_SECTION_NUMBER) - 1).destinationPosition;
+
+                    List<Marker> markers = new ArrayList<Marker>();
+                    if (departure != null && destination != null) {
+                        markers.add(mMap.addMarker(new MarkerOptions().position(departure).title("Departure")));
+                        markers.add(mMap.addMarker(new MarkerOptions().position(destination)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                .title("Destination")));
+
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        for (Marker marker : markers) {
+                            builder.include(marker.getPosition());
+                        }
+                        LatLngBounds bounds = builder.build();
+
+                        int padding = 30; // offset from edges of the map in pixels
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+                        googleMap.moveCamera(cu);
+                    }
                 }
             });
         }
@@ -209,20 +242,28 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private List<ManualTrip> manualEntries = new ArrayList<>();
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            // Récupérer les informations stockées manuellement pr l'utilisateur
+            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+            ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
+
+            if (complexObject != null) {
+                manualEntries = complexObject.getTravels();
+            }
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new PlaceholderFragment().newInstance(position + 1, manualEntries);
+            return new PlaceholderFragment().newInstance(position + 1, getApplicationContext());
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return manualEntries.size();
         }
     }

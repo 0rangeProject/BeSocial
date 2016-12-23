@@ -22,6 +22,9 @@ import com.amazonaws.models.nosql.PathsDO;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import static java.lang.Math.abs;
 
 /**
@@ -32,8 +35,8 @@ public class GeolocationService extends Service {
     private static final double RAYON = 0.01;
     private static final String TAG = "GeolocationService";
     private Location initLoc = null;
-    private String startTime = "";
-    private String endTime = "";
+    private int startTime;
+    private int endTime = 0;
     private String userID;
 
     private SharedPreferences settings = null;
@@ -59,8 +62,12 @@ public class GeolocationService extends Service {
             PathsDO path = new PathsDO();
             path.setUserId(userID);
             path.setPathId(userID + location.getLatitude());
-            path.setStartTime(String.valueOf(location.getTime()));
-            path.setEndTime(String.valueOf(location.getTime()));
+
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTimeInMillis(location.getTime());
+
+            path.setStartTime(calendar.get(Calendar.HOUR_OF_DAY));
+            path.setEndTime(calendar.get(Calendar.HOUR_OF_DAY));
             path.setLat(location.getLatitude());
             path.setLon(location.getLongitude());
             new SaveObjectTaskPath(mapper).execute(path);
@@ -72,12 +79,16 @@ public class GeolocationService extends Service {
             if (initLoc != null) {
                 // If the user didn't move
                 if (abs(location.getLongitude() - initLoc.getLongitude()) < RAYON && abs(location.getLatitude() - initLoc.getLatitude()) < RAYON) {
-                    endTime = String.valueOf(location.getTime());
+                    calendar.setTimeInMillis(location.getTime());
+                    endTime = calendar.get(Calendar.HOUR_OF_DAY);
                 } else {
-                    if (!endTime.equals("")) {
+                    if (endTime != 0) {
                         // PathsDO path = new PathsDO();
                         path.setUserId(userID);
                         path.setPathId(userID + location.getLatitude());
+
+                        calendar.setTimeInMillis(location.getTime());
+
                         path.setStartTime(startTime);
                         path.setEndTime(endTime);
                         path.setLat(initLoc.getLatitude());
@@ -85,12 +96,14 @@ public class GeolocationService extends Service {
                         new SaveObjectTaskPath(mapper).execute(path);
                     }
                     initLoc = location;
-                    startTime = String.valueOf(location.getTime());
-                    endTime = "";
+                    calendar.setTimeInMillis(location.getTime());
+                    startTime = calendar.get(Calendar.HOUR_OF_DAY);
+                    endTime = 0;
                 }
             } else {
                 initLoc = location;
-                startTime = String.valueOf(location.getTime());
+                calendar.setTimeInMillis(location.getTime());
+                startTime = calendar.get(Calendar.HOUR_OF_DAY);
             }
         }
 

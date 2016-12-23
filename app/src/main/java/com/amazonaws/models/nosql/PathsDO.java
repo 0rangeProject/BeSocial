@@ -9,10 +9,10 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 public class PathsDO {
     private String _pathId;
-    private String _endTime;
+    private int _endTime;
     private Double _lat;
     private Double _lon;
-    private String _startTime;
+    private int _startTime;
     private String _userId;
 
     @DynamoDBHashKey(attributeName = "pathId")
@@ -25,11 +25,11 @@ public class PathsDO {
         this._pathId = _pathId;
     }
     @DynamoDBAttribute(attributeName = "endTime")
-    public String getEndTime() {
+    public int getEndTime() {
         return _endTime;
     }
 
-    public void setEndTime(final String _endTime) {
+    public void setEndTime(final int _endTime) {
         this._endTime = _endTime;
     }
     @DynamoDBAttribute(attributeName = "lat")
@@ -49,11 +49,11 @@ public class PathsDO {
         this._lon = _lon;
     }
     @DynamoDBAttribute(attributeName = "startTime")
-    public String getStartTime() {
+    public int getStartTime() {
         return _startTime;
     }
 
-    public void setStartTime(final String _startTime) {
+    public void setStartTime(final int _startTime) {
         this._startTime = _startTime;
     }
     @DynamoDBIndexHashKey(attributeName = "userId", globalSecondaryIndexName = "User")

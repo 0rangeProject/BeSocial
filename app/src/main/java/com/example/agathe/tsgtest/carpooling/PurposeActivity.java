@@ -83,9 +83,9 @@ public class PurposeActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0).setText("Path #1");
-        mTabLayout.getTabAt(1).setText("Path #2");
-        mTabLayout.getTabAt(2).setText("Path #3");
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class PurposeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
                 intent.putExtra("pageNumber", currentPage);
-                intent.putParcelableArrayListExtra("manualEntries", travels);
+                intent.putParcelableArrayListExtra("travels", travels);
                 startActivity(intent);
             }
         });
@@ -189,7 +189,7 @@ public class PurposeActivity extends AppCompatActivity {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            args.putParcelableArrayList("manualEntries", travels);
+            args.putParcelableArrayList("travels", travels);
             fragment.setArguments(args);
             return fragment;
         }
@@ -197,7 +197,7 @@ public class PurposeActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            travels = getArguments().getParcelableArrayList("manualEntries");
+            travels = getArguments().getParcelableArrayList("travels");
 
             view = inflater.inflate(R.layout.activity_maps, container, false);
             TextView departure = (TextView) view.findViewById(R.id.departure_place);
@@ -269,7 +269,6 @@ public class PurposeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 3;
         }
     }

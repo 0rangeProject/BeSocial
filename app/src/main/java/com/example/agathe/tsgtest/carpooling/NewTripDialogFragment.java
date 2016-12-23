@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -54,6 +55,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -150,7 +153,6 @@ public class NewTripDialogFragment extends DialogFragment {
         autoCompView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // finish();
             }
         });
 
@@ -159,18 +161,8 @@ public class NewTripDialogFragment extends DialogFragment {
         autoCompView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // finish();
             }
         });
-
-        // Récupérer les informations stockées manuellement pr l'utilisateur
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-        ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
-        List<ManualTrip> manualTrips = null;
-
-        if (complexObject != null) {
-            manualTrips = complexObject.getTravels();
-        }
 
         return rootView;
     }
@@ -215,7 +207,21 @@ public class NewTripDialogFragment extends DialogFragment {
                     manualTrips = complexObject.getTravels();
                 }
 
-                manualTrips.add(new ManualTrip(autoCompView.getText().toString(), autoCompView2.getText().toString()));
+                LatLng responseDeparture = null;
+                LatLng responsesDestination = null;
+                try {
+                    responseDeparture = new GeocoderAsyncTask(autoCompView.getText().toString()).execute().get();
+                    responsesDestination = new GeocoderAsyncTask(autoCompView2.getText().toString()).execute().get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                if (responseDeparture.latitude != 0 && responsesDestination.latitude != 0) {
+                    manualTrips.add(new ManualTrip(autoCompView.getText().toString(), autoCompView2.getText().toString(), responseDeparture, responsesDestination));
+                } else manualTrips.add(new ManualTrip(autoCompView.getText().toString(), autoCompView2.getText().toString()));
+
                 list.setTravels(manualTrips);
                 complexPreferences.putObject("list", list);
                 complexPreferences.commit();

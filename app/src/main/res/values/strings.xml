@@ -35,6 +35,7 @@
 
     <!--Carpooling -->
     <string name="maps_introduction">We detected you often take this path :</string>
+    <string name="maps_introduction_manual">This is one path you manually entered :</string>
     <string name="departure">Departure : </string>
     <string name="destination">Destination : </string>
     <string name="departure_2">Departure</string>
@@ -47,7 +48,7 @@
     <string name="way_2">- Enter manually your daily trips</string>
     <string name="detection_enabled">Detection enabled</string>
     <string name="detection_disabled">Detection disabled</string>
-    <string name="daily_trips">See your daily trips</string>
+    <string name="daily_trips">See potential carpoolers</string>
     <string name="manual_entry">Enter trips manually</string>
     <string name="finally_text">Finally, </string>
     <string name="new_trip">New Trip</string>
@@ -55,9 +56,10 @@
     <string name="to">To</string>
     <string name="set_departure_hour">Departure hour</string>
     <string name="set_destination_hour">Destination hour</string>
+    <string name="title_entries_visualization">Manual entries</string>
 
     <!--Titles -->
-    <string name="title_activity_purpose">Carpooling</string>
+    <string name="title_activity_purpose">Potential carpoolers</string>
     <string name="action_settings">Settings</string>
 
     <!-- Example for cards adapter-->
