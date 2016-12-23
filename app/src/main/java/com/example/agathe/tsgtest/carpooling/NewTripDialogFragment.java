@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.carpooling;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -27,7 +27,8 @@ import android.widget.Filterable;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.agathe.tsgtest.carpooling.EntriesVisualisationActivity;
+import com.example.agathe.tsgtest.ComplexPreferences;
+import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 
 import org.json.JSONArray;
@@ -49,11 +50,11 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by agathe on 19/12/16.
  */
 
-public class AKDialogFragment extends DialogFragment {
+public class NewTripDialogFragment extends DialogFragment {
 
-    private static final String TAG = "AKDialogFragment";
+    private static final String TAG = "NewTripDialogFragment";
     private Button departureHourButton, destinationHourButton;
-    private Calendar calDestination, calDeparture;
+    private Calendar calDeparture = Calendar.getInstance(), calDestination = Calendar.getInstance();
 
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
@@ -118,12 +119,18 @@ public class AKDialogFragment extends DialogFragment {
         }
         setHasOptionsMenu(true);
 
-        // final EditText departure = (EditText) rootView.findViewById(R.id.departure_place);
-        final EditText destination = (EditText) rootView.findViewById(R.id.destination_place);
-
         AutoCompleteTextView autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.departure_place);
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(getContext(), R.layout.list_item));
         autoCompView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // finish();
+            }
+        });
+
+        AutoCompleteTextView autoCompView2 = (AutoCompleteTextView) rootView.findViewById(R.id.destination_place);
+        autoCompView2.setAdapter(new GooglePlacesAutocompleteAdapter(getContext(), R.layout.list_item));
+        autoCompView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // finish();
@@ -167,7 +174,8 @@ public class AKDialogFragment extends DialogFragment {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            // handle confirmation button click here
+            // envoyer toutes les infos si c'est rempli dans la BDD ou dans les préférences
+            dismiss();
             return true;
         } else if (id == android.R.id.home) {
             // handle close button click here
@@ -185,14 +193,13 @@ public class AKDialogFragment extends DialogFragment {
     }
 
     public static ArrayList autocomplete(String input) {
-
         ArrayList resultList = null;
         HttpURLConnection conn = null;
         StringBuilder jsonResults = new StringBuilder();
         try {
             StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
             sb.append("?key=" + API_KEY);
-            sb.append("&components=country:gr");
+            sb.append("&components=country:fr");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
             URL url = new URL(sb.toString());
@@ -237,7 +244,7 @@ public class AKDialogFragment extends DialogFragment {
     }
 
     class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
-        private ArrayList resultList;
+        private ArrayList<String> resultList ;
 
         public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
             super(context, textViewResourceId);
@@ -249,7 +256,7 @@ public class AKDialogFragment extends DialogFragment {
         }
 
         @Override
-        public Object getItem(int index) {
+        public String getItem(int index) {
             return resultList.get(index);
         }
 

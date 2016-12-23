@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest;
+package com.example.agathe.tsgtest.carpooling;
 
 import com.example.agathe.tsgtest.dto.CommonTravel;
 

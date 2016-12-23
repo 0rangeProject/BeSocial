@@ -22,9 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.agathe.tsgtest.AKDialogFragment;
 import com.example.agathe.tsgtest.ComplexPreferences;
-import com.example.agathe.tsgtest.ListTravels;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.google.android.gms.maps.GoogleMap;
@@ -106,7 +104,7 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                AKDialogFragment newFragment = new AKDialogFragment();
+                NewTripDialogFragment newFragment = new NewTripDialogFragment();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();

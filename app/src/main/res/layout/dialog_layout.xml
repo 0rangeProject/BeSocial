@@ -47,7 +47,10 @@
             android:id="@+id/departure_place"
             android:hint="@string/departure_2"
             android:layout_alignEnd="@+id/departure"
-            android:layout_alignRight="@+id/departure" />
+            android:layout_alignRight="@+id/departure"
+            android:ems="10">
+            <requestFocus />
+        </AutoCompleteTextView>
 
         <Button
             android:layout_width="wrap_content"
@@ -64,14 +67,16 @@
             android:layout_below="@id/btn_departure_hour"
             android:layout_marginTop="20dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/destination_place"
             android:hint="@string/destination_2"
             android:layout_alignEnd="@+id/destination"
             android:layout_alignRight="@+id/destination"
-            android:layout_below="@id/to"/>
+            android:layout_below="@id/to">
+            <requestFocus />
+        </AutoCompleteTextView>
 
         <Button
             android:layout_width="wrap_content"
