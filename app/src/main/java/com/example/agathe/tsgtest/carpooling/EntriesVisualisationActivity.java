@@ -63,6 +63,16 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        List<ManualTrip> manualEntries = new ArrayList<>();
+        ManualTrip mt = new ManualTrip("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285));
+        manualEntries.add(0, mt);
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+
+        ListTravels list = new ListTravels();
+        list.setTravels(manualEntries);
+        complexPreferences.putObject("list", list);
+        complexPreferences.commit();
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -88,6 +98,52 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+            }
+        });
+
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get current page and delete
+
+                List<ManualTrip> manualEntries = new ArrayList<>();
+                ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+                ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
+                if (complexObject != null) {
+                    manualEntries = complexObject.getTravels();
+                }
+                manualEntries.remove(currentPage);
+                if (manualEntries.size() != 0) {
+
+                } else {
+                    manualEntries.add(0, null);
+                }
+
+                ListTravels list = new ListTravels();
+                list.setTravels(manualEntries);
+                complexPreferences.putObject("list", list);
+                complexPreferences.commit();
+
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+                // Set up the ViewPager with the sections adapter.
+                mViewPager = (ViewPager) findViewById(R.id.container);
+                mViewPager.setAdapter(mSectionsPagerAdapter);
+
+                PageListener pageListener = new PageListener();
+                mViewPager.setOnPageChangeListener(pageListener);
+
+                // Give the TabLayout the ViewPager
+                TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+                mTabLayout.setupWithViewPager(mViewPager);
+                for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+                    mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+                }
+
+
+
+
             }
         });
     }
@@ -233,6 +289,10 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
 
             if (complexObject != null) {
                 manualEntries = complexObject.getTravels();
+            }
+
+            if (manualEntries.get(0) == null) {
+                manualEntries.remove(0);
             }
         }
 

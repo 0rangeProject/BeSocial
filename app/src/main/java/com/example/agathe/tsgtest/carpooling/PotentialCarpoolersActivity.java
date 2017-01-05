@@ -37,8 +37,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
 
             // Get a support ActionBar corresponding to this toolbar
             ActionBar ab = getSupportActionBar();
-
-            // Enable the Up button
             ab.setDisplayHomeAsUpEnabled(true);
 
             if (extras != null) {
@@ -46,10 +44,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
                 travels = extras.getParcelableArrayList("travels");
                 Log.i(LOG_TAG, "pageNumber = " + pageNumber);
             }
-
-            // Set toolbar
-            Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
-            setSupportActionBar(myToolbar);
 
             if (savedInstanceState == null) {
                 Bundle args = new Bundle();
