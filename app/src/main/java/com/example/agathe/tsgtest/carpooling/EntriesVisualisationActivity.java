@@ -63,15 +63,16 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        /*
         List<ManualTrip> manualEntries = new ArrayList<>();
-        ManualTrip mt = new ManualTrip("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285));
-        manualEntries.add(0, mt);
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+        manualEntries = null;
 
         ListTravels list = new ListTravels();
         list.setTravels(manualEntries);
         complexPreferences.putObject("list", list);
         complexPreferences.commit();
+        */
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -113,37 +114,25 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
                 if (complexObject != null) {
                     manualEntries = complexObject.getTravels();
                 }
-                manualEntries.remove(currentPage);
-                if (manualEntries.size() != 0) {
 
-                } else {
-                    manualEntries.add(0, null);
+                List<ManualTrip> temp = new ArrayList<>();
+                int j = 0;
+
+                for (int i = 0; i < manualEntries.size(); i++) {
+                    if (i != currentPage)
+                    {
+                        temp.add(j, manualEntries.get(i));
+                        j++;
+                    }
                 }
+                manualEntries = temp;
 
                 ListTravels list = new ListTravels();
                 list.setTravels(manualEntries);
                 complexPreferences.putObject("list", list);
                 complexPreferences.commit();
 
-                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-                // Set up the ViewPager with the sections adapter.
-                mViewPager = (ViewPager) findViewById(R.id.container);
-                mViewPager.setAdapter(mSectionsPagerAdapter);
-
-                PageListener pageListener = new PageListener();
-                mViewPager.setOnPageChangeListener(pageListener);
-
-                // Give the TabLayout the ViewPager
-                TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-                mTabLayout.setupWithViewPager(mViewPager);
-                for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-                    mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
-                }
-
-
-
-
+                refreshPagesAdapter();
             }
         });
     }
@@ -179,7 +168,6 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -212,8 +200,7 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            context = getContext();
-            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "PREFERENCES_FILE", MODE_PRIVATE);
+            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
             ListTravels complexObject = complexPreferences.getObject("list", ListTravels.class);
 
             if (complexObject != null) {
@@ -273,6 +260,24 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         }
     }
 
+    public void refreshPagesAdapter() {
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        PageListener pageListener = new PageListener();
+        mViewPager.setOnPageChangeListener(pageListener);
+
+        // Give the TabLayout the ViewPager
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -290,10 +295,6 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
             if (complexObject != null) {
                 manualEntries = complexObject.getTravels();
             }
-
-            if (manualEntries.get(0) == null) {
-                manualEntries.remove(0);
-            }
         }
 
         @Override
@@ -305,7 +306,9 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return manualEntries.size();
+            if (manualEntries != null) {
+                return manualEntries.size();
+            } else return 0;
         }
     }
 
