@@ -23,7 +23,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedQueryList;
+import com.amazonaws.models.nosql.PathsDO;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.database.AllPathsUserTask;
+import com.example.agathe.tsgtest.database.LoadObjectTask;
+import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
@@ -40,6 +48,7 @@ import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class PurposeActivity extends AppCompatActivity {
 
@@ -47,6 +56,9 @@ public class PurposeActivity extends AppCompatActivity {
     private static View view;
     private ViewPager mViewPager;
     ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
+
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +122,30 @@ public class PurposeActivity extends AppCompatActivity {
             add(new User("Hector Sauvage", "known people", "0612345678"));
         }};
 
-
-
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
                 users1));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
                 users2));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
+
+        findTravels();
+    }
+
+    public void findTravels() {
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        String clientId = settings.getString("userID", "");
+        List<PaginatedQueryList<PathsDO>> list = null;
+
+        // On cherche tous les trajets de l'utilisateur
+        try {
+            list = new AllPathsUserTask("path", clientId).execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
