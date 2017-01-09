@@ -52,23 +52,36 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<PaginatedQuer
         resultUsers = mapper.query(PathsDO.class, queryExpression);
 
         List<PaginatedQueryList<PathsDO>> list = null;
-        list.add(resultUsers);
 
-        /*
         // Pour chaque trajet, on regarde ceux à une latitude / longitude dans un rayon de 1
         for (PathsDO p : resultUsers) {
-            Condition rangeKeyCondition = new Condition()
+            Condition latCondition = new Condition()
                     .withComparisonOperator(ComparisonOperator.BETWEEN)
                     .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLat() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLat() + 0.5))));
 
-            queryExpression = new DynamoDBQueryExpression()
+            Condition lonCondition = new Condition()
+                    .withComparisonOperator(ComparisonOperator.BETWEEN)
+                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLon() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLon() + 0.5))));
+
+            Condition startTimeCondition = new Condition()
+                    .withComparisonOperator(ComparisonOperator.BETWEEN)
+                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
+
+            Condition endTimeCondition = new Condition()
+                    .withComparisonOperator(ComparisonOperator.BETWEEN)
+                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
+
+            queryExpression = new DynamoDBQueryExpression<PathsDO>()
                     .withHashKeyValues(path)
-                    //.withRangeKeyCondition("lat", rangeKeyCondition)
-                    .withConsistentRead(false);
+                    .withRangeKeyCondition("lat", latCondition)
+                    .withRangeKeyCondition("lon", lonCondition)
+                    .withRangeKeyCondition("startTime", startTimeCondition)
+                    .withRangeKeyCondition("endTime", endTimeCondition);
+
 
             resultFinal = mapper.query(PathsDO.class, queryExpression);
             list.add(resultFinal);
-        }*/
+        }
         return list;
     }
 

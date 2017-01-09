@@ -3,6 +3,8 @@ package com.amazonaws.models.nosql;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
 @DynamoDBTable(tableName = "orangesocialservices-mobilehub-546780328-Paths")
@@ -24,7 +26,7 @@ public class PathsDO {
     public void setPathId(final String _pathId) {
         this._pathId = _pathId;
     }
-    @DynamoDBAttribute(attributeName = "endTime")
+    @DynamoDBIndexRangeKey(attributeName = "endTime", globalSecondaryIndexName = "endTime-index")
     public int getEndTime() {
         return _endTime;
     }
@@ -32,7 +34,7 @@ public class PathsDO {
     public void setEndTime(final int _endTime) {
         this._endTime = _endTime;
     }
-    @DynamoDBAttribute(attributeName = "lat")
+    @DynamoDBIndexRangeKey(attributeName = "lat", localSecondaryIndexName = "lat-index")
     public Double getLat() {
         return _lat;
     }
@@ -40,7 +42,7 @@ public class PathsDO {
     public void setLat(final Double _lat) {
         this._lat = _lat;
     }
-    @DynamoDBAttribute(attributeName = "lon")
+    @DynamoDBIndexRangeKey(attributeName = "lon", localSecondaryIndexName = "lon-index")
     public Double getLon() {
         return _lon;
     }
@@ -48,7 +50,7 @@ public class PathsDO {
     public void setLon(final Double _lon) {
         this._lon = _lon;
     }
-    @DynamoDBAttribute(attributeName = "startTime")
+    @DynamoDBIndexRangeKey(attributeName = "startTime", localSecondaryIndexName = "startTime-index")
     public int getStartTime() {
         return _startTime;
     }
