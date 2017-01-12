@@ -5,12 +5,12 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/carpooling_draw"
-            android:title="Carpooling"/>
+            android:title="@string/menu_carpooling"/>
         <item android:id="@+id/ls_draw"
-            android:title="Little services" />
+            android:title="@string/menu_little_services" />
         <item android:id="@+id/sport_draw"
-            android:title="Sport" />
+            android:title="@string/menu_sport" />
         <item android:id="@+id/pe_draw"
-            android:title="Public Events" />
+            android:title="@string/menu_pe" />
     </group>
 </menu>

@@ -16,16 +16,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedQueryList;
+import com.amazonaws.models.nosql.PathsDO;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
+import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.database.AllPathsUserTask;
+import com.example.agathe.tsgtest.database.LoadObjectTask;
+import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
@@ -42,6 +48,7 @@ import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class PurposeActivity extends AppCompatActivity {
 
@@ -49,7 +56,6 @@ public class PurposeActivity extends AppCompatActivity {
     private static View view;
     private ViewPager mViewPager;
     ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
-    private String userID;
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
@@ -59,18 +65,11 @@ public class PurposeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purpose);
 
-        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
-        editor = settings.edit();
-
-        userID = settings.getString("userID", "");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
         setSupportActionBar(toolbar);
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -85,10 +84,9 @@ public class PurposeActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0).setText("Path #1");
-        mTabLayout.getTabAt(1).setText("Path #2");
-        mTabLayout.getTabAt(2).setText("Path #3");
-
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -131,11 +129,29 @@ public class PurposeActivity extends AppCompatActivity {
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
 
-        GPSManager gps = new GPSManager(
-                PurposeActivity.this, userID);
-        gps.start();
+        findTravels();
+    }
 
+    public void findTravels() {
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        String clientId = settings.getString("userID", "");
+        List<PaginatedQueryList<PathsDO>> list = null;
 
+        // On cherche tous les trajets de l'utilisateur
+        try {
+            list = new AllPathsUserTask("path", clientId).execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        for (PaginatedQueryList<PathsDO> paginatedList : list) {
+            for (PathsDO p : paginatedList) {
+                System.out.print(p.toString());
+            }
+        }
     }
 
     @Override
@@ -276,7 +292,6 @@ public class PurposeActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 3;
         }
     }

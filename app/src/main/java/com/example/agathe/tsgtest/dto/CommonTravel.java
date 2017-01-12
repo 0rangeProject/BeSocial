@@ -4,9 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.UrlTileProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
