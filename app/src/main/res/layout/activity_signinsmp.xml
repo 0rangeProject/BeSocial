@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.agathe.tsgtest.SignInSMP">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/ll">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="59dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FF6600"
+            android:text="Sign in to your SMP account"/>
+
+        <Button
+            android:text="Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentleft="true"
+            android:layout_marginLeft="11dp"
+            android:id="@+id/loginSMP_but" />
+    </LinearLayout>
+
+</RelativeLayout>
