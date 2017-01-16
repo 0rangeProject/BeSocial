@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/event_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
             <ImageView
@@ -95,9 +96,9 @@
                 android:layout_below="@id/event_list_item_place_layout">
 
                 <Button
-                    android:background="@drawable/btn_style"
                     android:id="@+id/event_list_item_button_1"
                     android:text="READ MORE"
+                    android:background="@drawable/btn_style"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"

@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest.events;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -48,13 +49,21 @@ public class EventDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_public_event_detail, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share:
+
+                return true;
+
+            case R.id.action_interested:
+                SMPLibrary.Logout();
+                return true;
+
             case R.id.action_disconnect:
                 SMPLibrary.Logout();
                 return true;

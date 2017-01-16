@@ -2,17 +2,20 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_public_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.example.agathe.tsgtest.events.PublicEventsActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="180dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -113,6 +116,7 @@
         android:src="@drawable/ic_add_white"
         app:layout_anchor="@id/my_list"
         app:layout_anchorGravity="bottom|right"
+        android:id="@+id/floatingActionButton"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp" />
 

@@ -32,6 +32,11 @@
     <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
 
     <!--Public events -->
+    <string name="list_item_left_button">View</string>
+    <string name="list_item_right_button">Interested</string>
+    <string name="action_share">Share</string>
+    <string name="action_interested">Interested</string>
+    <string name="facebook_app_id">237500636704759</string>
 
     <!--Carpooling -->
     <string name="maps_introduction">We detected you often take this path :</string>
