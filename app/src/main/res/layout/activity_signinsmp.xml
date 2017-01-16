@@ -26,8 +26,7 @@
             android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentleft="true"
+            android:gravity="center"
             android:layout_marginLeft="11dp"
             android:id="@+id/loginSMP_but" />
     </LinearLayout>

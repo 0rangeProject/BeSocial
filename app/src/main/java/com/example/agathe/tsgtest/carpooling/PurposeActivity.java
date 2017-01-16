@@ -147,11 +147,13 @@ public class PurposeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        /*
         for (PaginatedQueryList<PathsDO> paginatedList : list) {
             for (PathsDO p : paginatedList) {
                 System.out.print(p.toString());
             }
         }
+        */
     }
 
     @Override

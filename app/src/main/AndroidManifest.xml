@@ -47,6 +47,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".SignInSMP"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
         <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"
