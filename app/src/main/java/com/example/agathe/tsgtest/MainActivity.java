@@ -37,6 +37,8 @@ import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.UUID;
 
+import com.facebook.FacebookSdk;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
