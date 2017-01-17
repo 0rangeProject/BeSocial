@@ -41,12 +41,19 @@
     <string name="desc">description</string>
     <string name="challenge_text">Challenge a friend !</string>
     <string name="first_sport">Sport</string>
+    <string name="sport_tab_challenge">Challenge</string>
+    <string name="sport_tab_stats">Statistics</string>
+    <string name="sport_tab_green_paths">Green Paths</string>
+    <string name="sport_tab_friends">Friends</string>
 
     <!--Little Services -->
     <string name="little_services">Little Services</string>
     <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
+    <string name="ls_tab_demander">Demander un service</string>
+    <string name="ls_tab_proposer">Proposer un service</string>
+    <string name="ls_tab_recommander">Recommander</string>
 
     <!--Public events -->
     <string name="dialog_message">Created by Danchao GU - 2016</string>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,12 +20,14 @@ import java.util.ArrayList;
 public class ContactLSFragment extends Fragment {
 
 private ListView contactsList;
+    public EditText service_text;
 
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_contacts_little_services, container, false);
         contactsList = (ListView) rootView.findViewById(R.id.contacts_ls_list);
-        setupList();
+     service_text = (EditText) rootView.findViewById(R.id.little_service_text);
+    setupList();
         return rootView;
         }
 
@@ -60,7 +63,7 @@ private final class ListItemButtonClickListener implements View.OnClickListener 
                 Toast.makeText(getActivity(), "Clicked on Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
                 Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                 smsIntent.putExtra("address", "0649153247");
-                smsIntent.putExtra("sms_body","Hello, Can you loan me your tool please ?");
+                smsIntent.putExtra("sms_body","Hello, Can you loan me your "+ service_text.getText().toString()+" please ?");
                 smsIntent.setData(Uri.parse("smsto:" + "0649153247"));
                 startActivity(smsIntent);
             }
@@ -71,7 +74,7 @@ private final class ListItemButtonClickListener implements View.OnClickListener 
 private final class ListItemClickListener implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), " " + position, Toast.LENGTH_SHORT).show();
     }
 }
 }

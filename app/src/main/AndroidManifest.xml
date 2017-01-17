@@ -29,10 +29,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.API_KEY"
+            android:value="AIzaSyCiLjUGARB2ucI588-XDxARhkmXt4fih20"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA8J1zvgt2LI6RX23xxboJGVB8ad2ONir4" />
@@ -52,6 +56,17 @@
             android:name=".sport.SportActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity android:name=".sport.FitApiActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".sport.SportActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="vnd.google.fitness.VIEW" />
+                <category android:name="com.example.agathe.tsgtest.sport.FitApiActivity" />
+                <data android:mimeType="vnd.google.fitness.data_type/com.google.step_count.delta" />
+            </intent-filter>
         </activity>
 
         <activity

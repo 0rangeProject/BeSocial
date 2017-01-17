@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_demander_service"
+        android:title="@string/ls_tab_demander"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tab_proposer_service"
+        android:title="@string/ls_tab_proposer"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tab_recommander_service"
+        android:title="@string/ls_tab_recommander"
+        app:showAsAction="ifRoom" />
+</menu>
