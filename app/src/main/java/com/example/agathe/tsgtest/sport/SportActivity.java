@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.design.widget.TabItem;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.SMPLibrary;
+
+import java.util.ArrayList;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 import static android.hardware.Sensor.TYPE_STEP_DETECTOR;
@@ -46,7 +49,6 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
     private Sensor mStepCounterSensor;
     private Sensor mStepDetectorSensor;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +57,17 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_first_sport);
         setSupportActionBar(toolbar);
-
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        toolbar.inflateMenu(R.menu.menu_main);
+
+        //Set tabs Toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_tabs_sport);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         context = this;
         chrono = (Chronometer) findViewById(R.id.chrono);
@@ -110,7 +117,7 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SportActivity.this,
-                        ChallengeActivity.class);
+                        FitApiActivity.class);
                 startActivity(intent);
             }
         });
@@ -119,8 +126,8 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_sport, menu);
         return true;
     }
 

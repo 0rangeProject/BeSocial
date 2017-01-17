@@ -30,18 +30,24 @@ public class LittleServicesActivity extends AppCompatActivity {
         //  setup layout and its elements
         setContentView(R.layout.fragment_contacts_little_services);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_little_services);
-        setSupportActionBar(myToolbar);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_little_services);
+        setSupportActionBar(toolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+        toolbar.inflateMenu(R.menu.menu_main);
 
-       /** btn_send_message.setImageResource(R.drawable.envelop);
-        btn_call.setImageResource(R.drawable.call_icon);
-        **/
+        //Set tabs Toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_tabs_little_services);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("");
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        /** btn_send_message.setImageResource(R.drawable.envelop);
+         btn_call.setImageResource(R.drawable.call_icon);
+         **/
 
         if (savedInstanceState == null) {
             ContactLSFragment clsf = new ContactLSFragment();
@@ -52,7 +58,7 @@ public class LittleServicesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_little_services, menu);
         return true;
     }
 
