@@ -60,13 +60,12 @@ public class GeolocationService extends Service {
         public void onLocationChanged(Location location) {
             PathsDO path = new PathsDO();
             path.setUserId(userID);
-            path.setPathId(userID + location.getLatitude());
 
             Calendar calendar = new GregorianCalendar();
             calendar.setTimeInMillis(location.getTime());
 
-            path.setStartTime(calendar.get(Calendar.HOUR_OF_DAY));
-            path.setEndTime(calendar.get(Calendar.HOUR_OF_DAY));
+            path.setStartTime((double) calendar.get(Calendar.HOUR_OF_DAY));
+            path.setEndTime((double) calendar.get(Calendar.HOUR_OF_DAY));
             path.setLat(location.getLatitude());
             path.setLon(location.getLongitude());
             new SaveObjectTaskPath(mapper).execute(path);
@@ -82,14 +81,12 @@ public class GeolocationService extends Service {
                     endTime = calendar.get(Calendar.HOUR_OF_DAY);
                 } else {
                     if (endTime != 0) {
-                        // PathsDO path = new PathsDO();
                         path.setUserId(userID);
-                        path.setPathId(userID + location.getLatitude());
 
                         calendar.setTimeInMillis(location.getTime());
 
-                        path.setStartTime(startTime);
-                        path.setEndTime(endTime);
+                        path.setStartTime((double) startTime);
+                        path.setEndTime((double) endTime);
                         path.setLat(initLoc.getLatitude());
                         path.setLon(initLoc.getLongitude());
                         new SaveObjectTaskPath(mapper).execute(path);

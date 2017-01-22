@@ -136,7 +136,7 @@ public class PurposeActivity extends AppCompatActivity {
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
         String clientId = settings.getString("userID", "");
-        List<PaginatedQueryList<PathsDO>> list = null;
+        List<List<PathsDO>> list = null;
 
         // On cherche tous les trajets de l'utilisateur
         try {
