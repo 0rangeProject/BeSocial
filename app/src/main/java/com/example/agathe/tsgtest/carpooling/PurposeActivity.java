@@ -33,6 +33,7 @@ import com.example.agathe.tsgtest.database.AllPathsUserTask;
 import com.example.agathe.tsgtest.database.LoadObjectTask;
 import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
+import com.example.agathe.tsgtest.dto.Place;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -136,7 +137,7 @@ public class PurposeActivity extends AppCompatActivity {
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
         String clientId = settings.getString("userID", "");
-        List<List<PathsDO>> list = null;
+        List<CommonTravel> list = null;
 
         // On cherche tous les trajets de l'utilisateur
         try {
@@ -148,7 +149,7 @@ public class PurposeActivity extends AppCompatActivity {
         }
 
         /*
-        for (PaginatedQueryList<PathsDO> paginatedList : list) {
+        for (List<PathsDO> paginatedList : list) {
             for (PathsDO p : paginatedList) {
                 System.out.print(p.toString());
             }
