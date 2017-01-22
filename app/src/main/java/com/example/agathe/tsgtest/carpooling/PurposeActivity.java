@@ -141,20 +141,12 @@ public class PurposeActivity extends AppCompatActivity {
 
         // On cherche tous les trajets de l'utilisateur
         try {
-            list = new AllPathsUserTask("path", clientId).execute().get();
+            list = new AllPathsUserTask("path", clientId, getApplicationContext()).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        /*
-        for (List<PathsDO> paginatedList : list) {
-            for (PathsDO p : paginatedList) {
-                System.out.print(p.toString());
-            }
-        }
-        */
     }
 
     @Override

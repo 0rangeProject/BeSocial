@@ -1,6 +1,9 @@
 
 package com.example.agathe.tsgtest.database;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
@@ -15,8 +18,10 @@ import com.example.agathe.tsgtest.dto.Place;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by agathe on 30/11/16.
@@ -27,6 +32,7 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
     private static String LOG_TAG = "LoadObjectTask";
     private String type = "";
     private String clientId = "";
+    private Context context = null;
 
     // Fetch the default configured DynamoDB ObjectMapper
     final DynamoDBMapper mapper = AWSMobileClient.defaultMobileClient().getDynamoDBMapper();
@@ -36,11 +42,7 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
         // The userId has to be set to user's Cognito Identity Id for private / protected tables.
         // User's Cognito Identity Id can be fetched by using:
 
-        PaginatedQueryList<PathsDO> resultsForCurrentUser = null;
-        PaginatedQueryList<PathsDO> resultFinalLon = null;
-        PaginatedQueryList<PathsDO> resultFinalLat = null;
-        PaginatedQueryList<PathsDO> resultFinalStart = null;
-        PaginatedQueryList<PathsDO> resultFinalEnd = null;
+        PaginatedQueryList<PathsDO> resultFinalLon = null, resultFinalLat = null, resultFinalStart = null, resultFinalEnd = null;
         List<PathsDO> resultFinal = new ArrayList<>();
 
         PathsDO path = new PathsDO();
@@ -50,7 +52,7 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
                 .withHashKeyValues(path)
                 .withConsistentRead(false);
 
-        resultsForCurrentUser = mapper.query(PathsDO.class, queryExpression);
+        PaginatedQueryList<PathsDO> resultsForCurrentUser = mapper.query(PathsDO.class, queryExpression);
 
         List<Place> places = null;
 
@@ -115,15 +117,6 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
                                 if (delta(pathLat.getLat(), pathLon.getLat()) == 0 && delta(pathLat.getLat(), pathStart.getLat()) == 0 && delta(pathLat.getLat(), pathEnd.getLat()) == 0) {
                                     // ajouter l'utilisateur dans une liste qu'on ajoutera à la fin au trajet
                                     users.add(u);
-
-                                    PathsDO newPath = new PathsDO();
-                                    path.setUserId(pathLat.getUserId());
-                                    path.setEndTime(pathLat.getEndTime());
-                                    path.setStartTime(pathLat.getStartTime());
-                                    path.setLat(pathLat.getLat());
-                                    path.setLon(pathLat.getLon());
-
-                                    resultFinal.add(newPath);
                                     break;
                                 }
                             }
@@ -150,7 +143,27 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
                 if (p.getUsers().contains(u) && !firstPlace.equals(null)) {
                     List<User> users = new ArrayList<>();
                     users.add(u);
-                    CommonTravel ct = new CommonTravel("departure", "destination", new LatLng(firstPlace.getLat(), firstPlace.getLon()), new LatLng(p.getLat(), p.getLon()), users);
+
+                    Geocoder geocoder;
+                    List<Address> addresses1 = null, addresses2 = null;
+                    geocoder = new Geocoder(context, Locale.getDefault());
+
+                    try {
+                        addresses1 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                        addresses2 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    String address1 = addresses1.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    String city1 = addresses1.get(0).getLocality();
+                    String postalCode1 = addresses1.get(0).getPostalCode();
+
+                    String address2 = addresses2.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    String city2 = addresses2.get(0).getLocality();
+                    String postalCode2 = addresses2.get(0).getPostalCode();
+
+                    CommonTravel ct = new CommonTravel(address1 + city1 + postalCode1, address2 + city2 + postalCode2, new LatLng(firstPlace.getLat(), firstPlace.getLon()), new LatLng(p.getLat(), p.getLon()), users);
                     travels.add(ct);
                 }
             }
@@ -163,8 +176,9 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
         return Math.abs(d1- d2) / Math.max(Math.abs(d1), Math.abs(d2));
     }
 
-    public AllPathsUserTask(String type2, String clientId2) {
+    public AllPathsUserTask(String type2, String clientId2, Context ct) {
         type = type2;
         clientId = clientId2;
+        context = ct;
     }
 }
