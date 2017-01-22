@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.models.nosql.ManualTripsDO;
 import com.amazonaws.models.nosql.PathsDO;
 
 /**

@@ -27,7 +27,7 @@ import java.util.Locale;
  * Created by agathe on 30/11/16.
  */
 
-public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>> {
+public class AllPathsUserTask extends AsyncTask<String, Void, ArrayList<CommonTravel>> {
 
     private static String LOG_TAG = "LoadObjectTask";
     private String type = "";
@@ -38,7 +38,7 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
     final DynamoDBMapper mapper = AWSMobileClient.defaultMobileClient().getDynamoDBMapper();
 
     @Override
-    protected List<CommonTravel> doInBackground(String... strings) {
+    protected ArrayList<CommonTravel> doInBackground(String... strings) {
         // The userId has to be set to user's Cognito Identity Id for private / protected tables.
         // User's Cognito Identity Id can be fetched by using:
 
@@ -59,116 +59,122 @@ public class AllPathsUserTask extends AsyncTask<String, Void, List<CommonTravel>
         // liste de mes contacts
         List<User> contacts = new ArrayList<>();
 
+        ArrayList<CommonTravel> travels = new ArrayList<>();
+
         // Pour chaque trajet, on regarde ceux qui ont une longitude / latitude / startTime / endTime assez proche, ici pour le même utilisateur, ce qui n'a pas de sens
-        for (PathsDO p : resultsForCurrentUser) {
-            List<User> users = new ArrayList<>();
+        if (resultsForCurrentUser.size() != 0) {
+            for (PathsDO p : resultsForCurrentUser) {
+                List<User> users = new ArrayList<>();
 
-            Condition lonCondition = new Condition()
-                    .withComparisonOperator(ComparisonOperator.BETWEEN)
-                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLon() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLon() + 0.5))));
+                Condition lonCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BETWEEN)
+                        .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLon() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLon() + 0.5))));
 
-            Condition latCondition = new Condition()
-                    .withComparisonOperator(ComparisonOperator.BETWEEN)
-                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLat() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLat() + 0.5))));
+                Condition latCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BETWEEN)
+                        .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getLat() - 0.5))), new AttributeValue().withN(String.valueOf((p.getLat() + 0.5))));
 
-            Condition startTimeCondition = new Condition()
-                    .withComparisonOperator(ComparisonOperator.BETWEEN)
-                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
+                Condition startTimeCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BETWEEN)
+                        .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
 
-            Condition endTimeCondition = new Condition()
-                    .withComparisonOperator(ComparisonOperator.BETWEEN)
-                    .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
+                Condition endTimeCondition = new Condition()
+                        .withComparisonOperator(ComparisonOperator.BETWEEN)
+                        .withAttributeValueList(new AttributeValue().withN(String.valueOf((p.getStartTime() - 0.5))), new AttributeValue().withN(String.valueOf((p.getEndTime() + 0.5))));
 
-            // pour chacun de ses contacts
-            for (User u : contacts) {
-                PathsDO pathOtherUser = new PathsDO();
-                pathOtherUser.setUserId(u.name);
+                // pour chacun de ses contacts
+                if (contacts != null) {
+                    for (User u : contacts) {
+                        PathsDO pathOtherUser = new PathsDO();
+                        pathOtherUser.setUserId(u.name);
 
-                DynamoDBQueryExpression queryExpressionLat = new DynamoDBQueryExpression()
-                        .withHashKeyValues(pathOtherUser)
-                        .withRangeKeyCondition("lat", latCondition)
-                        .withConsistentRead(false);
+                        DynamoDBQueryExpression queryExpressionLat = new DynamoDBQueryExpression()
+                                .withHashKeyValues(pathOtherUser)
+                                .withRangeKeyCondition("lat", latCondition)
+                                .withConsistentRead(false);
 
-                DynamoDBQueryExpression queryExpressionLon = new DynamoDBQueryExpression()
-                        .withHashKeyValues(pathOtherUser)
-                        .withRangeKeyCondition("lon", lonCondition)
-                        .withConsistentRead(false);
+                        DynamoDBQueryExpression queryExpressionLon = new DynamoDBQueryExpression()
+                                .withHashKeyValues(pathOtherUser)
+                                .withRangeKeyCondition("lon", lonCondition)
+                                .withConsistentRead(false);
 
-                DynamoDBQueryExpression queryExpressionStart = new DynamoDBQueryExpression()
-                        .withHashKeyValues(pathOtherUser)
-                        .withRangeKeyCondition("startTime", startTimeCondition)
-                        .withConsistentRead(false);
+                        DynamoDBQueryExpression queryExpressionStart = new DynamoDBQueryExpression()
+                                .withHashKeyValues(pathOtherUser)
+                                .withRangeKeyCondition("startTime", startTimeCondition)
+                                .withConsistentRead(false);
 
-                DynamoDBQueryExpression queryExpressionEnd = new DynamoDBQueryExpression()
-                        .withHashKeyValues(pathOtherUser)
-                        .withRangeKeyCondition("endTime", endTimeCondition)
-                        .withConsistentRead(false);
+                        DynamoDBQueryExpression queryExpressionEnd = new DynamoDBQueryExpression()
+                                .withHashKeyValues(pathOtherUser)
+                                .withRangeKeyCondition("endTime", endTimeCondition)
+                                .withConsistentRead(false);
 
-                resultFinalLat = mapper.query(PathsDO.class, queryExpressionLat);
-                resultFinalLon = mapper.query(PathsDO.class, queryExpressionLon);
-                resultFinalStart = mapper.query(PathsDO.class, queryExpressionStart);
-                resultFinalEnd = mapper.query(PathsDO.class, queryExpressionEnd);
+                        resultFinalLat = mapper.query(PathsDO.class, queryExpressionLat);
+                        resultFinalLon = mapper.query(PathsDO.class, queryExpressionLon);
+                        resultFinalStart = mapper.query(PathsDO.class, queryExpressionStart);
+                        resultFinalEnd = mapper.query(PathsDO.class, queryExpressionEnd);
 
-                // Ne garde que les éléments communs aux différents paramètres
-                for (PathsDO pathLat : resultFinalLat) {
-                    for (PathsDO pathLon : resultFinalLon) {
-                        for (PathsDO pathStart : resultFinalStart) {
-                            for (PathsDO pathEnd : resultFinalEnd) {
-                                if (delta(pathLat.getLat(), pathLon.getLat()) == 0 && delta(pathLat.getLat(), pathStart.getLat()) == 0 && delta(pathLat.getLat(), pathEnd.getLat()) == 0) {
-                                    // ajouter l'utilisateur dans une liste qu'on ajoutera à la fin au trajet
-                                    users.add(u);
-                                    break;
+                        // Ne garde que les éléments communs aux différents paramètres
+                        for (PathsDO pathLat : resultFinalLat) {
+                            for (PathsDO pathLon : resultFinalLon) {
+                                for (PathsDO pathStart : resultFinalStart) {
+                                    for (PathsDO pathEnd : resultFinalEnd) {
+                                        if (delta(pathLat.getLat(), pathLon.getLat()) == 0 && delta(pathLat.getLat(), pathStart.getLat()) == 0 && delta(pathLat.getLat(), pathEnd.getLat()) == 0) {
+                                            // ajouter l'utilisateur dans une liste qu'on ajoutera à la fin au trajet
+                                            users.add(u);
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }
-            if (users.size() != 0) {
-                Place place = new Place(path.getLon(), path.getEndTime(), path.getLat(), path.getStartTime(), users);
-                places.add(place);
-            }
-        }
-
-        List<CommonTravel> travels = new ArrayList<>();
-
-        // A la fin, on a une liste de lieux en commun. Il faut distinguer des trajets ("CommonTravel")
-        for (User u : contacts) {
-            Place firstPlace = null;
-            // trouver les places en commun
-            for (Place p : places) {
-                if (p.getUsers().contains(u) && firstPlace.equals(null)) {
-                    firstPlace = p;
-                }
-                if (p.getUsers().contains(u) && !firstPlace.equals(null)) {
-                    List<User> users = new ArrayList<>();
-                    users.add(u);
-
-                    Geocoder geocoder;
-                    List<Address> addresses1 = null, addresses2 = null;
-                    geocoder = new Geocoder(context, Locale.getDefault());
-
-                    try {
-                        addresses1 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                        addresses2 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (users.size() != 0) {
+                        Place place = new Place(path.getLon(), path.getEndTime(), path.getLat(), path.getStartTime(), users);
+                        places.add(place);
                     }
-
-                    String address1 = addresses1.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                    String city1 = addresses1.get(0).getLocality();
-                    String postalCode1 = addresses1.get(0).getPostalCode();
-
-                    String address2 = addresses2.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                    String city2 = addresses2.get(0).getLocality();
-                    String postalCode2 = addresses2.get(0).getPostalCode();
-
-                    CommonTravel ct = new CommonTravel(address1 + city1 + postalCode1, address2 + city2 + postalCode2, new LatLng(firstPlace.getLat(), firstPlace.getLon()), new LatLng(p.getLat(), p.getLon()), users);
-                    travels.add(ct);
                 }
             }
-        }
 
+            if (contacts != null) {
+                // A la fin, on a une liste de lieux en commun. Il faut distinguer des trajets ("CommonTravel")
+                for (User u : contacts) {
+                    Place firstPlace = null;
+                    // trouver les places en commun
+                    for (Place p : places) {
+                        if (p.getUsers().contains(u) && firstPlace.equals(null)) {
+                            firstPlace = p;
+                        }
+                        if (p.getUsers().contains(u) && !firstPlace.equals(null)) {
+                            List<User> users = new ArrayList<>();
+                            users.add(u);
+
+                            Geocoder geocoder;
+                            List<Address> addresses1 = null, addresses2 = null;
+                            geocoder = new Geocoder(context, Locale.getDefault());
+
+                            try {
+                                addresses1 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                addresses2 = geocoder.getFromLocation(firstPlace.getLat(), firstPlace.getLon(), 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            String address1 = addresses1.get(0).getAddressLine(0);
+                            String city1 = addresses1.get(0).getLocality();
+                            String postalCode1 = addresses1.get(0).getPostalCode();
+
+                            String address2 = addresses2.get(0).getAddressLine(0);
+                            String city2 = addresses2.get(0).getLocality();
+                            String postalCode2 = addresses2.get(0).getPostalCode();
+
+                            CommonTravel ct = new CommonTravel(address1 + city1 + postalCode1, address2 + city2 + postalCode2, new LatLng(firstPlace.getLat(), firstPlace.getLon()), new LatLng(p.getLat(), p.getLon()), users);
+                            travels.add(ct);
+                        }
+                    }
+                }
+            }
+
+        }
         return travels;
     }
 

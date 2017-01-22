@@ -18,27 +18,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.models.nosql.ManualTripsDO;
-import com.amazonaws.models.nosql.PathsDO;
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.SaveObjectTaskManualTrip;
-import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
-import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.ManualTrip;
-import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -54,7 +47,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import static android.content.Context.MODE_PRIVATE;

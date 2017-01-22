@@ -23,17 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedQueryList;
-import com.amazonaws.models.nosql.PathsDO;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
-import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.AllPathsUserTask;
-import com.example.agathe.tsgtest.database.LoadObjectTask;
-import com.example.agathe.tsgtest.database.SaveObjectTaskPath;
 import com.example.agathe.tsgtest.dto.CommonTravel;
-import com.example.agathe.tsgtest.dto.Place;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -137,11 +129,17 @@ public class PurposeActivity extends AppCompatActivity {
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
         String clientId = settings.getString("userID", "");
-        List<CommonTravel> list = null;
+        ArrayList<CommonTravel> list = null;
 
         // On cherche tous les trajets de l'utilisateur
         try {
             list = new AllPathsUserTask("path", clientId, getApplicationContext()).execute().get();
+
+            if (list != null) {
+                travels = list;
+            }
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

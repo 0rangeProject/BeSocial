@@ -7,10 +7,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRan
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 @DynamoDBTable(tableName = "orangesocialservices-mobilehub-546780328-Paths")
 
 public class PathsDO {

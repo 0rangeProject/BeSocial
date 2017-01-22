@@ -1,7 +1,6 @@
 package com.example.agathe.tsgtest.carpooling;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
-import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.ManualTrip;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
