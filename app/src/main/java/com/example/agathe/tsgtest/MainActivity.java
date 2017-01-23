@@ -32,6 +32,7 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.HomeCarpoolingActivity;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
+import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.dto.ManualTrip;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
@@ -281,16 +282,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        }
 
         if (view == contactsButton) {
-            //  create new request for frequent contacts.
-            SMPLibrary.GetFrequentContacts(context, 10, new DataResponseCallback(){
-                @Override
-                //  OnResponse callback is called when request is finished processing
-                //  returns response code and JSON in form of string.
-                public void OnResponse(int response_code, String data_response){
-                    Log.i("MainActivity:Response", "GetFrequentContacts response code " + response_code );
-                    Log.i("MainActivity:Response", "GetFrequentContacts - " + data_response);
-                }
-            });
+            ContactManager cm = new ContactManager(context);
+            cm.getFrequentContacts(10);
         }
     }
 
