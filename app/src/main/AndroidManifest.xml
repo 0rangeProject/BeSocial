@@ -63,7 +63,6 @@
         <!-- Little Services -->
         <activity
             android:name=".littleservices.LittleServicesActivity"
-            android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">
         </activity>
 

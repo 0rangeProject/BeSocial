@@ -28,7 +28,7 @@ public class LittleServicesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  setup layout and its elements
-        setContentView(R.layout.fragment_contacts_little_services);
+        setContentView(R.layout.activity_contacts_little_services);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_little_services);
         setSupportActionBar(myToolbar);

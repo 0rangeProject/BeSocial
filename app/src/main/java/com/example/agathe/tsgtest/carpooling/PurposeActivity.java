@@ -215,6 +215,36 @@ public class PurposeActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             travels = getArguments().getParcelableArrayList("travels");
 
+            // Initialize trajects and users, just for test
+            // After, these informations will be provided by API based on NoSQL database which contains all trajects of users
+            ArrayList<User> users1 = new ArrayList<User>() {{
+                add(new User("Marilyne Beaumont", "closed friend", "0612345678"));
+                add(new User("Jean Delaroche", "closed friend", "0612345678"));
+                add(new User("Sandra Rouget", "closed work relation", "0612345678"));
+                add(new User("Georges Mourin", "known people", "0612345678"));
+            }};
+
+            ArrayList<User> users2 = new ArrayList<User>() {{
+                add(new User("Jules Noyelles", "closed friend", "0612345678"));
+                add(new User("Léa Dallenne", "family relation", "0612345678"));
+                add(new User("Caroline Dumoulin", "closed work relation", "0612345678"));
+                add(new User("Paul Martin", "known relation", "0612345678"));
+            }};
+
+            ArrayList<User> users3 = new ArrayList<User>() {{
+                add(new User("Hélèna de Lila", "closed friend", "0612345678"));
+                add(new User("Claude Sapin", "closed friend", "0612345678"));
+                add(new User("Mélanie Lapin", "closed work relation", "0612345678"));
+                add(new User("Hector Sauvage", "known people", "0612345678"));
+            }};
+
+            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
+                    users1));
+            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
+                    users2));
+            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
+                    users3));
+
             view = inflater.inflate(R.layout.activity_maps, container, false);
             TextView departure = (TextView) view.findViewById(R.id.departure_place);
             TextView destination = (TextView) view.findViewById(R.id.destination_place);

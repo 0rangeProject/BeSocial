@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if (id == R.id.carpooling_draw) {
-            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
+            Intent intent = new Intent(MainActivity.this, HomeCarpoolingActivity.class);
             startActivity(intent);
         } else if (id == R.id.ls_draw) {
             Intent intent = new Intent(MainActivity.this, LittleServicesActivity.class);

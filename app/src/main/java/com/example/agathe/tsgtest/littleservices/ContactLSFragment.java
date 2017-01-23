@@ -26,7 +26,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
         contactsList = (ListView) rootView.findViewById(R.id.contacts_ls_list);
         setupList();
         return rootView;
-        }
+}
 
 private void setupList() {
         contactsList.setAdapter(createAdapter());
