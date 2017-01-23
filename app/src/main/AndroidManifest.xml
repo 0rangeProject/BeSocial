@@ -47,12 +47,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".SignInSMP"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
         <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"
@@ -107,10 +101,6 @@
             android:name=".events.EventDetailActivity"
             android:parentActivityName=".events.PublicEventsActivity" >
         </activity>
-
-        <activity android:name=".SignInActivity"></activity>
-
-        <activity android:name=".SplashActivity"></activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

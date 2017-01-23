@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,9 +32,12 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.HomeCarpoolingActivity;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
+import com.example.agathe.tsgtest.dto.ManualTrip;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
+import com.olab.smplibrary.DataResponseCallback;
+import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.UUID;
 
@@ -47,10 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PushManager pushManager;
     private CheckBox enablePushCheckBox;
 
-    private TextView loginField, contents;
-
     private ImageButton carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
+
+    private Button contactsButton;
+    private TextView contacts;
 
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
@@ -60,24 +65,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected DrawerLayout drawer;
 
-    boolean skip = false;
-    boolean firstTime = true;
+    boolean userConnected = false;
 
     /**
      * Initializes the sign-in and sign-out buttons.
      */
     private void setupButtons() {
-        //logoutButtonGoogle = (Button) findViewById(R.id.button_signout);
-        //logoutButtonGoogle.setOnClickListener(this);
-
         carpoolingButton = (ImageButton) findViewById(R.id.carpooling_but) ;
         carpoolingButton.setOnClickListener(this);
-
-       // loginButton = (Button) findViewById(R.id.login_but) ;
-       // loginButton.setOnClickListener(this);
-
-      //  logoutButton = (Button) findViewById(R.id.logout_but);
-       // logoutButton.setOnClickListener(this);
 
         publicEventsButton = (ImageButton)findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
@@ -88,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         littleServicesButton = (ImageButton) findViewById(R.id.lServices_btn);
         littleServicesButton.setOnClickListener(this);
 
-       // loginField = (TextView) findViewById(R.id.login);
+        contactsButton = (Button) findViewById(R.id.contacts_btn);
+        contactsButton.setOnClickListener(this);
     }
 
     //*************AWS push notification part end**************
@@ -113,14 +109,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 credentialsProvider);
 
         */
+
         // Recover or create user ID
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
-        String userID = settings.getString("userID", "");;
+        String userID = settings.getString("userID", "");
         if (userID.isEmpty()) {
             userID = UUID.randomUUID().toString();
             editor.putString("userID", userID).commit();
         }
+
+        editor.putBoolean("userConnected", true).commit();
+        userConnected = settings.getBoolean("userConnected", false);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -173,16 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         identityManager = awsMobileClient.getIdentityManager();
     }
 
-    /*@Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -222,23 +212,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
 
-        try {
-            Intent intent = getIntent();
-            skip = intent.getBooleanExtra("skip", false);
-        } catch (Exception e) {
-
-        }
-
-        if (skip == false) {
-            skip = true;
-            if (!AWSMobileClient.defaultMobileClient().getIdentityManager().isUserSignedIn()) {
-                // In the case that the activity is restarted by the OS after the application
-                // is killed we must redirect to the splash activity to handle the sign-in flow.
-                Intent intent = new Intent(this, SplashActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return;
-            }
+        userConnected = settings.getBoolean("userConnected", false);
+        if (userConnected == false) {
+            SMPLibrary.ShowLoginDialog(MainActivity.this, new LoginResponseCallback() {
+                @Override
+                //  OnResponse callback is called when login request is finished processing
+                //  and returns response code.
+                public void OnResponse(int response) {
+                    if (response == 200) {
+                        //  response 200 is returned when login was successful.
+                        FunctionCalledWhenLoginIsSuccessful();
+                        editor.putBoolean("userConnected", true).commit();
+                        Log.i("MainActivity:LoginResp", "It works - " + response);
+                    } else {
+                        //  log response when logging was not successful
+                        Log.i("MainActivity:LoginResp", "Login response code - " + response);
+                    }
+                }
+            });
         }
 
         setupButtons();
@@ -254,45 +245,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //*************AWS push notification part end**************
     }
 
+    void FunctionCalledWhenLoginIsSuccessful() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //login_field.setText("Logged as: " + SMPLibrary.LoggedUserName() );
+            }
+        });
+    }
+
     @Override
     public void onClick(final View view) {
-        /*if (view == logoutButtonGoogle) {
-            // The user is currently signed in with a provider. Sign out of that provider.
-            identityManager.signOut();
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            return;
-        }
-
-        if (view == loginButton) {
-            //  when clicked show dialog where user can login.
-            SMPLibrary.ShowLoginDialog(MainActivity.this, new LoginResponseCallback() {
-                @Override
-                //  OnResponse callback is called when login request is finished processing
-                //  and returns response code.
-                public void OnResponse(int response) {
-                    if (response == 200) {
-                        //  response 200 is returned when login was successful.
-                        FunctionCalledWhenLoginIsSuccessful();
-                    } else {
-                        //  log response when logging was not successful
-                        Log.i("MainActivity:LoginResp", "Login response code - " + response);
-                    }
-                }
-            });
-        }
-
-        if (view == logoutButton) {
-            SMPLibrary.Logout();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    loginField.setText("Not Logged In");
-                }
-            });
-        }
-        */
-
         if (view == publicEventsButton) {
             Intent intent = new Intent(MainActivity.this,
                     PublicEventsActivity.class);
@@ -312,9 +275,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
        if (view == littleServicesButton) {
-                Intent intent = new Intent(MainActivity.this,
-                        LittleServicesActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(MainActivity.this,
+                    LittleServicesActivity.class);
+            startActivity(intent);
+       }
+
+        if (view == contactsButton) {
+            //  create new request for frequent contacts.
+            SMPLibrary.GetFrequentContacts(context, 10, new DataResponseCallback(){
+                @Override
+                //  OnResponse callback is called when request is finished processing
+                //  returns response code and JSON in form of string.
+                public void OnResponse(int response_code, String data_response){
+                    Log.i("MainActivity:Response", "GetFrequentContacts response code " + response_code );
+                    Log.i("MainActivity:Response", "GetFrequentContacts - " + data_response);
+                }
+            });
         }
     }
 
@@ -378,26 +354,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationReceiver);
     }
     //*************AWS push notification part end**************
-
-
-    //  function displaying message in TextView box.
-    void ShowMessage(String message){
-        final String to_show = message;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                contents.setText( to_show );
-            }
-        });
-    }
-    void FunctionCalledWhenLoginIsSuccessful() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                loginField.setText("Logged as: " + SMPLibrary.LoggedUserName());
-            }
-        });
-    }
 
     private AlertDialog showErrorMessage(final int resId, final Object... args) {
         return new AlertDialog.Builder(this).setMessage(getString(resId, (Object[]) args))

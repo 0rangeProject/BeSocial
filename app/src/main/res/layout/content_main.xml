@@ -57,6 +57,13 @@
                 android:textColor="#666"
                 android:textSize="14dp" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/contacts_btn"
+                android:layout_below="@+id/howto"
+                android:text="contacts"/>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
