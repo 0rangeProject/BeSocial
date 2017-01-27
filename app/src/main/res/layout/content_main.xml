@@ -46,28 +46,17 @@
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
-            <TextView
-                android:id="@+id/howto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/main_title"
-                android:maxLines="3"
-                android:padding="8dp"
-                android:text="@string/howto_text"
-                android:textColor="#666"
-                android:textSize="14dp" />
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts_btn"
-                android:layout_below="@+id/howto"
+                android:layout_below="@+id/main_title"
                 android:text="contacts"/>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/home"
+                android:src="@drawable/home2"
                 android:id="@+id/imageView"
                 android:layout_marginTop="25dp"
                 android:layout_below="@id/howto"/>

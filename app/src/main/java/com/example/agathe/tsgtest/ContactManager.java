@@ -52,7 +52,7 @@ public class ContactManager {
     public List<Contact> getPrivateContacts(int numberOfContacts) {
         List<Contact> contacts = null;
 
-        SMPLibrary.GetPrivateContacts(context, 10, new DataResponseCallback(){
+        SMPLibrary.GetPrivateContacts(context, numberOfContacts, new DataResponseCallback(){
             @Override
             public void OnResponse( int response_code, String data_response ){
                 Log.i("MainActivity:Response", "GetPrivateContacts response code " + response_code );

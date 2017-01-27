@@ -284,6 +284,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view == contactsButton) {
             ContactManager cm = new ContactManager(context);
             cm.getFrequentContacts(10);
+            cm.getBusinessContacts(10);
+            cm.getPrivateContacts(10);
         }
     }
 

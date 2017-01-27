@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.database.AllPathsUserTask;
 import com.example.agathe.tsgtest.dto.CommonTravel;
@@ -48,7 +49,7 @@ public class PurposeActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static View view;
     private ViewPager mViewPager;
-    ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
+    final ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
@@ -64,33 +65,6 @@ public class PurposeActivity extends AppCompatActivity {
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        PageListener pageListener = new PageListener();
-        mViewPager.setOnPageChangeListener(pageListener);
-
-        // Give the TabLayout the ViewPager
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        mTabLayout.setupWithViewPager(mViewPager);
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
-        }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
-                intent.putExtra("pageNumber", currentPage);
-                intent.putParcelableArrayListExtra("travels", travels);
-                startActivity(intent);
-            }
-        });
 
         // Initialize trajects and users, just for test
         // After, these informations will be provided by API based on NoSQL database which contains all trajects of users
@@ -122,6 +96,33 @@ public class PurposeActivity extends AppCompatActivity {
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),travels);
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        PageListener pageListener = new PageListener();
+        mViewPager.setOnPageChangeListener(pageListener);
+
+        // Give the TabLayout the ViewPager
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
+                intent.putExtra("pageNumber", currentPage);
+                intent.putParcelableArrayListExtra("travels", travels);
+                startActivity(intent);
+            }
+        });
+
         findTravels();
     }
 
@@ -136,7 +137,7 @@ public class PurposeActivity extends AppCompatActivity {
             list = new AllPathsUserTask("path", clientId, getApplicationContext()).execute().get();
 
             if (list != null) {
-                travels = list;
+                // travels = list;
             }
 
 
@@ -215,36 +216,6 @@ public class PurposeActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             travels = getArguments().getParcelableArrayList("travels");
 
-            // Initialize trajects and users, just for test
-            // After, these informations will be provided by API based on NoSQL database which contains all trajects of users
-            ArrayList<User> users1 = new ArrayList<User>() {{
-                add(new User("Marilyne Beaumont", "closed friend", "0612345678"));
-                add(new User("Jean Delaroche", "closed friend", "0612345678"));
-                add(new User("Sandra Rouget", "closed work relation", "0612345678"));
-                add(new User("Georges Mourin", "known people", "0612345678"));
-            }};
-
-            ArrayList<User> users2 = new ArrayList<User>() {{
-                add(new User("Jules Noyelles", "closed friend", "0612345678"));
-                add(new User("Léa Dallenne", "family relation", "0612345678"));
-                add(new User("Caroline Dumoulin", "closed work relation", "0612345678"));
-                add(new User("Paul Martin", "known relation", "0612345678"));
-            }};
-
-            ArrayList<User> users3 = new ArrayList<User>() {{
-                add(new User("Hélèna de Lila", "closed friend", "0612345678"));
-                add(new User("Claude Sapin", "closed friend", "0612345678"));
-                add(new User("Mélanie Lapin", "closed work relation", "0612345678"));
-                add(new User("Hector Sauvage", "known people", "0612345678"));
-            }};
-
-            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
-                    users1));
-            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
-                    users2));
-            travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
-                    users3));
-
             view = inflater.inflate(R.layout.activity_maps, container, false);
             TextView departure = (TextView) view.findViewById(R.id.departure_place);
             TextView destination = (TextView) view.findViewById(R.id.destination_place);
@@ -302,15 +273,18 @@ public class PurposeActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        ArrayList<CommonTravel> mTravels = null;
+
+        public SectionsPagerAdapter(FragmentManager fm, ArrayList<CommonTravel> travels) {
             super(fm);
+            mTravels = travels;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new PlaceholderFragment().newInstance(position + 1, travels);
+            return new PlaceholderFragment().newInstance(position + 1, mTravels);
         }
 
         @Override
