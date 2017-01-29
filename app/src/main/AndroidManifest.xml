@@ -83,12 +83,12 @@
         <activity
             android:name=".carpooling.PurposeActivity"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".carpooling.HomeCarpoolingActivity">
+            android:parentActivityName=".MainActivity">
         </activity>
 
         <activity
             android:name=".carpooling.EntriesVisualisationActivity"
-            android:parentActivityName=".carpooling.HomeCarpoolingActivity" >
+            android:parentActivityName=".SettingsActivity" >
         </activity>
 
         <!-- Public Events -->
