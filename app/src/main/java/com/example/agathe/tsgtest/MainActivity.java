@@ -26,11 +26,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amazonaws.mobile.AWSMobileClient;
-import com.amazonaws.mobile.push.PushManager;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.amazonaws.AmazonClientException;
 
-import com.example.agathe.tsgtest.carpooling.HomeCarpoolingActivity;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
@@ -45,9 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //*************AWS push notification part start************
     /** Class name for log messages. */
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    private PushManager pushManager;
-    private CheckBox enablePushCheckBox;
 
     private ImageButton carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
@@ -145,18 +140,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
 
-        pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
-
-        /* enablePushCheckBox.setChecked(pushManager.isPushEnabled());
-        enablePushCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleNotification(enablePushCheckBox.isChecked());
-            }
-        });
-        //*************AWS push notification part end**************
-        */
-        toggleNotification(true);
         context = this;
 
         //  Library initialisation is required to be done once before any library function is called.
@@ -217,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void OnResponse(int response) {
                     if (response == 200) {
                         //  response 200 is returned when login was successful.
-                        FunctionCalledWhenLoginIsSuccessful();
                         editor.putBoolean("userConnected", true).commit();
                         Log.i("MainActivity:LoginResp", "It works - " + response);
                     } else {
@@ -239,15 +221,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new IntentFilter(PushListenerService.ACTION_SNS_NOTIFICATION));
 
         //*************AWS push notification part end**************
-    }
-
-    void FunctionCalledWhenLoginIsSuccessful() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //login_field.setText("Logged as: " + SMPLibrary.LoggedUserName() );
-            }
-        });
     }
 
     @Override
@@ -301,41 +274,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    private void toggleNotification(final boolean enabled) {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(final Void... params) {
-                // register device first to ensure we have a push endpoint.
-                pushManager.registerDevice();
-
-                // if registration succeeded.
-                if (pushManager.isRegistered()) {
-                    try {
-                        pushManager.setPushEnabled(enabled);
-                        // Automatically subscribe to the default SNS topic
-                        if (enabled) {
-                            pushManager.subscribeToTopic(pushManager.getDefaultTopic());
-                        }
-                        return null;
-                    } catch (final AmazonClientException ace) {
-                        Log.e(LOG_TAG, "Failed to change push notification status", ace);
-                        return ace.getMessage();
-                    }
-                }
-                return "Failed to register for push notifications.";
-            }
-
-            @Override
-            protected void onPostExecute(final String errorMessage) {
-                //enablePushCheckBox.setChecked(pushManager.isPushEnabled());
-                System.out.println((errorMessage == null) ? "Register succeed......" : "Fail to register......" + errorMessage);
-                if (errorMessage != null) {
-                    showErrorMessage(R.string.error_message_update_notification, errorMessage);
-                }
-            }
-        }.execute();
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -357,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if (id == R.id.carpooling_draw) {
-            Intent intent = new Intent(MainActivity.this, HomeCarpoolingActivity.class);
+            Intent intent = new Intent(MainActivity.this, PurposeActivity.class);
             startActivity(intent);
         } else if (id == R.id.ls_draw) {
             Intent intent = new Intent(MainActivity.this, LittleServicesActivity.class);

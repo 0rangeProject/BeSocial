@@ -72,10 +72,6 @@
         </activity>
 
         <!-- Carpooling -->
-        <activity
-            android:name=".carpooling.HomeCarpoolingActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
 
         <activity
             android:name=".carpooling.PotentialCarpoolersActivity"

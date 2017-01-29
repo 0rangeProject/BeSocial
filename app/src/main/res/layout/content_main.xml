@@ -59,7 +59,7 @@
                 android:src="@drawable/home2"
                 android:id="@+id/imageView"
                 android:layout_marginTop="25dp"
-                android:layout_below="@id/howto"/>
+                android:layout_below="@id/contacts_btn"/>
 
             <ImageButton
                 android:background="@drawable/ic_place_black_24dp"
