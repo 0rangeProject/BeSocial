@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest.carpooling;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 
 import com.example.agathe.tsgtest.ComplexPreferences;
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 import com.example.agathe.tsgtest.dto.ManualTrip;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +37,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.olab.smplibrary.SMPLibrary;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,10 +148,6 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
-
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
@@ -160,6 +159,8 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(EntriesVisualisationActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

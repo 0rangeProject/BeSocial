@@ -32,12 +32,9 @@ import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.HomeCarpoolingActivity;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
-import com.example.agathe.tsgtest.dto.Contact;
-import com.example.agathe.tsgtest.dto.ManualTrip;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
-import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 import java.util.UUID;
@@ -184,10 +181,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
-
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
@@ -199,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
@@ -271,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == carpoolingButton) {
             Intent intent = new Intent(MainActivity.this,
-                    HomeCarpoolingActivity.class);
+                    PurposeActivity.class);
             startActivity(intent);
         }
 

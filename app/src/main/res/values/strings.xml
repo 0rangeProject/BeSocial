@@ -98,7 +98,14 @@
     <string name="menu_sport">Sport</string>
     <string name="menu_pe">Public Events</string>
 
-    <!-- Sign in -->
-    <string name="sign_in">Sign in with your Google Account</string>
-    <string name="skip">Skip</string>
+    <!-- Settings -->
+    <string name="settings_name">Settings</string>
+    <string name="pref_public_events_title">Public Events</string>
+    <string name="pref_carpooling_title">Carpooling</string>
+    <string name="pref_little_services_title">Little Services</string>
+    <string name="pref_sport_title">Sport</string>
+    <string name="pref_title_detection_enabled">Auto detection</string>
+    <string name="pref_summary_detection_enabled">Enable detection and let program check your daily trips</string>
+    <string name="pref_title_manual_entries">Manual entries</string>
+    <string name="pref_summary_manual_entries">Enter trips manually</string>
 </resources>

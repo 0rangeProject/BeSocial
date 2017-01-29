@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest.littleservices;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.SMPLibrary;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 
 /**
  * Created by koudm on 30/10/2016.
@@ -59,10 +61,6 @@ public class LittleServicesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
-
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
@@ -74,6 +72,8 @@ public class LittleServicesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(LittleServicesActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

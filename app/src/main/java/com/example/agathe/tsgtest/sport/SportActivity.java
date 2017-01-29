@@ -23,7 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.SMPLibrary;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 
 import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 import static android.hardware.Sensor.TYPE_STEP_DETECTOR;
@@ -127,10 +128,6 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
-
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
@@ -142,6 +139,8 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(SportActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

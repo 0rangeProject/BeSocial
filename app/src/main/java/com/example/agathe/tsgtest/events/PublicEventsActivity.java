@@ -16,7 +16,8 @@ import android.widget.CheckBox;
 
 import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.SMPLibrary;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 
 import java.util.ArrayList;
 
@@ -85,12 +86,9 @@ public class PublicEventsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                refresh();
-                return true;
-
             case R.id.action_main_settings:
+                Intent intent = new Intent(PublicEventsActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.action_about:

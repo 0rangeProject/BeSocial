@@ -47,6 +47,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
         <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"

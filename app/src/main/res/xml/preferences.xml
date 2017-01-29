@@ -1,0 +1,33 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+    <PreferenceCategory
+        android:title="@string/pref_public_events_title"
+        android:key="pref_key_public_events">
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_carpooling_title"
+        android:key="pref_key_carpooling">
+        <CheckBoxPreference
+            android:key="pref_detection_enabled"
+            android:summary="@string/pref_summary_detection_enabled"
+            android:title="@string/pref_title_detection_enabled" />
+        <Preference
+            android:key="pref_manual_entries"
+            android:summary="@string/pref_summary_manual_entries"
+            android:title="@string/pref_title_manual_entries"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_little_services_title"
+        android:key="pref_key_little_services">
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_sport_title"
+        android:key="pref_key_sport">
+
+    </PreferenceCategory>
+</PreferenceScreen>
+
