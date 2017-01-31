@@ -72,12 +72,6 @@
         </activity>
 
         <activity
-            android:name=".sport.ChallengeActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".sport.SportActivity">
-        </activity>
-
-        <activity
             android:name=".littleservices.LittleServicesActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainActivity">

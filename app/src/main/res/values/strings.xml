@@ -41,10 +41,7 @@
     <string name="desc">description</string>
     <string name="challenge_text">Challenge a friend !</string>
     <string name="first_sport">Sport</string>
-    <string name="sport_tab_challenge">Challenge</string>
-    <string name="sport_tab_stats">Statistics</string>
-    <string name="sport_tab_green_paths">Green Paths</string>
-    <string name="sport_tab_friends">Friends</string>
+
 
     <!--Little Services -->
     <string name="little_services">Little Services</string>

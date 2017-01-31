@@ -1,53 +1,28 @@
 package com.example.agathe.tsgtest.sport;
 
-import android.content.Context;
-import android.content.Intent;
-
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
 import com.olab.smplibrary.SMPLibrary;
 
-import java.util.ArrayList;
-
-import static android.hardware.Sensor.TYPE_STEP_COUNTER;
-import static android.hardware.Sensor.TYPE_STEP_DETECTOR;
 
 
 /**
  * Created by koudm on 29/11/2016.
  */
 
-public class SportActivity extends AppCompatActivity implements SensorEventListener {
-    private Context context;
-
-    private Chronometer chrono;
-    private Button start_chrono_btn, stop_chrono_btn, save_performance_btn;
-    private TextView steps;
-    private ImageView img_feet;
-    private ImageButton challenge_btn;
-
-    private SensorManager mSensorManager;
-    private Sensor mStepCounterSensor;
-    private Sensor mStepDetectorSensor;
+public class SportActivity extends AppCompatActivity  {
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,73 +36,71 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-        toolbar.inflateMenu(R.menu.menu_main);
+        ab.setTitle("Sport");
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
         //Set tabs Toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_tabs_sport);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        context = this;
-        chrono = (Chronometer) findViewById(R.id.chrono);
-        steps= (TextView) findViewById(R.id.stepscounts);
-        start_chrono_btn = (Button) findViewById(R.id.btn_start_chrono);
-        stop_chrono_btn = (Button) findViewById(R.id.btn_stop_chrono);
-        img_feet = (ImageView) findViewById(R.id.img_feet);
-        save_performance_btn = (Button) findViewById(R.id.btn_save_perf);
-        challenge_btn = (ImageButton) findViewById(R.id.img_btn_challenge);
-
-        //sensors initialization for steps counting
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mStepCounterSensor = mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER);
-        mStepDetectorSensor = mSensorManager.getDefaultSensor(TYPE_STEP_DETECTOR);
-
-        //  setup chronometer start button.
-        chrono.setFormat("  %s");
-        start_chrono_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chrono.start();
-            }
-        });
-
-        //  setup chronometer stop and restart button.
-        stop_chrono_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chrono.stop();
-
-            }
-        });
-        //  setup save day,steps and chronometer time button.
-       save_performance_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //save
-                //and reset the chronometer
-                chrono.setBase(SystemClock.elapsedRealtime());
-            }
-        });
-        img_feet.setImageResource(R.drawable.sport_steps);
-        challenge_btn.setImageResource(R.drawable.sport_challenge);
-
-        //  setup challenge image button.
-        challenge_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SportActivity.this,
-                        FitApiActivity.class);
-                startActivity(intent);
-            }
-        });
+        TabLayout tabs = (TabLayout) findViewById(R.id.my_toolbar_tabs_sport);
+        tabs.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabs.setupWithViewPager(viewPager);
 
     }
+    private void setupViewPager(ViewPager viewPager) {
+        MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+    }
 
+    public class MyViewPagerAdapter extends FragmentPagerAdapter {
+        MyViewPagerAdapter(FragmentManager manager) { super(manager); }
+
+        @Override
+        public Fragment getItem(int position) {
+// return each fragment tabs
+            switch (position) {
+                case 0:
+                    return new RunningFragment();
+                case 1:
+                    return  new ContactChallengeFragment();
+                case 2:
+                    return new StatisticsFragment();
+                case 3:
+                    return new PathsFragment();
+                case 4:
+                    return new FriendsFragment();
+                default:
+                    return new RunningFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 4;// there are only 4tabs :)
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Start a session";
+                case 1:
+                    return "Challenge someone";
+                case 2:
+                    return "Statistics";
+                case 3:
+                    return "Green Paths";
+                case 4:
+                    return "Friends";
+                default:
+                    return "";
+            }
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sport, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -159,41 +132,4 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(this, mStepCounterSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this, mStepDetectorSensor, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        Sensor sensor = event.sensor;
-        float[] values = event.values;
-        int value = -1;
-
-        if (values.length > 0) {
-            value = (int) values[0];
-        }
-        while (chrono.isActivated()) {
-            if (sensor.getType() == TYPE_STEP_COUNTER) {
-                steps.setText("You did " + value + "steps !");
-            } /**else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
-                // For test only. Only allowed value is 1.0 i.e. for step taken
-                steps.setText("Step Detector Detected : " + value);
-            }**/
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
-
-    protected void onStop() {
-        super.onStop();
-      /**  mSensorManager.unregisterListener(this, mStepCounterSensor);
-        mSensorManager.unregisterListener(this, mStepDetectorSensor);
-        **/
-    }
 }
