@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:background="@color/colorGray"
+        android:id="@+id/little_service_text"
+        android:textAppearance="@android:style/TextAppearance.Widget.PopupMenu.Large"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp" />
+
+    <ListView
+        android:id="@+id/contacts_ls_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:scrollbarStyle="outsideOverlay"
+        tools:listitem="@layout/list_item_asking_little_services" />
+
+</LinearLayout>

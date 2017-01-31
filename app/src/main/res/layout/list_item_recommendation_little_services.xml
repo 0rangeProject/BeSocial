@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selectable_background"
+    android:orientation="vertical"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contact_ls_img"
+            android:layout_width="143dp"
+            android:layout_height="79dp"
+            android:src="@drawable/ic_person_black_24dp" />
+        <RatingBar
+            android:id="@+id/rating_recommendation_ls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:isIndicator="true" />
+        <TextView
+            android:id="@+id/contact_ls_name"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/contact_location"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/type_of_recommendation"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="3dip"
+        android:layout_marginRight="3dip"
+        android:background="@color/light_grey" />
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/list_item_recommended_button_sms"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="@string/list_item_sms_button"
+            android:textSize="12sp"
+            android:textStyle="normal"/>
+        <Button
+            android:id="@+id/list_item_recommended_button_call"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="141dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="@string/list_item_call_button"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+</LinearLayout>

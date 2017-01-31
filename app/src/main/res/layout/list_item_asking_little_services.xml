@@ -40,7 +40,7 @@
             android:layout_below="@+id/contact_ls_img">
 
             <Button
-                android:id="@+id/list_item_cc_button_sms"
+                android:id="@+id/list_item_asking_button_sms"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="142dp"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:textSize="12sp"
                 android:textStyle="normal"/>
             <Button
-                android:id="@+id/list_item_cc_button_call"
+                android:id="@+id/list_item_asking_button_call"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="141dp"
                 android:layout_height="wrap_content"
