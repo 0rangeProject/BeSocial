@@ -50,12 +50,13 @@
 
     <!--Little Services -->
     <string name="little_services">Little Services</string>
-    <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
+    <string name="ls_offer_describe">Check the services some friends of yours are offering</string>
     <string name="send_message">SEND MESSAGE</string>
     <string name="call">CALL</string>
-    <string name="ls_tab_demander">Demander un service</string>
-    <string name="ls_tab_proposer">Proposer un service</string>
-    <string name="ls_tab_recommander">Recommander</string>
+    <string name="hint_title">The title of your offer </string>
+    <string name="hint_type">The type  </string>
+    <string name="hint_describe">Describe your offer </string>
+    <string name="publish_offer">Publish offer</string>
 
     <!--Public events -->
     <string name="list_item_left_button">View</string>
