@@ -23,8 +23,7 @@ import java.util.ArrayList;
 public class RecommendationLSFragment extends Fragment {
     private ListView recommendedList;
     private RatingBar rating;
-    public RecommendationLSFragment() {
-    }
+    public RecommendationLSFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
