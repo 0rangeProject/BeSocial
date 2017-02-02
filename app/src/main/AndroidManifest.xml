@@ -1,77 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?><!--suppress ALL --><manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.example.agathe.tsgtest" xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.agathe.tsgtest"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary" />
+    <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
+    <!--hardware -->
+    <uses-feature android:name="@string/step_detector" android:required="true"/>
+    <uses-feature android:name="@string/step_counter" android:required="true"/>
+    <uses-feature android:name="android.hardware.location" android:required="true" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+    <!--permissions-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
-<uses-feature android:name="@string/step_detector" android:required="true" />
-<uses-feature android:name="@string/step_counter" android:required="true" />
-<uses-feature android:name="android.hardware.location" android:required="true" />
-<uses-feature android:name="android.hardware.location.gps" android:required="false" />
+    <permission
+        android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.USE_CREDENTIALS" />
-<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-<uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.READ_CONTACTS" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.API_KEY"
+            android:value="AIzaSyCiLjUGARB2ucI588-XDxARhkmXt4fih20"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA8J1zvgt2LI6RX23xxboJGVB8ad2ONir4" />
 
-<permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-<application android:name=".AWSApplication" android:allowBackup="true" android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme">
-    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <activity
+            android:name=".sport.SportActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+        </activity>
 
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="@string/google_maps_key" />
+        <activity android:name=".sport.FitApiActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".sport.SportActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="vnd.google.fitness.VIEW" />
+                <category android:name="com.example.agathe.tsgtest.sport.FitApiActivity" />
+                <data android:mimeType="vnd.google.fitness.data_type/com.google.step_count.delta" />
+            </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".littleservices.LittleServicesActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".littleservices.PublishOfferActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".littleservices.LittleServicesActivity">
+        </activity>
 
-    <activity android:name=".MainActivity" android:theme="@style/AppTheme">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".carpooling.PotentialCarpoolersActivity"
+            android:parentActivityName=".carpooling.PurposeActivity"></activity>
+        <activity android:name=".carpooling.ServerMainActivity"></activity>
+        <activity android:name=".carpooling.AuthorizationActivity"></activity>
+        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".carpooling.MapsActivity" />
+        <activity
+            android:name=".carpooling.PurposeActivity"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".events.PublicEventsActivity"
+            android:parentActivityName=".MainActivity"></activity>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.agathe.tsgtest" />
+            </intent-filter>
+        </receiver>
 
-    <activity android:name=".sport.FirstSportActivity" android:parentActivityName=".MainActivity"
-        android:theme="@style/AppTheme" />
-    <activity android:name=".sport.ChallengeActivity" android:parentActivityName=".sport.FirstSportActivity"
-        android:theme="@style/AppTheme" />
-    <activity android:name=".sport.LittleServicesActivity" android:parentActivityName=".MainActivity"
-        android:theme="@style/AppTheme" />
-    <activity android:name=".carpooling.PotentialCarpoolersActivity" android:parentActivityName=".carpooling.PurposeActivity" />
-    <activity android:name=".carpooling.ServerMainActivity" />
-    <activity android:name=".carpooling.AuthorizationActivity" />
-    <activity android:name=".SignInActivity" />
-    <activity android:name=".SplashActivity" />
-    <activity android:name=".carpooling.MapsActivity" />
-    <activity android:name=".carpooling.PurposeActivity" android:parentActivityName=".MainActivity"
-        android:theme="@style/AppTheme" />
-    <activity android:name=".events.PublicEventsActivity" android:parentActivityName=".MainActivity" />
-    <activity android:name=".events.EventDetailActivity"
-        android:parentActivityName=".events.PublicEventsActivity" />
-
-    <receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
-        android:permission="com.google.android.c2dm.permission.SEND">
-        <intent-filter>
-            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            <category android:name="com.example.agathe.tsgtest" />
-        </intent-filter>
-    </receiver>
-    <!-- BEGIN - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
-    <service android:name=".PushListenerService" android:exported="false">
-        <intent-filter>
-            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        </intent-filter>
-    </service>
-    <!-- END - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
-</application>
+        <!-- BEGIN - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
+        <service
+            android:name=".PushListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- END - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
+    </application>
 
 </manifest>
