@@ -16,16 +16,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
+import com.example.agathe.tsgtest.database.AllPathsUserTask;
 import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.User;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,18 +39,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class PurposeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static View view;
     private ViewPager mViewPager;
-    ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
-    private String userID;
+    final ArrayList<CommonTravel> travels = new ArrayList<CommonTravel>();
 
     private SharedPreferences settings = null;
     private SharedPreferences.Editor editor = null;
@@ -59,47 +59,12 @@ public class PurposeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purpose);
 
-        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
-        editor = settings.edit();
-
-        userID = settings.getString("userID", "");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
         setSupportActionBar(toolbar);
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        PageListener pageListener = new PageListener();
-        mViewPager.setOnPageChangeListener(pageListener);
-
-        // Give the TabLayout the ViewPager
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0).setText("Path #1");
-        mTabLayout.getTabAt(1).setText("Path #2");
-        mTabLayout.getTabAt(2).setText("Path #3");
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
-                intent.putExtra("pageNumber", currentPage);
-                intent.putParcelableArrayListExtra("travels", travels);
-                startActivity(intent);
-            }
-        });
 
         // Initialize trajects and users, just for test
         // After, these informations will be provided by API based on NoSQL database which contains all trajects of users
@@ -124,8 +89,6 @@ public class PurposeActivity extends AppCompatActivity {
             add(new User("Hector Sauvage", "known people", "0612345678"));
         }};
 
-
-
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "195 rue de Paris, 59000 LILLE", new LatLng(50.632752, 3.052427), new LatLng(50.631714, 3.068285),
                 users1));
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "1 Avenue du Pont de Bois, 59650 Villeneuve-d'Ascq", new LatLng(50.632752, 3.052427), new LatLng(50.625480, 3.126518),
@@ -133,11 +96,56 @@ public class PurposeActivity extends AppCompatActivity {
         travels.add(new CommonTravel("178 rue Nationale, 59000 LILLE", "2 Avenue de la Porte Molitor, 75016 Paris", new LatLng(50.632752, 3.052427), new LatLng(48.833079, 2.265492),
                 users3));
 
-        GPSManager gps = new GPSManager(
-                PurposeActivity.this, userID);
-        gps.start();
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),travels);
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        PageListener pageListener = new PageListener();
+        mViewPager.setOnPageChangeListener(pageListener);
+
+        // Give the TabLayout the ViewPager
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            mTabLayout.getTabAt(i).setText("Path #" + String.valueOf(i + 1));
+        }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PurposeActivity.this, PotentialCarpoolersActivity.class);
+                intent.putExtra("pageNumber", currentPage);
+                intent.putParcelableArrayListExtra("travels", travels);
+                startActivity(intent);
+            }
+        });
+
+        findTravels();
+    }
+
+    public void findTravels() {
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        String clientId = settings.getString("userID", "");
+        ArrayList<CommonTravel> list = null;
+
+        // On cherche tous les trajets de l'utilisateur
+        try {
+            list = new AllPathsUserTask("path", clientId, getApplicationContext()).execute().get();
+
+            if (list != null) {
+                // travels = list;
+            }
 
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,10 +158,6 @@ public class PurposeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
-
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
@@ -165,6 +169,8 @@ public class PurposeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(PurposeActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
@@ -265,20 +271,22 @@ public class PurposeActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        ArrayList<CommonTravel> mTravels = null;
+
+        public SectionsPagerAdapter(FragmentManager fm, ArrayList<CommonTravel> travels) {
             super(fm);
+            mTravels = travels;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new PlaceholderFragment().newInstance(position + 1, travels);
+            return new PlaceholderFragment().newInstance(position + 1, mTravels);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 3;
         }
     }

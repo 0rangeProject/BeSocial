@@ -30,7 +30,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
     //service_text.setText("");
     setupList();
         return rootView;
-        }
+}
 
 private void setupList() {
         contactsList.setAdapter(createAdapter());

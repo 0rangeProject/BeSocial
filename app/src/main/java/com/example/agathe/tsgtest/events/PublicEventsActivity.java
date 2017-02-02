@@ -16,9 +16,8 @@ import android.widget.CheckBox;
 
 import com.example.agathe.tsgtest.MainActivity;
 import com.example.agathe.tsgtest.R;
-import com.olab.smplibrary.DataResponseCallback;
-import com.olab.smplibrary.LoginResponseCallback;
-import com.olab.smplibrary.SMPLibrary;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 
 import java.util.ArrayList;
 
@@ -58,7 +57,7 @@ public class PublicEventsActivity extends AppCompatActivity {
         //list
         mylist = (RecyclerView) findViewById(R.id.my_list);
         mylist.setHasFixedSize(true);
-        mylist.setLayoutManager(new LinearLayoutManager(this));//这里用线性显示 类似于listview
+        mylist.setLayoutManager(new LinearLayoutManager(this));
         mylist.setAdapter(createAdapter());
         /*view_test = (TextView) findViewById( R.id.pe_view_test);
         view_test_1 = (TextView) findViewById( R.id.pe_view_test_1);
@@ -87,12 +86,9 @@ public class PublicEventsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                refresh();
-                return true;
-
             case R.id.action_main_settings:
+                Intent intent = new Intent(PublicEventsActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.action_about:

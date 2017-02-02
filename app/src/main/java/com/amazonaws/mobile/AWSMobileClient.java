@@ -31,8 +31,6 @@ public class AWSMobileClient {
 
     private static AWSMobileClient instance;
 
-    private final Context context;
-
     private IdentityManager identityManager;
     private GCMTokenHelper gcmTokenHelper;
     private PushManager pushManager;
@@ -118,7 +116,6 @@ public class AWSMobileClient {
                             final IdentityManager identityManager,
                             final ClientConfiguration clientConfiguration) {
 
-        this.context = context;
         this.identityManager = identityManager;
 
         this.gcmTokenHelper = new GCMTokenHelper(context, AWSConfiguration.GOOGLE_CLOUD_MESSAGING_SENDER_ID);
@@ -193,14 +190,6 @@ public class AWSMobileClient {
             AWSMobileClient.setDefaultMobileClient(awsClient);
         }
         Log.d(LOG_TAG, "AWS Mobile Client is OK");
-    }
-
-    /**
-     * Gets the DynamoDB Client, which allows accessing Amazon DynamoDB tables.
-     * @return the DynamoDB client instance.
-     */
-    public AmazonDynamoDBClient getDynamoDBClient() {
-        return dynamoDBClient;
     }
 
     /**

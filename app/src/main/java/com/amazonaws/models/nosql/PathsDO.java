@@ -7,45 +7,25 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRan
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 @DynamoDBTable(tableName = "orangesocialservices-mobilehub-546780328-Paths")
 
 public class PathsDO {
-    private String _pathId;
-    private String _endTime;
-    private Double _lat;
-    private Double _lon;
-    private String _startTime;
     private String _userId;
+    private Double _lon;
+    private Double _endTime;
+    private Double _lat;
+    private Double _startTime;
 
-    @DynamoDBHashKey(attributeName = "pathId")
-    @DynamoDBAttribute(attributeName = "pathId")
-    public String getPathId() {
-        return _pathId;
-    }
-
-    public void setPathId(final String _pathId) {
-        this._pathId = _pathId;
-    }
-    @DynamoDBAttribute(attributeName = "endTime")
-    public String getEndTime() {
-        return _endTime;
+    @DynamoDBHashKey(attributeName = "userId")
+    @DynamoDBIndexHashKey(attributeName = "userId", globalSecondaryIndexNames = {"end-index","start-index","lat-index",})
+    public String getUserId() {
+        return _userId;
     }
 
-    public void setEndTime(final String _endTime) {
-        this._endTime = _endTime;
+    public void setUserId(final String _userId) {
+        this._userId = _userId;
     }
-    @DynamoDBAttribute(attributeName = "lat")
-    public Double getLat() {
-        return _lat;
-    }
-
-    public void setLat(final Double _lat) {
-        this._lat = _lat;
-    }
+    @DynamoDBRangeKey(attributeName = "lon")
     @DynamoDBAttribute(attributeName = "lon")
     public Double getLon() {
         return _lon;
@@ -54,21 +34,29 @@ public class PathsDO {
     public void setLon(final Double _lon) {
         this._lon = _lon;
     }
-    @DynamoDBAttribute(attributeName = "startTime")
-    public String getStartTime() {
+    @DynamoDBIndexRangeKey(attributeName = "endTime", globalSecondaryIndexName = "end-index")
+    public Double getEndTime() {
+        return _endTime;
+    }
+
+    public void setEndTime(final Double _endTime) {
+        this._endTime = _endTime;
+    }
+    @DynamoDBIndexRangeKey(attributeName = "lat", globalSecondaryIndexName = "lat-index")
+    public Double getLat() {
+        return _lat;
+    }
+
+    public void setLat(final Double _lat) {
+        this._lat = _lat;
+    }
+    @DynamoDBIndexRangeKey(attributeName = "startTime", globalSecondaryIndexName = "start-index")
+    public Double getStartTime() {
         return _startTime;
     }
 
-    public void setStartTime(final String _startTime) {
+    public void setStartTime(final Double _startTime) {
         this._startTime = _startTime;
-    }
-    @DynamoDBIndexHashKey(attributeName = "userId", globalSecondaryIndexName = "User")
-    public String getUserId() {
-        return _userId;
-    }
-
-    public void setUserId(final String _userId) {
-        this._userId = _userId;
     }
 
 }

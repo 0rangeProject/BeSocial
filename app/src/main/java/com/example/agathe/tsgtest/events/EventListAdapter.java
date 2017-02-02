@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,7 +55,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         Log.d(TAG, "onBindViewHolder, i: " + i + ", viewHolder: " + viewHolder);
-        EventViewHolder holder = (EventViewHolder) viewHolder;
+        final EventViewHolder holder = (EventViewHolder) viewHolder;
         holder.position = i;
         holder.itemTitle.setText(items.get(i).getTitle());
         holder.itemTitle.setBackgroundColor(Color.argb(50, 0, 0, 0));
@@ -80,6 +80,21 @@ public class EventListAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+        Boolean clicked = new Boolean(false);
+        holder.itemButton2.setTag(clicked);
+        holder.itemButton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if( ((Boolean)holder.itemButton2.getTag()) == false) {
+                    holder.itemButton2.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_event_interest));
+                    holder.itemButton2.setTag(new Boolean(true));
+                }
+                else{
+                    holder.itemButton2.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_event_nointerest));
+                    holder.itemButton2.setTag(new Boolean(false));
+                }
+            }
+        });
     }
 
     @Override
@@ -95,7 +110,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
         private TextView itemTime;
         private TextView itemPlace;
         private Button itemButton1;
-        private Button itemButton2;
+        private ImageButton itemButton2;
         public int position;
 
         public EventViewHolder(View itemView) {
@@ -105,7 +120,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
             itemTime = (TextView) itemView.findViewById(R.id.event_list_item_time);
             itemPlace = (TextView) itemView.findViewById(R.id.event_list_item_place);
             itemButton1 = (Button) itemView.findViewById(R.id.event_list_item_button_1);
-            itemButton2 = (Button) itemView.findViewById(R.id.event_list_item_button_2);
+            itemButton2 = (ImageButton) itemView.findViewById(R.id.event_list_item_button_2);
             rootView = itemView.findViewById(R.id.event_list_CardView);
             rootView.setOnClickListener(this);
             rootView.setOnLongClickListener(this);

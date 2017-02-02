@@ -1,7 +1,5 @@
 package com.example.agathe.tsgtest.dto;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 /**
  * Created by koudm on 06/12/2016.
  */

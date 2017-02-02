@@ -1,21 +1,18 @@
 package com.example.agathe.tsgtest.carpooling;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.SettingsActivity;
+import com.example.agathe.tsgtest.SettingsFragment;
 import com.example.agathe.tsgtest.dto.CommonTravel;
-import com.olab.smplibrary.DataResponseCallback;
-import com.olab.smplibrary.SMPLibrary;
 
 import java.util.ArrayList;
 
@@ -41,8 +38,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
 
             // Get a support ActionBar corresponding to this toolbar
             ActionBar ab = getSupportActionBar();
-
-            // Enable the Up button
             ab.setDisplayHomeAsUpEnabled(true);
 
             if (extras != null) {
@@ -50,10 +45,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
                 travels = extras.getParcelableArrayList("travels");
                 Log.i(LOG_TAG, "pageNumber = " + pageNumber);
             }
-
-            // Set toolbar
-            Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_carpoolers);
-            setSupportActionBar(myToolbar);
 
             if (savedInstanceState == null) {
                 Bundle args = new Bundle();
@@ -63,12 +54,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
                 pcf.setArguments(args);
                 getFragmentManager().beginTransaction().add(R.id.container, pcf).commit();
             }
-        }
-
-        private void refresh() {
-            finish();
-            Intent intent = new Intent(PotentialCarpoolersActivity.this, PotentialCarpoolersActivity.class);
-            startActivity(intent);
         }
 
     @Override
@@ -81,9 +66,6 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_disconnect:
-                SMPLibrary.Logout();
-                return true;
 
             case R.id.action_about:
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
@@ -96,6 +78,8 @@ public class PotentialCarpoolersActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(PotentialCarpoolersActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
