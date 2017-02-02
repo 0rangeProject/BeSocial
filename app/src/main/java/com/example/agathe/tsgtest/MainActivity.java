@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.LocalBroadcastManager;
@@ -21,24 +20,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
-import com.amazonaws.AmazonClientException;
 
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
+import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
     //*************AWS push notification part start************
     /** Class name for log messages. */
@@ -64,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Initializes the sign-in and sign-out buttons.
      */
     private void setupButtons() {
-        carpoolingButton = (ImageButton) findViewById(R.id.carpooling_but) ;
+        carpoolingButton = (ImageButton) findViewById(R.id.carpooling_but);
         carpoolingButton.setOnClickListener(this);
 
-        publicEventsButton = (ImageButton)findViewById(R.id.pevents_button);
+        publicEventsButton = (ImageButton) findViewById(R.id.pevents_button);
         publicEventsButton.setOnClickListener(this);
 
         sportButton = (ImageButton) findViewById(R.id.sport_btn);
@@ -112,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putString("userID", userID).commit();
         }
 
-        editor.putBoolean("userConnected", true).commit();
         userConnected = settings.getBoolean("userConnected", false);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -233,8 +234,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == sportButton) {
             Intent intent = new Intent(MainActivity.this,
-                        SportActivity.class);
-                startActivity(intent);
+                    SportActivity.class);
+            startActivity(intent);
         }
 
         if (view == carpoolingButton) {
@@ -243,19 +244,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
 
-       if (view == littleServicesButton) {
+        if (view == littleServicesButton) {
             Intent intent = new Intent(MainActivity.this,
                     LittleServicesActivity.class);
             startActivity(intent);
-       }
+        }
 
         if (view == contactsButton) {
-            ContactManager cm = new ContactManager(context);
-            cm.getFrequentContacts(10);
-            cm.getBusinessContacts(10);
-            cm.getPrivateContacts(10);
+
+            /*
+            String code = "";
+            try {
+                code = new CodeTask(this).execute().get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            String[] tokens = {"", ""};
+
+            // code = "W50vny";
+            if (code != "") {
+                try {
+                    tokens = new TokensTask(this, code).execute().get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+            */
+
+            String[] tokens = {"45c76bbf-c03f-4bf1-aeee-641e59dbd0d1", "4270ab3f-dba3-4428-8c76-0d05c5a9ff30"};
+            List<Contact> contacts = new ArrayList<>();
+
+            ContactsTask contactsTask = new ContactsTask(this, "frequent_contacts", tokens);
+            contactsTask.delegate = this;
+            contactsTask.execute();
         }
     }
+
 
     //*************AWS push notification part start************
     private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
@@ -311,5 +340,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void processFinish(List<Contact> contacts) {
+        for (Contact c : contacts) {
+            Log.i(LOG_TAG, c.toString());
+        }
     }
 }
