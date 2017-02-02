@@ -7,42 +7,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_allee">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/my_toolbar_challenge"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/challenge"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF" />
-
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:text="@string/challenge_text"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:background="@color/colorGray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/see_challenge"
-        android:layout_below="@+id/my_toolbar_challenge"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp" />
 
     <ListView
         android:id="@+id/contacts_challenge_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/see_challenge"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"
@@ -50,22 +19,12 @@
         android:scrollbarStyle="outsideOverlay"
         tools:listitem="@layout/list_item_contacts_challenge" />
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="96dp"
-        app:srcCompat="@drawable/sport_challenge"
-        android:layout_gravity="end"
-        android:contentDescription="@string/describe_challenge"
-        android:adjustViewBounds="true"
-        android:layout_above="@+id/contacts_challenge_list"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.agathe.tsgtest.sport.ChallengeActivity"
+        tools:context="com.example.agathe.tsgtest.sport.SportActivity"
         tools:ignore="MergeRootFrame" />
 </RelativeLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_publish_offer">
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_see_offers">
+
+        <ListView
+            android:id="@+id/offers_ls_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:padding="10dp"
+            android:scrollbarStyle="outsideOverlay"
+            tools:listitem="@layout/list_item_contacts_challenge" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/f_btn_publish_offer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/plus_circle"
+        app:layout_anchor="@id/view_publish_offer"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.agathe.tsgtest.littleservices.LittleServicesActivity"
+        tools:ignore="MergeRootFrame"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" >
+
+
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

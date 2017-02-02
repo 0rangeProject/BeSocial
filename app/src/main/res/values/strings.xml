@@ -4,13 +4,20 @@
     <!-- Descriptions -->
     <string name="describe_steps">steps feet</string>
     <string name="describe_challenge">challenge pic</string>
+    <string name="describe_time_pic">time picture</string>
     <string name="describe_runner_pic">runner avatar picture</string>
+    <string name="describe_sms_pic">sms picture</string>
+    <string name="describe_call_pic">call picture</string>
+
     <string name="start_running">Start a running session</string>
+    <string name="steps_text">You did </string>
+    <string name="duration_text">Your time is </string>
 
     <!-- Buttons text -->
     <string name="start_chrono">Start chronometer</string>
     <string name="stop_chrono">Stop</string>
     <string name="save_sport">Save performance </string>
+    <string name="send_sms_challenge">Send SMS </string>
     <string name="list_item_sms_button">Send message</string>
     <string name="list_item_call_button">Call</string>
     <string name="step_counter">android.hardware.sensor.stepcounter</string>
@@ -19,53 +26,49 @@
     <string name="dialog_ok">OK</string>
 
     <!-- Home -->
+    <string name="button_text_sign_out">Sign out from Google</string>
+    <string name="button_login">Login</string>
+    <string name="button_logout">Logout</string>
     <string name="title_main">What do you want to do with Orange ?"</string>
     <string name="howto_text">"Click on one item below to choose between : carpooling (pink), public events(blue), sport (green) and little services(orange)."</string>
+    <string name="not_logged_in">Not logged in</string>
+    <string name="enable_push_checkbox">Enable Push Notification</string>
+    <string name="sport_menu">Sport</string>
+    <string name="carpooling_menu">Carpooling</string>
+    <string name="public_events_menu">Public events</string>
+    <string name="home_map_hidden_sport">sport</string>
+    <string name="home_map_hidden_lservices">ls</string>
 
     <!--Sport Home -->
+    <string name="desc">description</string>
     <string name="challenge_text">Challenge a friend !</string>
-    <string name="challenge">Challenge</string>
     <string name="first_sport">Sport</string>
+
 
     <!--Little Services -->
     <string name="little_services">Little Services</string>
-    <string name="ls_description">Ask anything you need to your friends (tools, services, references,...)</string>
+    <string name="ls_offer_describe">Check the services some friends of yours are offering</string>
+    <string name="send_message">SEND MESSAGE</string>
+    <string name="call">CALL</string>
+    <string name="hint_title">The title of your offer </string>
+    <string name="hint_type">The type  </string>
+    <string name="hint_describe">Describe your offer </string>
+    <string name="publish_offer">Publish offer</string>
 
     <!--Public events -->
     <string name="list_item_left_button">View</string>
     <string name="list_item_right_button">Interested</string>
-    <string name="action_share">Share</string>
-    <string name="action_interested">Interested</string>
-    <string name="facebook_app_id">237500636704759</string>
 
     <!--Carpooling -->
     <string name="maps_introduction">We detected you often take this path :</string>
-    <string name="maps_introduction_manual">This is one path you manually entered :</string>
     <string name="departure">Departure : </string>
     <string name="destination">Destination : </string>
-    <string name="departure_2">Departure</string>
-    <string name="destination_2">Destination</string>
     <string name="list_item_button">Send message</string>
     <string name="potential_carpoolers">Potential carpoolers</string>
-    <string name="title_home_carpooling">Check your usual trajects and go carpooling</string>
-    <string name="description_home_carpooling">2 ways of doing : </string>
-    <string name="way_1">- Enable detection and let program check your daily trips</string>
-    <string name="way_2">- Enter manually your daily trips</string>
-    <string name="detection_enabled">Detection enabled</string>
-    <string name="detection_disabled">Detection disabled</string>
-    <string name="daily_trips">See potential carpoolers</string>
-    <string name="manual_entry">Enter trips manually</string>
-    <string name="finally_text">Finally, </string>
-    <string name="new_trip">New Trip</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
-    <string name="set_departure_hour">Departure hour</string>
-    <string name="set_destination_hour">Destination hour</string>
-    <string name="title_entries_visualization">Manual entries</string>
 
     <!--Titles -->
-    <string name="title_carpooling">Carpooling</string>
-    <string name="title_activity_purpose">Potential carpoolers</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_purpose">Carpooling</string>
     <string name="action_settings">Settings</string>
 
     <!-- Example for cards adapter-->
@@ -77,9 +80,19 @@
     <string name="push_demo_title">Push Notification</string>
     <string name="error_message_update_notification">Failed to update notification status due to \'%s\'.</string>
 
-    <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="identity_demo_text_view_description">Displays the user identity.</string>
+    <string name="unknown_user">Guest User</string>
+    <string name="user_id">USER IDENTIFIER</string>
+    <string name="identity_demo_textview_username_description">User\'s name</string>
+    <string name="identity_demo_textview_userid_description">User\'s unique identifier</string>
+    <string name="identity_demo_unknown_identity_text">&lt;UNKNOWN IDENTITY&gt;</string>
+    <string name="identity_demo_dialog_dismiss_text">DISMISS</string>
+    <string name="identity_demo_error_dialog_title">Failed Identity Retrieval</string>
+    <string name="identity_demo_error_message_failed_get_identity">Could not retrieve the user identity:\u0020</string>
+
 
     <!-- Filter's buttons -->
     <string name="filter_button1">Family, Best friends</string>
@@ -87,27 +100,13 @@
     <string name="filter_button3">Profession</string>
     <string name="filter_button4">Known(except work relation)</string>
     <string name="filter_button5">Known of work relation</string>
+    <string name="filter_button_reset">RESET</string>
+    <string name="filter_button_confirm">CONFIRM</string>
 
-    <!--Geolocation Service -->
-    <string name="provider_enabled">GPS Enabled</string>
-    <string name="provider_disabled">GPS Disabled</string>
 
-    <!--Menu -->
-    <string name="menu_carpooling">Carpooling</string>
-    <string name="menu_little_services">Little Services</string>
-    <string name="menu_sport">Sport</string>
-    <string name="menu_pe">Public Events</string>
-
-    <!-- Settings -->
-    <string name="settings_name">Settings</string>
-    <string name="pref_summary_push_notifications">Enable push notifications</string>
-    <string name="pref_title_push_notifications">Push notifications</string>
-    <string name="pref_public_events_title">Public Events</string>
-    <string name="pref_carpooling_title">Carpooling</string>
-    <string name="pref_little_services_title">Little Services</string>
-    <string name="pref_sport_title">Sport</string>
-    <string name="pref_title_detection_enabled">Auto detection</string>
-    <string name="pref_summary_detection_enabled">Enable detection and let program check your daily trips</string>
-    <string name="pref_title_manual_entries">Manual entries</string>
-    <string name="pref_summary_manual_entries">Enter trips manually</string>
+    <string name="provider_enabled">The provider %s is now enabled</string>
+    <string name="provider_disabled">The provider %s is now disabled</string>
+    <string name="provider_new_status">The provider %1$s has now a new status %2$s</string>
+    <string name="new_location">New Location : Latitude = %1$s, Longitude = %2$s, Altitude = %3$s avec une précision de %4$s mètres </string>
+    <string name="title_activity_test">Map</string>
 </resources>

@@ -3,31 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/selectable_background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="1">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:id="@+id/contact_ls_img"
+            android:layout_width="143dp"
+            android:layout_height="79dp"
             android:src="@drawable/ic_person_black_24dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RatingBar
+            android:id="@+id/rating_recommendation_ls"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="30dp">
-            <TextView
-                android:id="@+id/contact_ls_name"
-                style="@style/ListItemText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/contact_location"
-                style="@style/ListItemText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:isIndicator="true" />
+        <TextView
+            android:id="@+id/contact_ls_name"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/contact_location"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/type_of_recommendation"
+            style="@style/ListItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -38,30 +48,30 @@
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
+
         <Button
-            android:id="@+id/list_item_cc_button_sms"
+            android:id="@+id/list_item_recommended_button_sms"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dip"
-            android:layout_weight="1"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:text="@string/list_item_sms_button"
             android:textSize="12sp"
-            android:textStyle="normal" />
+            android:textStyle="normal"/>
         <Button
-            android:id="@+id/list_item_cc_button_call"
+            android:id="@+id/list_item_recommended_button_call"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="141dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dip"
-            android:layout_weight="1"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:text="@string/list_item_call_button"
             android:textSize="12sp"
             android:textStyle="normal" />
+
     </LinearLayout>
 </LinearLayout>

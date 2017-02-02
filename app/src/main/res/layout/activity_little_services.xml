@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
-
+    
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/my_toolbar_first_sport"
+                android:id="@+id/my_toolbar_little_services"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -26,7 +26,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/my_toolbar_tabs_sport"
+                android:id="@+id/my_toolbar_tabs_little_services"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
@@ -41,11 +41,11 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.agathe.tsgtest.sport.SportActivity"
-        tools:ignore="MergeRootFrame"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.agathe.tsgtest.littleservices.LittleServicesActivity"
+    tools:ignore="MergeRootFrame"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -53,6 +53,3 @@
     </FrameLayout>
 
 </RelativeLayout>
-
-
-
