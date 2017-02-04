@@ -1,6 +1,7 @@
 package com.example.agathe.tsgtest;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,13 @@ import android.widget.TextView;
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
@@ -34,8 +42,12 @@ import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -50,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Context context;
 
     private Button contactsButton;
-    private TextView contacts;
 
     /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
@@ -276,12 +287,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             */
 
-            String[] tokens = {"45c76bbf-c03f-4bf1-aeee-641e59dbd0d1", "4270ab3f-dba3-4428-8c76-0d05c5a9ff30"};
-            List<Contact> contacts = new ArrayList<>();
+            String[] tokens = {"95d410ca-a11c-48b2-b886-edb8e6e498f7",
+            "9eccc866-70c9-4e20-9b6b-23232cc37abf"};
 
-            ContactsTask contactsTask = new ContactsTask(this, "frequent_contacts", tokens);
-            contactsTask.delegate = this;
-            contactsTask.execute();
+            ContactsTask ct = new ContactsTask(this, "frequent_contacts", tokens);
+            ct.getContactsList(new ContactsTask.VolleyCallback(){
+                @Override
+                public void onSuccess(List<Contact> contacts) {
+                    for (Contact c : contacts) {
+                        Log.i(LOG_TAG, c.toString());
+                    }
+                }
+            });
         }
     }
 

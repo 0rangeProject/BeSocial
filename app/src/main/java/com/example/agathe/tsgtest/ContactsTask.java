@@ -25,14 +25,14 @@ import java.util.Map;
  * Created by agathe on 23/01/17.
  */
 
-public class ContactsTask extends AsyncTask<Void,Void,List<Contact>> {
+public class ContactsTask {
 
     private static final String LOG_TAG = "ContactsTask";
     private Context context;
     private String type;
     private String[] tokens;
 
-    public AsyncResponse delegate = null;
+    List<Contact> contacts = null;
 
     public ContactsTask(Context context, String type, String tokens[]) {
         this.context = context;
@@ -40,11 +40,9 @@ public class ContactsTask extends AsyncTask<Void,Void,List<Contact>> {
         this.tokens = tokens;
     }
 
-    @Override
-    protected List<Contact> doInBackground(Void... voids) {
-
+    public void getContactsList(final VolleyCallback callback) {
+        String url = "http://217.96.70.94/dsn-smp/frequent_contacts/8";
         final List<Contact> contacts = new ArrayList<>();
-        String url = "http://217.96.70.94/dsn-smp/" + type + "/8";
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -65,6 +63,7 @@ public class ContactsTask extends AsyncTask<Void,Void,List<Contact>> {
                                 contacts.add(c);
                             }
                         }
+                        callback.onSuccess(contacts);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -81,14 +80,12 @@ public class ContactsTask extends AsyncTask<Void,Void,List<Contact>> {
                 return params;
             }
         };
+
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
-        return contacts;
     }
 
-    @Override
-    protected void onPostExecute(List<Contact> contacts) {
-        delegate.processFinish(contacts);
+    public interface VolleyCallback{
+        void onSuccess(List<Contact> contacts);
     }
 }
