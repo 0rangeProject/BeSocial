@@ -13,6 +13,8 @@
     <string name="steps_text">You did </string>
     <string name="duration_text">Your time is </string>
 
+    <string name="contacts">Contacts</string>
+
     <!-- Buttons text -->
     <string name="start_chrono">Start chronometer</string>
     <string name="stop_chrono">Stop</string>

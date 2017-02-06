@@ -290,8 +290,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] tokens = {"95d410ca-a11c-48b2-b886-edb8e6e498f7",
             "9eccc866-70c9-4e20-9b6b-23232cc37abf"};
 
-            ContactsTask ct = new ContactsTask(this, "frequent_contacts", tokens);
-            ct.getContactsList(new ContactsTask.VolleyCallback(){
+            ContactsTask ct = new ContactsTask(this, tokens);
+            ct.getContactsList("frequent_contacts",
+                    new ContactsTask.VolleyCallback(){
                 @Override
                 public void onSuccess(List<Contact> contacts) {
                     for (Contact c : contacts) {

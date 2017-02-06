@@ -29,19 +29,17 @@ public class ContactsTask {
 
     private static final String LOG_TAG = "ContactsTask";
     private Context context;
-    private String type;
     private String[] tokens;
 
     List<Contact> contacts = null;
 
-    public ContactsTask(Context context, String type, String tokens[]) {
+    public ContactsTask(Context context, String tokens[]) {
         this.context = context;
-        this.type = type;
         this.tokens = tokens;
     }
 
-    public void getContactsList(final VolleyCallback callback) {
-        String url = "http://217.96.70.94/dsn-smp/frequent_contacts/8";
+    public void getContactsList(String type, final VolleyCallback callback) {
+        String url = "http://217.96.70.94/dsn-smp/" + type + "/8";
         final List<Contact> contacts = new ArrayList<>();
 
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -56,11 +54,20 @@ public class ContactsTask {
                         String[] parts = response.split("phoneNumbers");
                         for (String contact : parts) {
                             if (contact.contains("+")) {
-                                Contact c = new Contact();
-                                c.setName(contact.split("name\":\"")[1].split("\"")[0]);
-                                c.setPhoneNumber("+" + contact.split("\\+")[1].split("\"")[0]);
-                                c.setRelationStrength(contact.split("relationStrength\":")[1].split("\\}")[0]);
-                                contacts.add(c);
+                                boolean dublon = false;
+                                // to evit dublons
+                                for (Contact c : contacts) {
+                                    if (c.getPhoneNumber().equals("+" + contact.split("\\+")[1].split("\"")[0])) {
+                                        dublon = true;
+                                    }
+                                }
+                                if (dublon == false) {
+                                    Contact c = new Contact();
+                                    c.setName(contact.split("name\":\"")[1].split("\"")[0]);
+                                    c.setPhoneNumber("+" + contact.split("\\+")[1].split("\"")[0]);
+                                    c.setRelationStrength(contact.split("relationStrength\":")[1].split("\\}")[0]);
+                                    contacts.add(c);
+                                }
                             }
                         }
                         callback.onSuccess(contacts);

@@ -17,7 +17,7 @@ public class ListContacts {
         return contacts;
     }
 
-    public void setContacts(List<Contact> travels) {
+    public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
 }

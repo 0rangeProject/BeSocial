@@ -64,17 +64,6 @@ public class EntriesVisualisationActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        /*
-        List<ManualTrip> manualEntries = new ArrayList<>();
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-        manualEntries = null;
-
-        ListTravels list = new ListTravels();
-        list.setTravels(manualEntries);
-        complexPreferences.putObject("list", list);
-        complexPreferences.commit();
-        */
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.

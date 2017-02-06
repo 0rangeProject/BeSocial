@@ -74,22 +74,41 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        String[] tokens = {"3ad3cbd4-75e2-4078-9721-391c8ec8ff56",
+                "166a8660-18e7-41fa-a895-7ddb02db4796"};
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container_2);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        ContactsTask ct = new ContactsTask(ContactsVisualisationActivity.this, tokens);
+        ct.getContactsList("frequent_contacts",
+                new ContactsTask.VolleyCallback(){
+            @Override
+            public void onSuccess(List<Contact> contacts) {
+                ListContacts list = new ListContacts();
+                list.setContacts(contacts);
 
-        PageListener pageListener = new PageListener();
-        mViewPager.setOnPageChangeListener(pageListener);
+                ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+                complexPreferences.putObject("contacts1", list);
+                complexPreferences.putObject("contacts2", list);
+                complexPreferences.putObject("contacts3", list);
+                complexPreferences.commit();
 
-        // Give the TabLayout the ViewPager
-        TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs_2);
-        mTabLayout.setupWithViewPager(mViewPager);
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mTabLayout.getTabAt(0).setText("Best Friends");
-        mTabLayout.getTabAt(1).setText("Friends");
-        mTabLayout.getTabAt(2).setText("Known people");
+                // Set up the ViewPager with the sections adapter.
+                mViewPager = (ViewPager) findViewById(R.id.container_2);
+                mViewPager.setAdapter(mSectionsPagerAdapter);
+
+                PageListener pageListener = new PageListener();
+                mViewPager.setOnPageChangeListener(pageListener);
+
+                // Give the TabLayout the ViewPager
+                TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs_2);
+                mTabLayout.setupWithViewPager(mViewPager);
+
+                mTabLayout.getTabAt(0).setText("Best Friends");
+                mTabLayout.getTabAt(1).setText("Friends");
+                mTabLayout.getTabAt(2).setText("Known people");
+            }
+        });
     }
 
     @Override
@@ -155,20 +174,20 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-            /*  à ajouter ailleurs et à faire passer en arg
-            String[] tokens = {"95d410ca-a11c-48b2-b886-edb8e6e498f7",
-                    "9eccc866-70c9-4e20-9b6b-23232cc37abf"};
+            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+            ListContacts complexObject1 = complexPreferences.getObject("contacts1", ListContacts.class);
+            ListContacts complexObject2 = complexPreferences.getObject("contacts2", ListContacts.class);
+            ListContacts complexObject3 = complexPreferences.getObject("contacts3", ListContacts.class);
 
-            ContactsTask ct = new ContactsTask(ContactsVisualisationActivity.this, "frequent_contacts", tokens);
-            ct.getContactsList(new ContactsTask.VolleyCallback(){
-                @Override
-                public void onSuccess(List<Contact> contacts) {
-                    for (Contact c : contacts) {
-                        Log.i(LOG_TAG, c.toString());
-                    }
-                }
-            })
-            */
+            if (complexObject1 != null) {
+                contacts1 = complexObject1.getContacts();
+            }
+            if (complexObject2 != null) {
+                contacts2 = complexObject2.getContacts();
+            }
+            if (complexObject3 != null) {
+                contacts3 = complexObject3.getContacts();
+            }
 
             view = inflater.inflate(R.layout.fragment_contacts, container, false);
             cardsList = (ListView) view.findViewById(R.id.cards_list_contacts);
@@ -186,20 +205,26 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
             ArrayList<String> itemsPhoneNumber= new ArrayList<>();
             ArrayList<String> itemsRelationStrength = new ArrayList<>();
 
-            if (pageNumber == 0) {
-                itemsName.add(contacts1.get(pageNumber).getName());
-                itemsPhoneNumber.add(contacts1.get(pageNumber).getPhoneNumber());
-                itemsRelationStrength.add(contacts1.get(pageNumber).getRelationStrength());
-            }
             if (pageNumber == 1) {
-                itemsName.add(contacts2.get(pageNumber).getName());
-                itemsPhoneNumber.add(contacts2.get(pageNumber).getPhoneNumber());
-                itemsRelationStrength.add(contacts2.get(pageNumber).getRelationStrength());
+                for (int i = 0; i < contacts1.size(); i++) {
+                    itemsName.add(contacts1.get(i).getName());
+                    itemsPhoneNumber.add(contacts1.get(i).getPhoneNumber());
+                    itemsRelationStrength.add(contacts1.get(i).getRelationStrength());
+                }
             }
             if (pageNumber == 2) {
-                itemsName.add(contacts3.get(pageNumber).getName());
-                itemsPhoneNumber.add(contacts3.get(pageNumber).getPhoneNumber());
-                itemsRelationStrength.add(contacts3.get(pageNumber).getRelationStrength());
+                for (int i = 0; i < contacts2.size(); i++) {
+                    itemsName.add(contacts2.get(i).getName());
+                    itemsPhoneNumber.add(contacts2.get(i).getPhoneNumber());
+                    itemsRelationStrength.add(contacts2.get(i).getRelationStrength());
+                }
+            }
+            if (pageNumber == 3) {
+                for (int i = 0; i < contacts3.size(); i++) {
+                    itemsName.add(contacts3.get(i).getName());
+                    itemsPhoneNumber.add(contacts3.get(i).getPhoneNumber());
+                    itemsRelationStrength.add(contacts3.get(i).getRelationStrength());
+                }
             }
 
             return new CardsAdapterContacts(getActivity(), itemsName, itemsPhoneNumber, itemsRelationStrength, new ListItemButtonClickListener());
