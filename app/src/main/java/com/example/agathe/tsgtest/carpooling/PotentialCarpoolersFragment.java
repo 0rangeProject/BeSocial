@@ -50,7 +50,7 @@ public class PotentialCarpoolersFragment extends Fragment {
         return new CardsAdapterCarpooling(getActivity(), itemsName, itemsRelation, new ListItemButtonClickListener());
     }
 
-    private final class ListItemButtonClickListener implements View.OnClickListener {
+    public final class ListItemButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             for (int i = cardsList.getFirstVisiblePosition(); i <= cardsList.getLastVisiblePosition(); i++) {

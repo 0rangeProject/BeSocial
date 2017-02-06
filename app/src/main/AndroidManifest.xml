@@ -55,6 +55,11 @@
             android:parentActivityName=".MainActivity">
         </activity>
 
+        <activity
+            android:name=".ContactsVisualisationActivity"
+            android:parentActivityName=".SettingsActivity">
+        </activity>
+
         <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"

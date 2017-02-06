@@ -24,6 +24,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public static final String KEY_PREF_PUSH_NOTIFICATIONS = "pref_push_notifications";
     public static final String KEY_PREF_DETECTION_ENABLED = "pref_detection_enabled";
     public static final String KEY_PREF_MANUAL_ENTRIES = "pref_manual_entries";
+    public static final String KEY_PREF_CONTACTS = "pref_contacts";
 
     private PushManager pushManager;
     private static final String LOG_TAG = "SettingsFragment";
@@ -36,8 +37,10 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         pushManager = AWSMobileClient.defaultMobileClient().getPushManager();
 
         Preference manualEntries = (Preference) findPreference(KEY_PREF_MANUAL_ENTRIES);
+        Preference contactsEntries = (Preference) findPreference(KEY_PREF_CONTACTS);
 
         manualEntries.setOnPreferenceClickListener(this);
+        contactsEntries.setOnPreferenceClickListener(this);
 
         CheckBoxPreference detectionCB = (CheckBoxPreference)getPreferenceManager().findPreference(KEY_PREF_DETECTION_ENABLED);
         detectionCB.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -74,6 +77,12 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             Intent intent = new Intent(getActivity(), EntriesVisualisationActivity.class);
             startActivity(intent);
             Log.i("App", "Manual OK");
+        }
+
+        if (preference.getKey().equals(KEY_PREF_CONTACTS)) {
+            Intent intent = new Intent(getActivity(), ContactsVisualisationActivity.class);
+            startActivity(intent);
+            Log.i("App", "Contacts OK");
         }
         return false;
     }

@@ -149,4 +149,7 @@
     <string name="pref_summary_detection_enabled">Enable detection and let program check your daily trips</string>
     <string name="pref_title_manual_entries">Manual entries</string>
     <string name="pref_summary_manual_entries">Enter trips manually</string>
+    <string name="main_preferences">Main preferences</string>
+    <string name="pref_title_contacts">Contacts</string>
+    <string name="pref_summary_contacts">Manage your lists of contacts</string>
 </resources>

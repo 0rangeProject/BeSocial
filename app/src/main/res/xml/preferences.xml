@@ -2,10 +2,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent">
-    <CheckBoxPreference
-        android:key="pref_push_notifications"
-        android:summary="@string/pref_summary_push_notifications"
-        android:title="@string/pref_title_push_notifications" />
+    <PreferenceCategory
+        android:title="@string/main_preferences"
+        android:key="pref_key_contacts">
+        <CheckBoxPreference
+            android:key="pref_push_notifications"
+            android:summary="@string/pref_summary_push_notifications"
+            android:title="@string/pref_title_push_notifications" />
+        <Preference
+            android:key="pref_contacts"
+            android:summary="@string/pref_summary_contacts"
+            android:title="@string/pref_title_contacts"/>
+
+    </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_public_events_title"
         android:key="pref_key_public_events">
