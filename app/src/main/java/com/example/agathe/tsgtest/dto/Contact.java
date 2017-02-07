@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Contact {
 
-    private String name;
-    private String phoneNumber;
-    private String relationStrength;
+    private String name = "";
+    private String phoneNumber = "";
+    private String relationStrength = "";
 
     public String getName() {
         return name;

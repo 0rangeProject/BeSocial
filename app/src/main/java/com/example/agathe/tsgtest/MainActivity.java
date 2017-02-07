@@ -52,7 +52,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     //*************AWS push notification part start************
     /** Class name for log messages. */
@@ -286,20 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             */
-
-            String[] tokens = {"95d410ca-a11c-48b2-b886-edb8e6e498f7",
-            "9eccc866-70c9-4e20-9b6b-23232cc37abf"};
-
-            ContactsTask ct = new ContactsTask(this, tokens);
-            ct.getContactsList("frequent_contacts",
-                    new ContactsTask.VolleyCallback(){
-                @Override
-                public void onSuccess(List<Contact> contacts) {
-                    for (Contact c : contacts) {
-                        Log.i(LOG_TAG, c.toString());
-                    }
-                }
-            });
         }
     }
 
@@ -358,12 +344,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void processFinish(List<Contact> contacts) {
-        for (Contact c : contacts) {
-            Log.i(LOG_TAG, c.toString());
-        }
     }
 }

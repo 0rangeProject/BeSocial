@@ -58,10 +58,6 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
     private static View view;
     private ViewPager mViewPager;
 
-    private ListView cardsList;
-    private int pageNumber = 0;
-    private ArrayList<Contact> contacts = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,21 +70,20 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        String[] tokens = {"3ad3cbd4-75e2-4078-9721-391c8ec8ff56",
-                "166a8660-18e7-41fa-a895-7ddb02db4796"};
+        String[] tokens = {"116f8bff-950f-4e63-ae5e-eaeff8f10566",
+                "239e0b68-9bde-4718-926a-26cd339860e9"};
 
         ContactsTask ct = new ContactsTask(ContactsVisualisationActivity.this, tokens);
-        ct.getContactsList("frequent_contacts",
-                new ContactsTask.VolleyCallback(){
+        ct.getContactsList(new ContactsTask.VolleyCallback(){
             @Override
-            public void onSuccess(List<Contact> contacts) {
-                ListContacts list = new ListContacts();
-                list.setContacts(contacts);
+            public void onSuccess(List<List<Contact>> contacts) {
 
                 ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-                complexPreferences.putObject("contacts1", list);
-                complexPreferences.putObject("contacts2", list);
-                complexPreferences.putObject("contacts3", list);
+                for (List<Contact> subContacts : contacts) {
+                    ListContacts list = new ListContacts();
+                    list.setContacts(subContacts);
+                    complexPreferences.putObject(subContacts.get(0).getName(), list);
+                }
                 complexPreferences.commit();
 
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -104,9 +99,9 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
                 TabLayout mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs_2);
                 mTabLayout.setupWithViewPager(mViewPager);
 
-                mTabLayout.getTabAt(0).setText("Best Friends");
-                mTabLayout.getTabAt(1).setText("Friends");
-                mTabLayout.getTabAt(2).setText("Known people");
+                mTabLayout.getTabAt(0).setText("Frequent contacts");
+                mTabLayout.getTabAt(1).setText("Business contacts");
+                mTabLayout.getTabAt(2).setText("Private contacts");
             }
         });
     }
@@ -151,12 +146,9 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static int pageNumber;
         private Context context;
-        private List<Contact> contacts1 = new ArrayList<>();
-        private List<Contact> contacts2 = new ArrayList<>();
-        private List<Contact> contacts3 = new ArrayList<>();
         private ListView cardsList;
+        List<List<Contact>> contacts = new ArrayList<>();
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -167,64 +159,48 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
-            pageNumber = sectionNumber;
             return fragment;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-            ListContacts complexObject1 = complexPreferences.getObject("contacts1", ListContacts.class);
-            ListContacts complexObject2 = complexPreferences.getObject("contacts2", ListContacts.class);
-            ListContacts complexObject3 = complexPreferences.getObject("contacts3", ListContacts.class);
+            final List<String> types = new ArrayList<>();
+            types.add("frequent_contacts");
+            types.add("business_contacts");
+            types.add("private_contacts");
 
-            if (complexObject1 != null) {
-                contacts1 = complexObject1.getContacts();
-            }
-            if (complexObject2 != null) {
-                contacts2 = complexObject2.getContacts();
-            }
-            if (complexObject3 != null) {
-                contacts3 = complexObject3.getContacts();
+            List<Contact> subContacts;
+
+            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+            for (String s : types) {
+                ListContacts complexObject = complexPreferences.getObject(s, ListContacts.class);
+                if (complexObject != null) {
+                    subContacts = complexObject.getContacts();
+                    contacts.add(subContacts);
+                }
             }
 
             view = inflater.inflate(R.layout.fragment_contacts, container, false);
             cardsList = (ListView) view.findViewById(R.id.cards_list_contacts);
-            setupList();
+            setupList(getArguments().getInt(ARG_SECTION_NUMBER));
 
             return view;
         }
 
-        private void setupList() {
-            cardsList.setAdapter(createAdapter());
+        private void setupList(int pageNumber) {
+            cardsList.setAdapter(createAdapter(pageNumber));
         }
 
-        private CardsAdapterContacts createAdapter() {
+        private CardsAdapterContacts createAdapter(int pageNumber) {
             ArrayList<String> itemsName = new ArrayList<>();
             ArrayList<String> itemsPhoneNumber= new ArrayList<>();
             ArrayList<String> itemsRelationStrength = new ArrayList<>();
 
-            if (pageNumber == 1) {
-                for (int i = 0; i < contacts1.size(); i++) {
-                    itemsName.add(contacts1.get(i).getName());
-                    itemsPhoneNumber.add(contacts1.get(i).getPhoneNumber());
-                    itemsRelationStrength.add(contacts1.get(i).getRelationStrength());
-                }
-            }
-            if (pageNumber == 2) {
-                for (int i = 0; i < contacts2.size(); i++) {
-                    itemsName.add(contacts2.get(i).getName());
-                    itemsPhoneNumber.add(contacts2.get(i).getPhoneNumber());
-                    itemsRelationStrength.add(contacts2.get(i).getRelationStrength());
-                }
-            }
-            if (pageNumber == 3) {
-                for (int i = 0; i < contacts3.size(); i++) {
-                    itemsName.add(contacts3.get(i).getName());
-                    itemsPhoneNumber.add(contacts3.get(i).getPhoneNumber());
-                    itemsRelationStrength.add(contacts3.get(i).getRelationStrength());
-                }
+            for (int i = 1; i < contacts.get(pageNumber - 1).size(); i++) {
+                itemsName.add(contacts.get(pageNumber - 1).get(i).getName());
+                itemsPhoneNumber.add(contacts.get(pageNumber - 1).get(i).getPhoneNumber());
+                itemsRelationStrength.add(contacts.get(pageNumber - 1).get(i).getRelationStrength());
             }
 
             return new CardsAdapterContacts(getActivity(), itemsName, itemsPhoneNumber, itemsRelationStrength, new ListItemButtonClickListener());
