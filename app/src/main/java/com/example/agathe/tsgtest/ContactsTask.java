@@ -47,19 +47,10 @@ public class ContactsTask {
         final List<List<Contact>> contacts = new ArrayList<>();
 
         RequestQueue queue;
-
-        // Instantiate the cache
         Cache cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
         queue = new RequestQueue(cache, network);
-
-        // Start the queue
         queue.start();
-
 
         // Request a string response from the provided URL.
         final List<String> types = new ArrayList<>();
@@ -118,11 +109,8 @@ public class ContactsTask {
                     return params;
                 }
             };
-            // Add the request to the RequestQueue.
             queue.add(stringRequest);
         }
-
-
     }
 
     public interface VolleyCallback{

@@ -2,6 +2,7 @@ package com.example.agathe.tsgtest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,6 +59,9 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
     private static View view;
     private ViewPager mViewPager;
 
+    private SharedPreferences settings = null;
+    private SharedPreferences.Editor editor = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +74,12 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        String[] tokens = {"116f8bff-950f-4e63-ae5e-eaeff8f10566",
-                "239e0b68-9bde-4718-926a-26cd339860e9"};
+        settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
+        editor = settings.edit();
+
+        String[] tokens = {"", ""};
+        tokens[0] = settings.getString("access_token", "");
+        tokens[1] = settings.getString("refresh_token", "");
 
         ContactsTask ct = new ContactsTask(ContactsVisualisationActivity.this, tokens);
         ct.getContactsList(new ContactsTask.VolleyCallback(){
@@ -173,6 +181,7 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
             List<Contact> subContacts;
 
             ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+
             for (String s : types) {
                 ListContacts complexObject = complexPreferences.getObject(s, ListContacts.class);
                 if (complexObject != null) {

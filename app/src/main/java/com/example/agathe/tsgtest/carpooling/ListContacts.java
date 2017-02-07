@@ -20,4 +20,11 @@ public class ListContacts {
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
+
+    @Override
+    public String toString() {
+        return "ListContacts{" +
+                "contacts=" + contacts +
+                '}';
+    }
 }

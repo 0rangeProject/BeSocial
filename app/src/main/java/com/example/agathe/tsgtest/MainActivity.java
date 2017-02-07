@@ -1,7 +1,6 @@
 package com.example.agathe.tsgtest;
 
 import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,18 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.example.agathe.tsgtest.carpooling.ListContacts;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
 import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
@@ -41,16 +33,8 @@ import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected DrawerLayout drawer;
 
     boolean userConnected = false;
+
+    String[] tokens = {"", ""};
 
     /**
      * Initializes the sign-in and sign-out buttons.
@@ -100,22 +86,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        // Initialize the Amazon Cognito credentials provider
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "us-east-1:af846312-d9d1-4007-8825-869fdfc2a3ae", // Identity Pool ID
-                Regions.US_EAST_1 // Region
-        );
-
-        // Initialize the Cognito Sync client
-        CognitoSyncManager syncClient = new CognitoSyncManager(
-                getApplicationContext(),
-                Regions.US_EAST_1, // Region
-                credentialsProvider);
-
-        */
-
         // Recover or create user ID
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
@@ -126,6 +96,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         userConnected = settings.getBoolean("userConnected", false);
+
+        /*
+         Tokens à remplacer régulièrement.
+         Pour cela :
+         1°/ Sur le navigateur, se connecter avec le compte vincent.decomble@isen-lille.fr mdp : ISENproject59@
+         2°/ Sur le navigateur, taper http://217.96.70.94/dsn-smp/oauth/authorize?response_type=code&client_id=orange2&redirect_uri=http://orange
+            et récupérer le code obtenu à la fin de l'URL
+         3°/ Sur un terminal, taper curl orange2:orange@217.96.70.94/dsn-smp/oauth/token -d grant_type=authorization_code -d client_id=orange2 -d redirect_uri=http://orange -d code=codeEtape2
+         4°/ Copier l'access_token et le refresh_token obtenus et les mettre dans la variable tokens juste en dessous
+        */
+        tokens[0] = "d710e7a5-6fbd-4a65-91b2-a10fea00704c"; // access_token
+        tokens[1] = "239e0b68-9bde-4718-926a-26cd339860e9"; // refresh_token
+
+        editor.putString("access_token", tokens[0]).commit();
+        editor.putString("refresh_token", tokens[1]).commit();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -262,30 +247,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (view == contactsButton) {
-
-            /*
-            String code = "";
-            try {
-                code = new CodeTask(this).execute().get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            String[] tokens = {"", ""};
-
-            // code = "W50vny";
-            if (code != "") {
-                try {
-                    tokens = new TokensTask(this, code).execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+            ContactsTask ct = new ContactsTask(MainActivity.this, tokens);
+            ct.getContactsList(new ContactsTask.VolleyCallback(){
+                @Override
+                public void onSuccess(List<List<Contact>> contacts) {
+                    for (List<Contact> subContacts : contacts) {
+                        Log.i(LOG_TAG, subContacts.toString());
+                    }
                 }
-            }
-            */
+            });
         }
     }
 
