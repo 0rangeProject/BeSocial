@@ -6,11 +6,11 @@ package com.example.agathe.tsgtest.dto;
 
 public class ContactLS {
     public String ls_name;
-    public String location;
+    public String relation_strength;
 
-    public ContactLS(String ls_name, String location){
+    public ContactLS(String ls_name, String relation_strength){
         this.ls_name = ls_name;
-        this.location = location;
+        this.relation_strength = relation_strength;
     }
 
     public void setLSName(String ls_name){
@@ -21,12 +21,12 @@ public class ContactLS {
         return ls_name;
     }
 
-    public void setLocation(String location){
-        this.location = location;
+    public void setRelationStrength(String relation_strength){
+        this.relation_strength = relation_strength;
     }
 
-    public String getLocation(){
-        return location;
+    public String getRelationStrength(){
+        return relation_strength;
     }
 
 }

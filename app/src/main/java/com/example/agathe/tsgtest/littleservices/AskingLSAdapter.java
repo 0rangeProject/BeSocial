@@ -19,14 +19,14 @@ import java.util.List;
 public class AskingLSAdapter extends BaseAdapter {
 
     private List<String> itemsName;
-    private List<String> itemsLocation;
+    private List<String> itemsRelationStrength;
     private final View.OnClickListener itemButtonSmsClickListener,itemButtonCallClickListener;
     private final Context context;
 
-    public AskingLSAdapter(Context context, List<String> itemsName, List<String> itemsLocation, View.OnClickListener itemButtonSmsClickListener, View.OnClickListener itemButtonCallClickListener) {
+    public AskingLSAdapter(Context context, List<String> itemsName, List<String> itemsRelationStrength, View.OnClickListener itemButtonSmsClickListener, View.OnClickListener itemButtonCallClickListener) {
         this.context = context;
         this.itemsName = itemsName;
-        this.itemsLocation = itemsLocation;
+        this.itemsRelationStrength = itemsRelationStrength;
         this.itemButtonSmsClickListener = itemButtonSmsClickListener;
         this.itemButtonCallClickListener = itemButtonCallClickListener;
     }
@@ -56,7 +56,7 @@ public class AskingLSAdapter extends BaseAdapter {
 
             holder = new ContactViewHolder();
             holder.itemName = (TextView) convertView.findViewById(R.id.contact_ls_name);
-            holder.itemLocation = (TextView) convertView.findViewById(R.id.contact_location);
+            holder.itemRelationStrength = (TextView) convertView.findViewById(R.id.contact_relation_strength);
             holder.itemSmsButton = (Button) convertView.findViewById(R.id.list_item_asking_button_sms);
             holder.itemCallButton = (Button) convertView.findViewById(R.id.list_item_asking_button_call);
             convertView.setTag(holder);
@@ -66,7 +66,7 @@ public class AskingLSAdapter extends BaseAdapter {
         }
 
         holder.itemName.setText(itemsName.get(position));
-        holder.itemLocation.setText(itemsLocation.get(position));
+        holder.itemRelationStrength.setText(itemsRelationStrength.get(position));
 
         if (itemButtonSmsClickListener != null) {
             holder.itemSmsButton.setOnClickListener(itemButtonSmsClickListener);
@@ -81,7 +81,7 @@ public class AskingLSAdapter extends BaseAdapter {
     }
 
     private static class ContactViewHolder {
-        private TextView itemName, itemLocation;
+        private TextView itemName, itemRelationStrength;
         private Button itemSmsButton, itemCallButton;
     }
 }

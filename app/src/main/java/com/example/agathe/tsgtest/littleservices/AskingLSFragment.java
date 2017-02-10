@@ -39,21 +39,21 @@ private void setupList() {
 
 private AskingLSAdapter createAdapter() {
         ArrayList<String> itemsName = new ArrayList<>();
-        ArrayList<String> itemsLocation = new ArrayList<>();
+        ArrayList<String> itemsRelationStrength = new ArrayList<>();
 
-        ArrayList<ContactLS> contact_challenge = new ArrayList<ContactLS>() {{
-            add(new ContactLS("Sarah Liousse", "Close Friend (around 10km)"));
-            add(new ContactLS("Arthur Dubois", "Known (around 50km)"));
-            add(new ContactLS("Martin Delarre", "Known (around 300km)"));
-            add(new ContactLS("Lili Rose", "New Friend (around 200km)"));
+        ArrayList<ContactLS> asking_contacts = new ArrayList<ContactLS>() {{
+            add(new ContactLS("Sarah Liousse", "Very frequent contact"));
+            add(new ContactLS("Arthur Dubois", "Frequent contact"));
+            add(new ContactLS("Martin Delarre", "Frequent contact"));
+            add(new ContactLS("Lili Rose", "Occasional contact"));
         }};
 
-        for (int i = 0; i < contact_challenge.size(); i++) {
-        itemsName.add(contact_challenge.get(i).ls_name);
-        itemsLocation.add(contact_challenge.get(i).location);
+        for (int i = 0; i < asking_contacts.size(); i++) {
+        itemsName.add(asking_contacts.get(i).ls_name);
+            itemsRelationStrength.add(asking_contacts.get(i).relation_strength);
         }
 
-        return new AskingLSAdapter(getActivity(), itemsName, itemsLocation, new ListItemButtonClickListener(), new ListItemButtonClickListener());
+        return new AskingLSAdapter(getActivity(), itemsName, itemsRelationStrength, new ListItemButtonClickListener(), new ListItemButtonClickListener());
         }
 
 private final class ListItemButtonClickListener implements View.OnClickListener {

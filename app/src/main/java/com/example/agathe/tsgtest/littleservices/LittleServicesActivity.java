@@ -84,7 +84,7 @@ public class LittleServicesActivity extends AppCompatActivity {
                 case 1:
                     return "Suggestions";
                 case 2:
-                    return "Recommend someone";
+                    return "Recommended";
                 default:
                     return "Ask for a service";
             }

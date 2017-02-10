@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/contact_location"
+                android:id="@+id/contact_relation_strength"
                 style="@style/ListItemText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -36,8 +36,7 @@
         <LinearLayout
             style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_ls_img">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/list_item_asking_button_sms"
