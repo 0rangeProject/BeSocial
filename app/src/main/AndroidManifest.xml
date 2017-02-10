@@ -80,7 +80,7 @@
         </activity>
         <activity
             android:name=".littleservices.PublishOfferActivity"
-            android:parentActivityName=".LittleServicesActivity">
+            android:parentActivityName=".littleservices.LittleServicesActivity">
         </activity>
 
         <!-- Carpooling -->
