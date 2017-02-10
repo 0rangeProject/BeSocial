@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.agathe.tsgtest.R;
 import com.example.agathe.tsgtest.dto.RecommendationLS;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class RecommendationLSFragment extends Fragment {
     private ListView recommendedList;
-    private RatingBar rating;
+    private RatingBar myRatingBar;
     public RecommendationLSFragment() {}
 
     @Override
@@ -35,9 +36,18 @@ public class RecommendationLSFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recommendation_little_services, container, false);
         recommendedList = (ListView) rootView.findViewById(R.id.recommendations_list);
-        rating = (RatingBar) rootView.findViewById(R.id.rating_recommendation_ls);
+        myRatingBar = (RatingBar) rootView.findViewById(R.id.rating_recommendation_ls);
+//setting the rating bar stars
+//        myRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+//            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+//                if(fromUser){
+//                    rating = 0.0f;
+//                    Toast.makeText(ratingBar.getContext(),"Your Selected Ratings  : " + String.valueOf(rating), Toast.LENGTH_LONG).show();
+//                    myRatingBar.setRating(rating);
+//                }
+//            }
+//        });
         setupList();
-        //rating.setRating(4);
         return rootView;
     }
 
