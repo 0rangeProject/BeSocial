@@ -78,6 +78,10 @@
             android:name=".littleservices.LittleServicesActivity"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity
+            android:name=".littleservices.PublishOfferActivity"
+            android:parentActivityName=".LittleServicesActivity">
+        </activity>
 
         <!-- Carpooling -->
 
