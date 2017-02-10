@@ -1,1 +1,1 @@
-include ':app', ':smp-lib'
+include ':app', ':smp-lib', ':dsn-lib'

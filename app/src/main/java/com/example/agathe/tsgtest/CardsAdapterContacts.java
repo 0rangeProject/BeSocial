@@ -1,4 +1,4 @@
-package com.example.agathe.tsgtest.carpooling;
+package com.example.agathe.tsgtest;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -78,5 +78,4 @@ public class CardsAdapterContacts extends BaseAdapter {
         private TextView itemPhoneNumber;
         private TextView itemRelationStrength;
     }
-
 }

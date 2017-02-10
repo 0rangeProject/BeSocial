@@ -31,8 +31,11 @@ import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
 import com.example.agathe.tsgtest.littleservices.LittleServicesActivity;
+import com.olab.smplibrary.DataResponseCallback;
 import com.olab.smplibrary.LoginResponseCallback;
 import com.olab.smplibrary.SMPLibrary;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Context context;
 
     private Button contactsButton;
-
-    /** The identity manager used to keep track of the current user account. */
     private IdentityManager identityManager;
 
     private SharedPreferences settings = null;
@@ -97,21 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         userConnected = settings.getBoolean("userConnected", false);
 
-        /*
-         Tokens à remplacer régulièrement.
-         Pour cela :
-         1°/ Sur le navigateur, se connecter avec le compte vincent.decomble@isen-lille.fr mdp : ISENproject59@
-         2°/ Sur le navigateur, taper http://217.96.70.94/dsn-smp/oauth/authorize?response_type=code&client_id=orange2&redirect_uri=http://orange
-            et récupérer le code obtenu à la fin de l'URL
-         3°/ Sur un terminal, taper curl orange2:orange@217.96.70.94/dsn-smp/oauth/token -d grant_type=authorization_code -d client_id=orange2 -d redirect_uri=http://orange -d code=codeEtape2
-         4°/ Copier l'access_token et le refresh_token obtenus et les mettre dans la variable tokens juste en dessous
-        */
-        tokens[0] = "d710e7a5-6fbd-4a65-91b2-a10fea00704c"; // access_token
-        tokens[1] = "239e0b68-9bde-4718-926a-26cd339860e9"; // refresh_token
-
-        editor.putString("access_token", tokens[0]).commit();
-        editor.putString("refresh_token", tokens[1]).commit();
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
@@ -149,6 +135,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Obtain a reference to the identity manager.
         identityManager = awsMobileClient.getIdentityManager();
+
+        final ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
+
+        ContactManager cm = new ContactManager(MainActivity.this, 8);
+        cm.getContacts(1000, new ContactManager.VolleyCallbackGlobal() {
+            @Override
+            public void onSuccess(List<List<Contact>> contacts) {
+                for (List<Contact> subContacts : contacts) {
+                    ListContacts list = new ListContacts();
+                    list.setContacts(subContacts);
+                    complexPreferences.putObject(subContacts.get(0).getName(), list);
+                }
+                complexPreferences.commit();
+            }
+        });
     }
 
     @Override
@@ -247,12 +248,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (view == contactsButton) {
-            ContactsTask ct = new ContactsTask(MainActivity.this, tokens);
-            ct.getContactsList(new ContactsTask.VolleyCallback(){
+            ContactManager cm = new ContactManager(this, 8);
+            cm.getFrequentContacts(1000, new ContactManager.VolleyCallback(){
                 @Override
-                public void onSuccess(List<List<Contact>> contacts) {
-                    for (List<Contact> subContacts : contacts) {
-                        Log.i(LOG_TAG, subContacts.toString());
+                public void onSuccess(List<Contact> frequentContacts) {
+                    for (Contact c : frequentContacts) {
+                        Log.i(LOG_TAG, c.toString());
                     }
                 }
             });

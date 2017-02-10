@@ -3,15 +3,12 @@ package com.example.agathe.tsgtest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,30 +20,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.agathe.tsgtest.carpooling.CardsAdapterCarpooling;
-import com.example.agathe.tsgtest.carpooling.CardsAdapterContacts;
 import com.example.agathe.tsgtest.carpooling.ListContacts;
-import com.example.agathe.tsgtest.carpooling.ListTravels;
-import com.example.agathe.tsgtest.carpooling.NewTripDialogFragment;
-import com.example.agathe.tsgtest.carpooling.PotentialCarpoolersFragment;
-import com.example.agathe.tsgtest.dto.CommonTravel;
 import com.example.agathe.tsgtest.dto.Contact;
-import com.example.agathe.tsgtest.dto.ManualTrip;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.value;
 
 /**
  * Created by agathe on 06/02/17.
@@ -77,22 +58,23 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
         settings = getSharedPreferences("PREFERENCES_FILE", Context.MODE_PRIVATE);
         editor = settings.edit();
 
-        String[] tokens = {"", ""};
-        tokens[0] = settings.getString("access_token", "");
-        tokens[1] = settings.getString("refresh_token", "");
+        final ComplexPreferences fComplexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
 
-        ContactsTask ct = new ContactsTask(ContactsVisualisationActivity.this, tokens);
-        ct.getContactsList(new ContactsTask.VolleyCallback(){
+        Thread t = new Thread(new Runnable() {
             @Override
-            public void onSuccess(List<List<Contact>> contacts) {
-
-                ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(getApplicationContext(), "PREFERENCES_FILE", MODE_PRIVATE);
-                for (List<Contact> subContacts : contacts) {
-                    ListContacts list = new ListContacts();
-                    list.setContacts(subContacts);
-                    complexPreferences.putObject(subContacts.get(0).getName(), list);
-                }
-                complexPreferences.commit();
+            public void run() {
+                ContactManager cm = new ContactManager(ContactsVisualisationActivity.this, 8);
+                cm.getContacts(1000, new ContactManager.VolleyCallbackGlobal() {
+                    @Override
+                    public void onSuccess(List<List<Contact>> contacts) {
+                        for (List<Contact> subContacts : contacts) {
+                            ListContacts list = new ListContacts();
+                            list.setContacts(subContacts);
+                            fComplexPreferences.putObject(subContacts.get(0).getName(), list);
+                        }
+                        fComplexPreferences.commit();
+                    }
+                });
 
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -110,8 +92,16 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
                 mTabLayout.getTabAt(0).setText("Frequent contacts");
                 mTabLayout.getTabAt(1).setText("Business contacts");
                 mTabLayout.getTabAt(2).setText("Private contacts");
-            }
-        });
+            }});
+
+        t.start(); // spawn thread
+
+        try {
+            t.join();  // wait for thread to finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Log.i(LOG_TAG, "interrupted exception");
+        }
     }
 
     @Override
@@ -128,6 +118,7 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
                 android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setMessage(R.string.dialog_message).setTitle(R.string.app_name);
                 builder.setPositiveButton(R.string.dialog_ok, null);
+
                 builder.setIcon(R.mipmap.ic_launcher);
 
                 android.support.v7.app.AlertDialog dialog = builder.create();
@@ -154,7 +145,6 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private Context context;
         private ListView cardsList;
         List<List<Contact>> contacts = new ArrayList<>();
 
@@ -222,7 +212,6 @@ public class ContactsVisualisationActivity extends AppCompatActivity{
             }
         }
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
