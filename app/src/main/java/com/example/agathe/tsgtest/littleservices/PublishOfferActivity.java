@@ -1,5 +1,6 @@
 package com.example.agathe.tsgtest.littleservices;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.SettingsActivity;
 import com.olab.smplibrary.SMPLibrary;
 
 
@@ -63,6 +65,8 @@ public class PublishOfferActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(PublishOfferActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

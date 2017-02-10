@@ -1,5 +1,6 @@
 package com.example.agathe.tsgtest.littleservices;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.agathe.tsgtest.R;
+import com.example.agathe.tsgtest.SettingsActivity;
 import com.olab.smplibrary.SMPLibrary;
 
 
@@ -115,6 +117,8 @@ public class LittleServicesActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_main_settings:
+                Intent intent = new Intent(LittleServicesActivity.this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
 
             default:
