@@ -1,26 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
+<?xml version="1.0" encoding="utf-8"?><!-- suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.agathe.tsgtest"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.agathe.tsgtest">
 
-    <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary"/>
+    <uses-sdk tools:overrideLibrary="com.olab.dns_library.dnslibrary" />
+
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-feature android:name="@string/step_detector" android:required="true"/>
-    <uses-feature android:name="@string/step_counter" android:required="true"/>
-    <uses-feature android:name="android.hardware.location" android:required="true" />
-    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+
+    <uses-feature
+        android:name="@string/step_detector"
+        android:required="true" />
+    <uses-feature
+        android:name="@string/step_counter"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.example.agathe.tsgtest.permission.C2D_MESSAGE" />
 
@@ -46,80 +54,60 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".ContactsVisualisationActivity"
-            android:parentActivityName=".SettingsActivity">
-        </activity>
+            android:parentActivityName=".SettingsActivity"></activity>
 
         <!-- Sport -->
         <activity
             android:name=".sport.SportActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
-        <activity
-            android:name=".sport.ChallengeActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".sport.SportActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"></activity>
 
         <!-- Little Services -->
         <activity
             android:name=".littleservices.LittleServicesActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".littleservices.PublishOfferActivity"
-            android:parentActivityName=".littleservices.LittleServicesActivity">
-        </activity>
+            android:parentActivityName=".littleservices.LittleServicesActivity"></activity>
 
         <!-- Carpooling -->
 
         <activity
             android:name=".carpooling.PotentialCarpoolersActivity"
-            android:parentActivityName=".carpooling.PurposeActivity">
-        </activity>
-
+            android:parentActivityName=".carpooling.PurposeActivity"></activity>
         <activity android:name=".carpooling.MapsActivity" />
-
         <activity
             android:name=".carpooling.PurposeActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".carpooling.EntriesVisualisationActivity"
-            android:parentActivityName=".SettingsActivity" >
-        </activity>
+            android:parentActivityName=".SettingsActivity"></activity>
 
         <!-- Public Events -->
         <activity
             android:name=".events.PublicEventsActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".events.EventDetailActivity"
-            android:parentActivityName=".events.PublicEventsActivity" >
-        </activity>
+            android:parentActivityName=".events.PublicEventsActivity"></activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.example.agathe.tsgtest" />
             </intent-filter>
         </receiver>
@@ -127,7 +115,7 @@
         <!-- BEGIN - PUSH NOTIFICATIONS WITH GOOGLE CLOUD MESSAGING (GCM) -->
         <service
             android:name=".PushListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
@@ -136,9 +124,11 @@
 
         <service
             android:name=".carpooling.GeolocationService"
-            android:process=":my_service">
-        </service>
+            android:process=":my_service"></service>
 
+        <activity
+            android:name=".carpooling.TestActivity"
+            android:label="@string/title_activity_test"></activity>
     </application>
 
 </manifest>

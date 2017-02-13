@@ -27,6 +27,7 @@ import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.example.agathe.tsgtest.carpooling.ListContacts;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
+import com.example.agathe.tsgtest.carpooling.TestActivity;
 import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton carpoolingButton, publicEventsButton, sportButton, littleServicesButton;
     Context context;
 
-    private Button contactsButton;
     private IdentityManager identityManager;
 
     private SharedPreferences settings = null;
@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected DrawerLayout drawer;
 
     boolean userConnected = false;
-
-    String[] tokens = {"", ""};
 
     /**
      * Initializes the sign-in and sign-out buttons.
@@ -75,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         littleServicesButton = (ImageButton) findViewById(R.id.lServices_btn);
         littleServicesButton.setOnClickListener(this);
-
-        contactsButton = (Button) findViewById(R.id.contacts_btn);
-        contactsButton.setOnClickListener(this);
     }
 
     //*************AWS push notification part end**************
@@ -245,18 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this,
                     LittleServicesActivity.class);
             startActivity(intent);
-        }
-
-        if (view == contactsButton) {
-            ContactManager cm = new ContactManager(this, 8);
-            cm.getFrequentContacts(1000, new ContactManager.VolleyCallback(){
-                @Override
-                public void onSuccess(List<Contact> frequentContacts) {
-                    for (Contact c : frequentContacts) {
-                        Log.i(LOG_TAG, c.toString());
-                    }
-                }
-            });
         }
     }
 
