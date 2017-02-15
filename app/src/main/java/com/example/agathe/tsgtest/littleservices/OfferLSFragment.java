@@ -74,7 +74,7 @@ public class OfferLSFragment extends Fragment {
         public void onClick(View v) {
             for (int i = offersList.getFirstVisiblePosition(); i <= offersList.getLastVisiblePosition(); i++) {
                 //sms intent
-                if (v == offersList.getChildAt(i - offersList.getFirstVisiblePosition()).findViewById(R.id.list_item_cc_button_sms)) {
+                if (v == offersList.getChildAt(i - offersList.getFirstVisiblePosition()).findViewById(R.id.offer_ls_send_sms_btn)) {
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                     smsIntent.putExtra("address", "0649153247");
                     smsIntent.putExtra("sms_body", "Hello, I'm interrested by your offer");

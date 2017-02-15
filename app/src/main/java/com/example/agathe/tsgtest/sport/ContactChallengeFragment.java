@@ -62,6 +62,7 @@ public class ContactChallengeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             for (int i = contactsList.getFirstVisiblePosition(); i <= contactsList.getLastVisiblePosition(); i++) {
+                //sms intent
                 if (v == contactsList.getChildAt(i - contactsList.getFirstVisiblePosition()).findViewById(R.id.list_item_cc_button_sms)) {
                     Toast.makeText(getActivity(), "Clicked on Action Button of List Item " + i, Toast.LENGTH_SHORT).show();
                     Intent smsIntent = new Intent(Intent.ACTION_VIEW);
@@ -70,6 +71,12 @@ public class ContactChallengeFragment extends Fragment {
                     smsIntent.setData(Uri.parse("smsto:" + "0649153247"));
                     startActivity(smsIntent);
                 }
+                //calling intent
+                if (v == contactsList.getChildAt(i - contactsList.getFirstVisiblePosition()).findViewById(R.id.list_item_cc_button_call)) {
+                    String phone = "+33649153247";
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                    startActivity(callIntent);
+                }
             }
         }
     }
@@ -77,7 +84,7 @@ public class ContactChallengeFragment extends Fragment {
     private final class ListItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Clicked on List Item " + position, Toast.LENGTH_SHORT).show();
         }
     }
 }
