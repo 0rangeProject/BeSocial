@@ -27,7 +27,6 @@ import com.amazonaws.mobile.AWSMobileClient;
 import com.amazonaws.mobile.user.IdentityManager;
 import com.example.agathe.tsgtest.carpooling.ListContacts;
 import com.example.agathe.tsgtest.carpooling.PurposeActivity;
-import com.example.agathe.tsgtest.carpooling.TestActivity;
 import com.example.agathe.tsgtest.dto.Contact;
 import com.example.agathe.tsgtest.events.PublicEventsActivity;
 import com.example.agathe.tsgtest.sport.SportActivity;
