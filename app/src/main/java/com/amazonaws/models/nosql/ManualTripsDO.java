@@ -2,16 +2,23 @@ package com.amazonaws.models.nosql;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @DynamoDBTable(tableName = "orangesocialservices-mobilehub-546780328-ManualTrips")
 
 public class ManualTripsDO {
     private String _pathId;
-    private int _endTime;
     private String _departure;
     private String _destination;
-    private int _startTime;
+    private Double _endTime;
+    private Double _startTime;
     private String _userId;
 
     @DynamoDBHashKey(attributeName = "pathId")
@@ -22,14 +29,6 @@ public class ManualTripsDO {
 
     public void setPathId(final String _pathId) {
         this._pathId = _pathId;
-    }
-    @DynamoDBAttribute(attributeName = "endTime")
-    public int getEndTime() {
-        return _endTime;
-    }
-
-    public void setEndTime(final int _endTime) {
-        this._endTime = _endTime;
     }
     @DynamoDBAttribute(attributeName = "departure")
     public String getDeparture() {
@@ -47,12 +46,20 @@ public class ManualTripsDO {
     public void setDestination(final String _destination) {
         this._destination = _destination;
     }
+    @DynamoDBAttribute(attributeName = "endTime")
+    public Double getEndTime() {
+        return _endTime;
+    }
+
+    public void setEndTime(final Double _endTime) {
+        this._endTime = _endTime;
+    }
     @DynamoDBAttribute(attributeName = "startTime")
-    public int getStartTime() {
+    public Double getStartTime() {
         return _startTime;
     }
 
-    public void setStartTime(final int _startTime) {
+    public void setStartTime(final Double _startTime) {
         this._startTime = _startTime;
     }
     @DynamoDBAttribute(attributeName = "userId")

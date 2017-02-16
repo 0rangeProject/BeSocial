@@ -16,7 +16,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private ImageView event_detail_list_item_img;
     private TextView event_detail_list_item_title, event_detail_list_item_time,
             event_detail_list_item_place, event_detail_list_item_context;
-
+    private boolean is_interested;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,7 @@ public class EventDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //通过Activity.getIntent()获取当前页面接收到的Intent。
-        Intent intent =getIntent();
+        Intent intent = getIntent();
         //getXxxExtra方法获取Intent传递过来的数据
         ListItem event = (ListItem) intent.getSerializableExtra("Events");
         int img_src_id = getResources().getIdentifier(event.getImage(), "drawable", getPackageName());
@@ -43,24 +43,38 @@ public class EventDetailActivity extends AppCompatActivity {
         event_detail_list_item_title.setText(event.getTitle());
         event_detail_list_item_time.setText(event.getTime());
         event_detail_list_item_place.setText(event.getPlace());
+        event_detail_list_item_context.setText(event.getList_context());
+        is_interested = event.isInterested();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_public_event_detail, menu);
+        MenuItem action_interest = menu.getItem(1);
+        if(is_interested)
+            action_interest.setIcon(R.drawable.ic_event_interest);
+        else
+            action_interest.setIcon(R.drawable.ic_event_nointerest);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.action_share:
-
                 return true;
 
             case R.id.action_interested:
-                SMPLibrary.Logout();
+                if(is_interested){
+                    item.setIcon(R.drawable.ic_event_nointerest);
+                    is_interested = false;
+                }
+                else{
+                    item.setIcon(R.drawable.ic_event_interest);
+                    is_interested = true;
+                }
                 return true;
 
             case R.id.action_disconnect:

@@ -2,6 +2,7 @@ package com.example.agathe.tsgtest.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
@@ -27,6 +29,7 @@ public class PublicEventsActivity extends AppCompatActivity {
     RecyclerView mylist;
     CheckBox filter_button1, filter_button2, filter_button3, filter_button4, filter_button5;
     Button filter_button_reset, filter_button_confirm;
+    FloatingActionButton add_event_action;
     //TextView view_test, view_test_1;
 
 
@@ -38,42 +41,28 @@ public class PublicEventsActivity extends AppCompatActivity {
         //set toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar_pe);
         setSupportActionBar(myToolbar);
-
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-
-
         context = this;
-
         //filter
         filter_button1 = (CheckBox) findViewById(R.id.filter_button1);
         filter_button2 = (CheckBox) findViewById(R.id.filter_button2);
         filter_button3 = (CheckBox) findViewById(R.id.filter_button3);
-        filter_button4 = (CheckBox) findViewById(R.id.filter_button4);
-        filter_button5 = (CheckBox) findViewById(R.id.filter_button5);
         //list
         mylist = (RecyclerView) findViewById(R.id.my_list);
         mylist.setHasFixedSize(true);
         mylist.setLayoutManager(new LinearLayoutManager(this));
         mylist.setAdapter(createAdapter());
-        /*view_test = (TextView) findViewById( R.id.pe_view_test);
-        view_test_1 = (TextView) findViewById( R.id.pe_view_test_1);
-        String test_output = "Logged as: " + SMPLibrary.LoggedUserName();
-        test_output += "Is logged in: " + SMPLibrary.IsLoggedIn();
-        SMPLibrary.GetFrequentContacts(context, 10, new DataResponseCallback(){
-            @Override
-            //  OnResponse callback is called when request is finished processing
-            //  returns response code and JSON in form of string.
-            public void OnResponse( int response_code, String data_response ){
-                Log.i("PublicEvents:Response", "GetFrequentContacts response code " + response_code );
-                Log.i("PublicEvents:Respwonse", "GetFrequentContacts - " + data_response);
-                ShowMessage("Frequent Contacts\n" + data_response);
+        //add event action
+        add_event_action = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        add_event_action.setOnClickListener(new View.OnClickListener (){
+            public void onClick(View v){
+                Intent intent = new Intent(PublicEventsActivity.this, AddEventActivity.class);
+                startActivity(intent);
             }
         });
-        view_test.setText(test_output);*/
 
     }
 
@@ -129,8 +118,8 @@ public class PublicEventsActivity extends AppCompatActivity {
     /************* list card ****************/
     private EventListAdapter createAdapter() {
         ArrayList<ListItem> items = new ArrayList<ListItem>();
-        for (int i = 0; i < 10; i++) {
-            items.add(i, new ListItem("New event title "+i,"Place: Urbawood","Time: 12/12/2016","event_example",false));
+        for (int i = 0; i < 3; i++) {
+            items.add(i, new ListItem("New event title "+i,"Place: Urbawood","Time: 12/12/2016","event_example","BLA BLA BLA BLA ...",false));
         }
         return new EventListAdapter(this, items);
     }

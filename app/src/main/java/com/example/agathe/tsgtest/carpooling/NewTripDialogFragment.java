@@ -175,8 +175,8 @@ public class NewTripDialogFragment extends DialogFragment {
                 ManualTripsDO trip = new ManualTripsDO();
                 trip.setUserId(userID);
                 trip.setPathId(userID + autoCompView);
-                trip.setStartTime(startTime);
-                trip.setEndTime(endTime);
+                trip.setStartTime((double)startTime);
+                trip.setEndTime((double)endTime);
                 trip.setDeparture(autoCompView.getText().toString());
                 trip.setDestination(autoCompView2.getText().toString());
                 new SaveObjectTaskManualTrip(mapper).execute(trip);

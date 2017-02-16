@@ -152,19 +152,22 @@ class ListItem implements Serializable{
     private String list_time;
     private String list_place;
     private String list_img;
+    private String list_context;
     private boolean isInterested;
 
-    public ListItem(String title, String time, String place, String image_name, boolean isInterested){
+    public ListItem(String title, String time, String place, String image_name, String list_context, boolean isInterested){
         this.list_title = title;
         this.list_time = time;
         this.list_place = place;
         this.list_img = image_name;
+        this.list_context = list_context;
         this.isInterested = isInterested;
     }
     public String getTitle(){return list_title;}
     public String getTime(){return list_time;}
     public String getPlace(){return list_place;}
     public String getImage(){return list_img;}
+    public String getList_context() {return list_context;}
     public boolean isInterested(){return isInterested;}
 
 }
